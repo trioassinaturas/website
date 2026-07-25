@@ -1,33 +1,18 @@
 ---
 import { Image } from "astro:assets"
+import { getCollection } from "astro:content"
 import Layout from "../layouts/Layout.astro"
 import Cubo from "../assets/cubo.svg"
-import fotoTomas from "../assets/founders/tomas.jpg"
-import fotoRafael from "../assets/founders/rafael.jpg"
-import { CONTACT, FOUNDER_LINKS, whatsappLink } from "../config"
+import { CONTACT, whatsappLink } from "../config"
 
 const whatsapp = whatsappLink(
   "Olá! Quero conversar sobre meu clube de assinatura.",
 )
 
-const founders = [
-  {
-    photo: fotoTomas,
-    name: "Tomas Susin",
-    url: FOUNDER_LINKS.tomas,
-    role: "Co-fundador & CEO",
-    bio: "Founder da TAG Livros, um dos maiores clubes de assinatura do Brasil, e do Tinta Club del Libro, um clube com milhares de assinantes na Colômbia, Chile, Peru e México. São mais de 13 anos criando, escalando e operando clubes na prática, das primeiras caixinhas aos milhares de envios por mês. Na Trio, cuida para que a plataforma resolva os problemas reais de quem vive de recorrência.",
-    accent: "coral",
-  },
-  {
-    photo: fotoRafael,
-    name: "Rafael Audibert",
-    url: FOUNDER_LINKS.rafael,
-    role: "Co-fundador & CTO",
-    bio: "Desenvolvedor de software com experiência não apenas na prática após trabalhar na TAG Livros mas também em produtos de alta escala usados por milhares de empresas no mundo todo. Na Trio, lidera a tecnologia: uma plataforma confiável, rápida e simples de usar, para que a recorrência do seu clube rode no piloto automático.",
-    accent: "blue",
-  },
-]
+// Same source of truth as the blog bylines: src/content/authors.yaml
+const founders = (await getCollection("authors")).sort(
+  (a, b) => a.data.order - b.data.order,
+)
 ---
 
 <Layout
@@ -59,14 +44,14 @@ const founders = [
               class:list={[
                 "founder-card",
                 "reveal",
-                `accent-${founder.accent}`,
+                `accent-${founder.data.accent}`,
               ]}
               style={`--reveal-delay: ${i * 0.12}s`}
             >
               <div class="founder-avatar">
                 <Image
-                  src={founder.photo}
-                  alt={`Foto de ${founder.name}`}
+                  src={founder.data.avatar}
+                  alt={`Foto de ${founder.data.name}`}
                   width={160}
                   height={160}
                 />
@@ -79,19 +64,19 @@ const founders = [
               </div>
               <h2>
                 <a
-                  href={founder.url}
+                  href={founder.data.url}
                   target="_blank"
                   rel="noopener"
                   data-ph-capture-attribute-cta="founder-profile"
                   data-ph-capture-attribute-cta-section="about"
                   data-ph-capture-attribute-cta-channel="external"
-                  data-ph-capture-attribute-founder={founder.name}
+                  data-ph-capture-attribute-founder={founder.data.name}
                 >
-                  {founder.name}
+                  {founder.data.name}
                 </a>
               </h2>
-              <p class="founder-role">{founder.role}</p>
-              <p class="founder-bio">{founder.bio}</p>
+              <p class="founder-role">{founder.data.role}</p>
+              <p class="founder-bio">{founder.data.bio}</p>
             </article>
           ))
         }

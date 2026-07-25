@@ -11,9 +11,20 @@ import { SITE } from "../config"
 interface Props {
   title?: string
   description?: string
+  /** Social preview image. Accepts a site-relative path or a built asset URL. */
+  image?: string
+  ogType?: "website" | "article"
 }
 
-const { title = SITE.title, description = SITE.description } = Astro.props
+const {
+  title = SITE.title,
+  description = SITE.description,
+  image = "/images/logo-completo.jpg",
+  ogType = "website",
+} = Astro.props
+
+const canonical = new URL(Astro.url.pathname, Astro.site)
+const ogImage = new URL(image, Astro.site)
 ---
 
 <!doctype html>
@@ -32,11 +43,14 @@ const { title = SITE.title, description = SITE.description } = Astro.props
     />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#fffbfa" />
+    <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:image" content="/images/logo-completo.jpg" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
     <PostHog />
   </head>
   <body>

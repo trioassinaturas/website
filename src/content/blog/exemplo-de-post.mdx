@@ -1,0 +1,145 @@
+---
+title: Como precificar os planos do seu clube de assinatura
+description: Um guia prático para definir preços que cobrem o custo do envio, sustentam a margem e ainda fazem sentido para o assinante.
+author: rafael-audibert
+pubDate: 2026-07-20
+updatedDate: 2026-07-24
+cover: ../../assets/blog/exemplo-capa.png
+coverAlt: Ilustração de cubos flutuando sobre um fundo azul degradê
+tags:
+  - Exemplo
+  - Recorrência
+draft: true
+---
+
+Este post existe para **testar o layout do blog**. Ele não tem conteúdo real:
+serve para mostrar como cada elemento de Markdown aparece no site. Quando o
+primeiro post de verdade estiver pronto, é só apagar este arquivo.
+
+<Callout type="warning" title="Este é um rascunho">
+  Enquanto `draft: true` estiver no frontmatter, este post aparece no `astro
+  dev` mas fica fora do site publicado. Troque para `false` para publicar.
+</Callout>
+
+## Por onde começar
+
+Antes de escolher um número, some tudo o que sai do seu bolso a cada ciclo. A
+conta que importa é simples: _receita por assinante_ menos _custo por assinante_,
+com o envio incluído. O resto é ajuste fino.
+
+Três coisas que costumam ficar de fora da planilha:[^planilha]
+
+- **Frete reverso**, que aparece quando o assinante troca o endereço tarde
+- **Embalagem**, incluindo o material de proteção
+  - Fita, plástico bolha e etiqueta somam mais do que parece
+  - Vale medir o custo por caixa montada, não por item comprado
+- **Taxa do meio de pagamento**, que muda entre cartão, Pix e boleto
+
+### A ordem das decisões
+
+1. Calcule o custo total do ciclo
+2. Defina a margem mínima aceitável
+3. Escolha os degraus de plano (mensal, trimestral, anual)
+4. Só então pense em desconto por fidelidade
+
+> Preço não é o que você acha que o produto vale. É o que sustenta a operação
+> rodando no mês que vem.
+
+A ordem importa: definir desconto antes de conhecer a margem é o caminho mais
+rápido para vender no prejuízo.[^churn]
+
+## Comparando os degraus
+
+<div class="table-wrapper">
+
+| Plano      | Ciclo    | Preço cheio | Desconto | Preço por mês |
+| ---------- | -------- | ----------- | -------- | ------------- |
+| Mensal     | 1 mês    | R$ 89,00    | —        | R$ 89,00      |
+| Trimestral | 3 meses  | R$ 249,00   | 7%       | R$ 83,00      |
+| Anual      | 12 meses | R$ 890,00   | 17%      | R$ 74,17      |
+
+</div>
+
+Note que o plano anual antecipa caixa, mas também antecipa risco: se o custo do
+frete subir em março, você já vendeu o ano inteiro pelo preço de janeiro.[^frete]
+
+<Callout type="tip">
+  Reajuste contratual anual resolve boa parte disso. Deixe a regra clara na
+  página de checkout, não escondida nos termos de uso.
+</Callout>
+
+## Modelando na prática
+
+Um cálculo de margem por plano, do jeito mais direto possível:
+
+```ts
+type Plano = {
+  nome: string
+  precoCentavos: number
+  meses: number
+}
+
+const CUSTO_CICLO_CENTAVOS = 5400
+
+export function margemMensal(plano: Plano): number {
+  const receitaMensal = plano.precoCentavos / plano.meses
+  return (receitaMensal - CUSTO_CICLO_CENTAVOS) / receitaMensal
+}
+```
+
+Para rodar isso rápido em cima de um CSV exportado da plataforma:
+
+```bash
+pnpm tsx scripts/margem.ts --input planos.csv --formato tabela
+```
+
+E o formato de configuração que a Trio espera para cada plano:
+
+```json
+{
+  "nome": "Trimestral",
+  "precoCentavos": 24900,
+  "meses": 3,
+  "renovacaoAutomatica": true
+}
+```
+
+Detalhes menores que também aparecem por aqui: `código inline`, um
+[link para a nossa página sobre](/sobre), texto ~~riscado~~ quando mudamos de
+ideia, e atalhos como <kbd>Cmd</kbd> + <kbd>K</kbd> para quem escreve muito.
+
+### Checklist antes de publicar a tabela
+
+- [x] Custo do ciclo revisado
+- [x] Margem mínima definida
+- [ ] Simulação com 10% de churn
+- [ ] Aprovação do time de atendimento
+
+<figure>
+
+![Ilustração de cubos flutuando sobre um fundo azul degradê](../../assets/blog/exemplo-capa.png)
+
+<figcaption>
+  Imagens com legenda usam `figure` e `figcaption`, que é o jeito certo de
+  amarrar a legenda à imagem.
+</figcaption>
+
+</figure>
+
+---
+
+Fechando: preço é uma decisão de operação, não de marketing. Comece pelo custo,
+proteja a margem e só depois pense no desconto que vai anunciar.[^planilha]
+
+Este texto foi gerado como exemplo em {new Date().getFullYear()}.
+
+[^planilha]:
+    Nota com mais de um parágrafo, para mostrar que isso também funciona. Esta
+    mesma nota é referenciada duas vezes no texto, e os dois links de volta
+    aparecem no final dela.
+
+    Basta indentar as linhas seguintes com quatro espaços para continuar a nota.
+
+[^frete]: Vale acompanhar o reajuste anual das transportadoras antes de fechar a tabela de preços do ano.
+
+[^churn]: Uma simulação simples com 10% de churn mensal já mostra se o desconto do plano anual se paga. Dá para fazer isso na mesma planilha do custo do ciclo.

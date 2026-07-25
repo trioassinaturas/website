@@ -1,0 +1,401 @@
+---
+import { render } from "astro:content"
+import { Image } from "astro:assets"
+import Layout from "../../layouts/Layout.astro"
+import CTA from "../../components/CTA.astro"
+import AuthorChip from "../../components/blog/AuthorChip.astro"
+import Callout from "../../components/blog/Callout.astro"
+import {
+  authorUrl,
+  formatDate,
+  getAuthorMap,
+  getPosts,
+  isoDate,
+  readingMinutes,
+  vtName,
+  type Author,
+  type Post,
+} from "../../lib/blog"
+import "../../styles/prose.css"
+
+export async function getStaticPaths() {
+  const posts = await getPosts()
+  const authors = await getAuthorMap()
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post, author: authors.get(post.data.author.id)! },
+  }))
+}
+
+interface Props {
+  post: Post
+  author: Author
+}
+
+const { post, author } = Astro.props
+const {
+  title,
+  description,
+  cover,
+  coverAlt,
+  pubDate,
+  updatedDate,
+  tags,
+  draft,
+} = post.data
+
+const { Content } = await render(post)
+
+// Components available to every MDX post without an explicit import.
+const mdxComponents = { Callout }
+---
+
+<Layout
+  title={`${title} | Blog Trio Assinaturas`}
+  description={description}
+  image={cover?.src}
+  ogType="article"
+>
+  <article class="post">
+    <header class="post-header container">
+      <a
+        class="post-back"
+        href="/blog"
+        data-ph-capture-attribute-cta="blog-back"
+        data-ph-capture-attribute-cta-section="blog-post"
+        data-ph-capture-attribute-cta-channel="internal"
+      >
+        <span aria-hidden="true">←</span> Todos os posts
+      </a>
+
+      <div class="post-flags">
+        {
+          draft && (
+            <span
+              class="post-flag is-draft"
+              style={`view-transition-name: ${vtName("draft", post.id)}; view-transition-class: vt-chip`}
+            >
+              Rascunho
+            </span>
+          )
+        }
+        {
+          tags.map((tag, i) => (
+            <span
+              class="post-flag"
+              style={`view-transition-name: ${vtName(`tag${i}`, post.id)}; view-transition-class: vt-chip`}
+            >
+              {tag}
+            </span>
+          ))
+        }
+      </div>
+
+      <h1
+        class="post-title"
+        style={`view-transition-name: ${vtName("title", post.id)}; view-transition-class: vt-text`}
+      >
+        {title}
+      </h1>
+
+      <p
+        class="post-description"
+        style={`view-transition-name: ${vtName("desc", post.id)}; view-transition-class: vt-text`}
+      >
+        {description}
+      </p>
+
+      <div class="post-byline">
+        <AuthorChip
+          author={author}
+          size="md"
+          showRole
+          section="blog-post-byline"
+        />
+        <p class="post-dates">
+          <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{readingMinutes(post.body)} min de leitura</span>
+          {
+            updatedDate && (
+              <span class="post-updated">
+                Atualizado em{" "}
+                <time datetime={isoDate(updatedDate)}>
+                  {formatDate(updatedDate)}
+                </time>
+              </span>
+            )
+          }
+        </p>
+      </div>
+    </header>
+
+    {
+      cover && (
+        <div class="container">
+          <div
+            class="post-cover"
+            style={`view-transition-name: ${vtName("cover", post.id)}; view-transition-class: vt-cover`}
+          >
+            <Image
+              src={cover}
+              alt={coverAlt ?? ""}
+              widths={[600, 1000, 1600]}
+              sizes="(max-width: 60rem) 100vw, 56rem"
+              loading="eager"
+            />
+          </div>
+        </div>
+      )
+    }
+
+    <div class="container">
+      <div class="prose post-body">
+        <Content components={mdxComponents} />
+      </div>
+
+      <footer class="post-footer">
+        <div class="post-author-card">
+          <Image
+            src={author.data.avatar}
+            alt={`Foto de ${author.data.name}`}
+            width={128}
+            height={128}
+            loading="lazy"
+          />
+          <div>
+            <p class="post-author-eyebrow">Escrito por</p>
+            <h2>
+              <a href={authorUrl(author.id)}>{author.data.name}</a>
+            </h2>
+            <p class="post-author-role">{author.data.role}</p>
+            <p class="post-author-bio">{author.data.bio}</p>
+            {
+              author.data.url && (
+                <a
+                  class="post-author-link"
+                  href={author.data.url}
+                  target="_blank"
+                  rel="noopener"
+                  data-ph-capture-attribute-cta="blog-author-external"
+                  data-ph-capture-attribute-cta-section="blog-post"
+                  data-ph-capture-attribute-cta-channel="external"
+                  data-ph-capture-attribute-author={author.id}
+                >
+                  Perfil completo ↗
+                </a>
+              )
+            }
+          </div>
+        </div>
+
+        <a
+          class="btn btn-secondary post-footer-back"
+          href="/blog"
+          data-ph-capture-attribute-cta="blog-back"
+          data-ph-capture-attribute-cta-section="blog-post-footer"
+          data-ph-capture-attribute-cta-channel="internal"
+        >
+          Ver todos os posts
+        </a>
+      </footer>
+    </div>
+  </article>
+
+  <CTA />
+</Layout>
+
+<style>
+  .post {
+    padding-top: var(--section-pad);
+  }
+
+  .post-header,
+  .post-body,
+  .post-footer {
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+
+  .post-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .post-back:hover {
+    color: var(--coral);
+  }
+
+  .post-flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 2rem;
+  }
+
+  .post-flag {
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .post-flag.is-draft {
+    background: var(--coral-soft);
+    color: var(--coral-dark);
+  }
+
+  .post-title {
+    margin-top: 1rem;
+    font-size: var(--text-2xl);
+    color: var(--blue-deep);
+  }
+
+  .post-description {
+    margin-top: 1.25rem;
+    font-size: var(--text-md);
+    color: var(--ink-soft);
+    max-width: 54ch;
+  }
+
+  .post-byline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.25rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .post-dates {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+
+  .post-updated {
+    flex-basis: 100%;
+    font-style: italic;
+  }
+
+  .post-cover {
+    aspect-ratio: 16 / 9;
+    max-width: 56rem;
+    margin: 3rem auto 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--blue-soft);
+    box-shadow: var(--shadow-md);
+  }
+
+  .post-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-body {
+    margin-top: 3.5rem;
+  }
+
+  /* No bottom padding: the CTA section right below brings its own. */
+  .post-footer {
+    margin-top: 4rem;
+  }
+
+  .post-author-card {
+    display: flex;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .post-author-card img {
+    width: 4.5rem;
+    height: 4.5rem;
+    flex-shrink: 0;
+    border-radius: 1.25rem;
+    object-fit: cover;
+  }
+
+  .post-author-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .post-author-card h2 {
+    margin-top: 0.35rem;
+    font-size: var(--text-lg);
+    color: var(--blue-deep);
+  }
+
+  .post-author-card h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .post-author-card h2 a:hover,
+  .post-author-card h2 a:focus-visible {
+    color: var(--coral);
+  }
+
+  .post-author-role {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--coral);
+  }
+
+  .post-author-bio {
+    margin-top: 0.85rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .post-author-link {
+    display: inline-block;
+    margin-top: 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .post-author-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .post-footer-back {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 34rem) {
+    .post-author-card {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+  }
+</style>

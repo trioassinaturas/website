@@ -1,0 +1,88 @@
+---
+import { Image } from "astro:assets"
+import { authorUrl, type Author } from "../../lib/blog"
+
+interface Props {
+  author: Author
+  size?: "sm" | "md"
+  showRole?: boolean
+  section: string
+}
+
+const { author, size = "sm", showRole = false, section } = Astro.props
+const px = size === "md" ? 112 : 72
+---
+
+<a
+  class:list={["author-chip", `is-${size}`]}
+  href={authorUrl(author.id)}
+  data-ph-capture-attribute-cta="blog-author"
+  data-ph-capture-attribute-cta-section={section}
+  data-ph-capture-attribute-cta-channel="internal"
+  data-ph-capture-attribute-author={author.id}
+>
+  <Image
+    src={author.data.avatar}
+    alt={`Foto de ${author.data.name}`}
+    width={px}
+    height={px}
+    loading="lazy"
+  />
+  <span class="author-chip-text">
+    <span class="author-chip-name">{author.data.name}</span>
+    {showRole && <span class="author-chip-role">{author.data.role}</span>}
+  </span>
+</a>
+
+<style>
+  .author-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .author-chip img {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.7rem;
+    object-fit: cover;
+    background: var(--blue-soft);
+    flex-shrink: 0;
+  }
+
+  .is-md img {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 1rem;
+  }
+
+  .author-chip-text {
+    display: grid;
+  }
+
+  .author-chip-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--blue-deep);
+    transition: color 0.15s ease;
+  }
+
+  .is-md .author-chip-name {
+    font-size: 1rem;
+  }
+
+  .author-chip:hover .author-chip-name,
+  .author-chip:focus-visible .author-chip-name {
+    color: var(--coral);
+  }
+
+  .author-chip-role {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+</style>

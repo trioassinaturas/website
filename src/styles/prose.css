@@ -1,0 +1,306 @@
+/*
+ * Styles for Markdown/MDX rendered through <Content />.
+ * Global on purpose: Astro's scoped styles don't reach rendered collection content.
+ */
+.prose {
+  font-size: var(--text-md);
+  color: var(--ink-soft);
+}
+
+.prose > * + * {
+  margin-top: 1.35em;
+}
+
+/* ===== Headings ===== */
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--blue-deep);
+  scroll-margin-top: 6rem;
+}
+
+.prose h2 {
+  font-size: var(--text-xl);
+  margin-top: 2.75em;
+}
+
+.prose h3 {
+  font-size: var(--text-lg);
+  margin-top: 2em;
+}
+
+.prose h4 {
+  font-size: var(--text-md);
+  margin-top: 1.75em;
+}
+
+/* Anchor links added by rehype-slug-like plugins, or manual ids */
+.prose :is(h2, h3, h4) > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== Inline ===== */
+.prose strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.prose a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, var(--blue) 35%, transparent);
+  transition:
+    color 0.15s ease,
+    text-decoration-color 0.15s ease;
+}
+
+.prose a:hover {
+  color: var(--coral-dark);
+  text-decoration-color: currentColor;
+}
+
+.prose del {
+  color: var(--ink-faint);
+}
+
+.prose abbr {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+.prose kbd {
+  padding: 0.15em 0.45em;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 0.4rem;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--ink);
+}
+
+/* ===== Lists =====
+ * Both list types drop the native marker and rebuild it with ::before, so the
+ * indentation lives on the list item rather than on the list.
+ */
+.prose li + li {
+  margin-top: 0.5em;
+}
+
+.prose li > :is(ul, ol) {
+  margin-top: 0.5em;
+}
+
+/* Multi-paragraph list items, which footnotes also use. */
+.prose li > p + p {
+  margin-top: 0.6em;
+}
+
+.prose ul {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.prose ul > li {
+  position: relative;
+  padding-inline-start: 1.6rem;
+}
+
+.prose ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.55em;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 0.15rem;
+  background: var(--coral);
+  rotate: 45deg;
+}
+
+.prose ol {
+  list-style: none;
+  counter-reset: prose-ol;
+  padding-inline-start: 0;
+}
+
+.prose ol > li {
+  position: relative;
+  padding-inline-start: 2.1rem;
+  counter-increment: prose-ol;
+}
+
+.prose ol > li::before {
+  content: counter(prose-ol);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.5rem;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* GFM task lists */
+.prose .contains-task-list > li {
+  padding-inline-start: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.prose .contains-task-list > li::before {
+  content: none;
+}
+
+.prose .task-list-item-checkbox {
+  accent-color: var(--blue);
+  width: 1rem;
+  height: 1rem;
+  translate: 0 0.15rem;
+}
+
+/* ===== Blockquote ===== */
+.prose blockquote {
+  padding-block: 0.35rem;
+  padding-inline-start: 1.5rem;
+  border-inline-start: 3px solid var(--coral);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--blue-deep);
+}
+
+.prose blockquote > * + * {
+  margin-top: 0.75em;
+}
+
+.prose blockquote :is(strong, em) {
+  color: inherit;
+}
+
+/* ===== Code ===== */
+.prose :not(pre) > code {
+  padding: 0.15em 0.4em;
+  border-radius: 0.4rem;
+  background: var(--blue-soft);
+  color: var(--blue-dark);
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  /* `word-break: break-word` is a legacy alias; this is the standard property. */
+  overflow-wrap: break-word;
+}
+
+.prose pre {
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+.prose pre code {
+  font-family: var(--font-mono);
+}
+
+/* ===== Media ===== */
+.prose :is(img, video) {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.prose figure {
+  margin-block: 2rem;
+}
+
+.prose figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--ink-faint);
+}
+
+/* ===== Table ===== */
+.prose .table-wrapper {
+  overflow-x: auto;
+  /* Keeps a horizontal swipe on the table from triggering back-navigation. */
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+}
+
+.prose table {
+  /* Sizes to its content so cells don't wrap into cramped columns, but still
+   * fills the container when there is room. The wrapper scrolls the overflow. */
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.prose :is(th, td) {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.prose th {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: var(--blue-soft);
+  border-bottom-color: transparent;
+}
+
+.prose thead th:first-child {
+  border-top-left-radius: 0.6rem;
+}
+
+.prose thead th:last-child {
+  border-top-right-radius: 0.6rem;
+}
+
+.prose tbody tr:last-child :is(th, td) {
+  border-bottom: none;
+}
+
+/* ===== Rules & footnotes ===== */
+.prose hr {
+  margin-block: 3rem;
+  border: none;
+  height: 1px;
+  background: var(--border);
+}
+
+.prose .footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+/* remark-gfm marks the footnote label as screen-reader-only. */
+.prose .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

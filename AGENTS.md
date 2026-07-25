@@ -1,3 +1,11 @@
+## Conventions
+
+Code is written in English: comments, JSDoc, identifiers, CSS class names, route
+paths and commit messages. Only user-facing content (copy, `alt` text,
+`aria-label`, blog posts, collection data) is in Portuguese.
+
+Note: `/sobre` predates this convention and is still in Portuguese.
+
 ## Development
 
 When starting the dev server, use background mode:

@@ -1,0 +1,206 @@
+---
+import { getCollection } from "astro:content"
+import { Image } from "astro:assets"
+import Layout from "../../../layouts/Layout.astro"
+import PostCard from "../../../components/blog/PostCard.astro"
+import EmptyState from "../../../components/blog/EmptyState.astro"
+import { getPosts, type Author, type Post } from "../../../lib/blog"
+import { whatsappLink } from "../../../config"
+
+export async function getStaticPaths() {
+  const authors = await getCollection("authors")
+  const posts = await getPosts()
+
+  return authors.map((author) => ({
+    params: { id: author.id },
+    props: {
+      author,
+      posts: posts.filter((post) => post.data.author.id === author.id),
+    },
+  }))
+}
+
+interface Props {
+  author: Author
+  posts: Post[]
+}
+
+const { author, posts } = Astro.props
+const { name, role, bio, avatar, url } = author.data
+
+const whatsapp = whatsappLink(
+  "Olá! Quero acompanhar os conteúdos da Trio Assinaturas.",
+)
+---
+
+<Layout
+  title={`${name} | Blog Trio Assinaturas`}
+  description={bio}
+  image={avatar.src}
+  ogType="article"
+>
+  <section class="section author-hero">
+    <div class="container">
+      <a
+        class="author-back"
+        href="/blog"
+        data-ph-capture-attribute-cta="blog-back"
+        data-ph-capture-attribute-cta-section="blog-author"
+        data-ph-capture-attribute-cta-channel="internal"
+      >
+        <span aria-hidden="true">←</span> Blog
+      </a>
+
+      <div class="author-head">
+        <Image
+          src={avatar}
+          alt={`Foto de ${name}`}
+          width={224}
+          height={224}
+          loading="eager"
+        />
+        <div>
+          <p class="section-eyebrow">{role}</p>
+          <h1 class="author-name">{name}</h1>
+          <p class="author-bio">{bio}</p>
+          {
+            url && (
+              <a
+                class="btn btn-secondary author-link"
+                href={url}
+                target="_blank"
+                rel="noopener"
+                data-ph-capture-attribute-cta="blog-author-external"
+                data-ph-capture-attribute-cta-section="blog-author"
+                data-ph-capture-attribute-cta-channel="external"
+                data-ph-capture-attribute-author={author.id}
+              >
+                Perfil completo ↗
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section author-posts">
+    <div class="container">
+      {
+        posts.length === 0 ? (
+          <EmptyState title={`${name} ainda não publicou nada por aqui`}>
+            Assim que o primeiro post sair, ele aparece nesta página. Enquanto
+            isso, dá para ver o que o resto do time já escreveu.
+            <Fragment slot="actions">
+              <a
+                class="btn btn-primary"
+                href="/blog"
+                data-ph-capture-attribute-cta="blog-back"
+                data-ph-capture-attribute-cta-section="blog-author-empty"
+                data-ph-capture-attribute-cta-channel="internal"
+              >
+                Ver todos os posts
+              </a>
+              <a
+                class="btn btn-secondary"
+                href={whatsapp}
+                target="_blank"
+                rel="noopener"
+                data-ph-capture-attribute-cta="blog-notify"
+                data-ph-capture-attribute-cta-section="blog-author-empty"
+                data-ph-capture-attribute-cta-channel="whatsapp"
+              >
+                Avise-me no WhatsApp
+              </a>
+            </Fragment>
+          </EmptyState>
+        ) : (
+          <Fragment>
+            <h2 class="section-title author-posts-title">
+              {posts.length === 1
+                ? `1 post de ${name}`
+                : `${posts.length} posts de ${name}`}
+            </h2>
+            <div class="author-grid">
+              {posts.map((post, i) => (
+                <PostCard post={post} author={author} index={i} />
+              ))}
+            </div>
+          </Fragment>
+        )
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .author-hero {
+    padding-bottom: 0;
+  }
+
+  .author-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .author-back:hover {
+    color: var(--coral);
+  }
+
+  .author-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .author-head img {
+    width: 7rem;
+    height: 7rem;
+    flex-shrink: 0;
+    border-radius: 1.75rem;
+    object-fit: cover;
+    box-shadow: var(--shadow-md);
+  }
+
+  .author-name {
+    margin-top: 0.5rem;
+    font-size: var(--text-2xl);
+    color: var(--blue-deep);
+  }
+
+  .author-bio {
+    margin-top: 1rem;
+    max-width: 56ch;
+    font-size: var(--text-md);
+    color: var(--ink-soft);
+  }
+
+  .author-link {
+    margin-top: 1.5rem;
+  }
+
+  .author-posts-title {
+    margin-bottom: 2rem;
+    font-size: var(--text-xl);
+  }
+
+  .author-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 40rem) {
+    .author-head {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  }
+</style>

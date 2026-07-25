@@ -46,7 +46,10 @@ const { variant = "color" } = Astro.props
   }
 
   .logo-word {
-    translate: 0 -0.05em;
+    /* Trims the font's ascent/descent down to the glyphs, so `align-items:
+     * center` lines the wordmark up with the cube instead of centring the
+     * taller font box. Browsers without `text-box` keep the untrimmed box. */
+    text-box: cap alphabetic;
   }
 
   .logo-dot {

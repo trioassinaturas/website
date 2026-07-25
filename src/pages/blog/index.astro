@@ -1,0 +1,118 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import PostCard from "../../components/blog/PostCard.astro"
+import EmptyState from "../../components/blog/EmptyState.astro"
+import { getAuthorMap, getPosts } from "../../lib/blog"
+import { CONTACT, whatsappLink } from "../../config"
+
+const posts = await getPosts()
+const authors = await getAuthorMap()
+
+const whatsapp = whatsappLink(
+  "Olá! Quero acompanhar os conteúdos da Trio Assinaturas.",
+)
+---
+
+<Layout
+  title="Blog | Trio Assinaturas"
+  description="Conteúdos sobre recorrência, operação e crescimento de clubes de assinatura, escritos por quem vive esse mercado todos os dias."
+>
+  <section class="section blog-hero">
+    <div class="container">
+      <p class="section-eyebrow">Blog</p>
+      <h1 class="blog-title">
+        Como fazer um clube de assinatura <span>crescer</span>
+      </h1>
+      <p class="section-lead">
+        Recorrência, operação, logística e retenção. O que a gente aprendeu em
+        mais de 13 anos operando clubes, sem enrolação e sem teoria de manual.
+      </p>
+    </div>
+  </section>
+
+  <section class="section blog-list">
+    <div class="container">
+      {
+        posts.length === 0 ? (
+          <EmptyState title="Os primeiros conteúdos estão sendo escritos">
+            Ainda não publicamos nada por aqui. Estamos preparando materiais
+            sobre precificação de planos, redução de churn e operação de envios.
+            Quer ser avisado quando o primeiro sair?
+            <Fragment slot="actions">
+              <a
+                class="btn btn-primary"
+                href={whatsapp}
+                target="_blank"
+                rel="noopener"
+                data-ph-capture-attribute-cta="blog-notify"
+                data-ph-capture-attribute-cta-section="blog-empty"
+                data-ph-capture-attribute-cta-channel="whatsapp"
+              >
+                Avise-me no WhatsApp
+              </a>
+              <a
+                class="btn btn-secondary"
+                href={`mailto:${CONTACT.email}`}
+                data-ph-capture-attribute-cta="blog-notify"
+                data-ph-capture-attribute-cta-section="blog-empty"
+                data-ph-capture-attribute-cta-channel="email"
+              >
+                Falar por email
+              </a>
+            </Fragment>
+          </EmptyState>
+        ) : (
+          <div class="blog-grid">
+            {posts.map((post, i) => (
+              <PostCard
+                post={post}
+                author={authors.get(post.data.author.id)!}
+                featured={i === 0}
+                index={i}
+              />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  {/* Warms up post pages on hover so the view transition starts instantly. */}
+  <script
+    type="speculationrules"
+    is:inline
+    set:html={JSON.stringify({
+      prerender: [
+        {
+          where: { href_matches: "/blog/*" },
+          eagerness: "moderate",
+        },
+      ],
+    })}
+  />
+</Layout>
+
+<style>
+  .blog-hero {
+    padding-bottom: 0;
+  }
+
+  .blog-title {
+    font-size: var(--text-hero);
+    color: var(--blue-deep);
+    margin-top: 0.75rem;
+    max-width: 24ch;
+  }
+
+  .blog-title span {
+    color: var(--coral);
+  }
+
+  /* Named container that PostCard queries to lay the featured card out. */
+  .blog-grid {
+    container: post-grid / inline-size;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    gap: 1.5rem;
+  }
+</style>

@@ -1,0 +1,268 @@
+---
+import { Image } from "astro:assets"
+import AuthorChip from "./AuthorChip.astro"
+import {
+  formatDate,
+  isoDate,
+  postUrl,
+  readingMinutes,
+  vtName,
+  type Author,
+  type Post,
+} from "../../lib/blog"
+
+interface Props {
+  post: Post
+  author: Author
+  /**
+   * The newest post gets a bigger card, spanning the whole row. Needs an
+   * ancestor declaring `container: post-grid / inline-size` to go side-by-side.
+   */
+  featured?: boolean
+  index?: number
+}
+
+const { post, author, featured = false, index = 0 } = Astro.props
+const { title, description, cover, coverAlt, pubDate, tags, draft } = post.data
+
+const href = postUrl(post)
+const sizes = featured
+  ? "(max-width: 56rem) 100vw, 34rem"
+  : "(max-width: 56rem) 100vw, 22rem"
+---
+
+<article
+  class:list={["post-card", "reveal", { "is-featured": featured }]}
+  style={`--reveal-delay: ${index * 0.08}s`}
+>
+  {
+    cover && (
+      <div
+        class="post-card-cover"
+        style={`view-transition-name: ${vtName("cover", post.id)}; view-transition-class: vt-cover`}
+      >
+        <Image
+          src={cover}
+          alt={coverAlt ?? ""}
+          widths={[400, 700, 1100]}
+          sizes={sizes}
+          loading={featured ? "eager" : "lazy"}
+        />
+      </div>
+    )
+  }
+
+  <div class="post-card-body">
+    <div class="post-card-flags">
+      {
+        draft && (
+          <span
+            class="post-card-flag is-draft"
+            style={`view-transition-name: ${vtName("draft", post.id)}; view-transition-class: vt-chip`}
+          >
+            Rascunho
+          </span>
+        )
+      }
+      {
+        tags.slice(0, 2).map((tag, i) => (
+          <span
+            class="post-card-flag"
+            style={`view-transition-name: ${vtName(`tag${i}`, post.id)}; view-transition-class: vt-chip`}
+          >
+            {tag}
+          </span>
+        ))
+      }
+    </div>
+
+    <h2
+      class="post-card-title"
+      style={`view-transition-name: ${vtName("title", post.id)}; view-transition-class: vt-text`}
+    >
+      <a
+        href={href}
+        data-ph-capture-attribute-cta="blog-post"
+        data-ph-capture-attribute-cta-section="blog-index"
+        data-ph-capture-attribute-cta-channel="internal"
+        data-ph-capture-attribute-post={post.id}
+      >
+        {title}
+      </a>
+    </h2>
+
+    <p
+      class="post-card-description"
+      style={`view-transition-name: ${vtName("desc", post.id)}; view-transition-class: vt-text`}
+    >
+      {description}
+    </p>
+
+    <div class="post-card-meta">
+      <AuthorChip author={author} section="blog-index" />
+      <p class="post-card-dates">
+        <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingMinutes(post.body)} min de leitura</span>
+      </p>
+    </div>
+  </div>
+</article>
+
+<style>
+  .post-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition:
+      translate 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .post-card:hover {
+    translate: 0 -4px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .post-card-cover {
+    aspect-ratio: 16 / 9;
+    background: var(--blue-soft);
+    overflow: hidden;
+  }
+
+  .post-card-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .post-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.5rem;
+  }
+
+  .post-card-flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .post-card-flag {
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .post-card-flag.is-draft {
+    background: var(--coral-soft);
+    color: var(--coral-dark);
+  }
+
+  .post-card-title {
+    font-size: var(--text-lg);
+    color: var(--blue-deep);
+  }
+
+  .post-card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Makes the whole card clickable without nesting links. */
+  .post-card-title a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .post-card:hover .post-card-title a,
+  .post-card-title a:focus-visible {
+    color: var(--coral);
+  }
+
+  .post-card-description {
+    margin-top: 0.75rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .post-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+
+  /* The author link has to sit above the card overlay. */
+  .post-card-meta :global(.author-chip) {
+    position: relative;
+    z-index: 2;
+  }
+
+  .post-card-dates {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+
+  .is-featured {
+    grid-column: 1 / -1;
+  }
+
+  .is-featured .post-card-title {
+    font-size: var(--text-xl);
+  }
+
+  .is-featured .post-card-description {
+    font-size: var(--text-md);
+    max-width: 52ch;
+  }
+
+  /* Keyed to the grid's width, not the viewport: the card goes side-by-side
+   * when there is room for it, wherever the grid happens to be placed. */
+  @container post-grid (min-width: 56rem) {
+    .is-featured {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .is-featured .post-card-cover {
+      flex: 1 1 52%;
+      aspect-ratio: auto;
+      min-height: 20rem;
+    }
+
+    .is-featured .post-card-body {
+      flex: 1 1 48%;
+      justify-content: center;
+      padding: clamp(1.75rem, 1rem + 2vw, 2.75rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .post-card,
+    .post-card:hover {
+      translate: none;
+      transition: none;
+    }
+  }
+</style>

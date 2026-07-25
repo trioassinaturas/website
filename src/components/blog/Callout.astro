@@ -1,0 +1,84 @@
+---
+/** Highlight box for use inside MDX posts. */
+interface Props {
+  type?: "info" | "tip" | "warning"
+  title?: string
+}
+
+const { type = "info", title } = Astro.props
+
+const defaults = {
+  info: { label: "Para saber", icon: "i" },
+  tip: { label: "Dica", icon: "★" },
+  warning: { label: "Atenção", icon: "!" },
+} as const
+
+const { label, icon } = defaults[type]
+---
+
+<aside class:list={["callout", `is-${type}`]}>
+  <span class="callout-icon" aria-hidden="true">{icon}</span>
+  <div class="callout-body">
+    <p class="callout-title">{title ?? label}</p>
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .callout {
+    display: flex;
+    gap: 1rem;
+    margin-block: 2rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--blue-soft);
+  }
+
+  .callout-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 0.6rem;
+    background: var(--blue);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .callout-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 0.25rem;
+  }
+
+  .callout-body :global(> :last-child) {
+    margin-bottom: 0;
+  }
+
+  .is-tip {
+    background: color-mix(in srgb, var(--mint) 18%, var(--cream));
+    border-color: color-mix(in srgb, var(--mint) 45%, transparent);
+  }
+
+  .is-tip .callout-icon {
+    background: color-mix(in srgb, var(--mint) 75%, var(--blue-deep));
+  }
+
+  .is-warning {
+    background: var(--coral-soft);
+    border-color: color-mix(in srgb, var(--coral) 28%, transparent);
+  }
+
+  .is-warning .callout-icon {
+    background: var(--coral);
+  }
+
+  .is-warning .callout-title {
+    color: var(--coral-dark);
+  }
+</style>

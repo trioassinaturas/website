@@ -11,11 +11,6 @@ export const CONTACT = {
   whatsappDisplay: "+55 51 99195-5735",
 } as const
 
-export const FOUNDER_LINKS = {
-  tomas: "https://www.linkedin.com/in/tom%C3%A1s-susin-dos-santos-22750650/",
-  rafael: "https://www.rafaaudibert.dev/?utm_source=trioassinaturas",
-} as const
-
 export function whatsappLink(
   message = "Olá! Quero uma demonstração da Trio Assinaturas.",
 ) {

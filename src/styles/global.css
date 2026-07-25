@@ -27,6 +27,7 @@
   --font-body:
     "Plus Jakarta Sans Variable", system-ui, -apple-system, sans-serif;
   --font-display: "Baloo 2 Variable", var(--font-body);
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -225,6 +226,53 @@ a {
   background: rgb(255 255 255 / 0.2);
   border-color: rgb(255 255 255 / 0.7);
   transform: translateY(-2px);
+}
+
+/* ===== Cross-document view transitions =====
+ * Native MPA view transitions: no client-side router, no extra JavaScript.
+ * Elements that should morph across pages carry a `view-transition-name` (unique
+ * per page) plus a `view-transition-class` that the rules below target.
+ * Browsers without support just navigate normally.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* Whole-page crossfade, kept short so it never feels laggy. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: ease;
+}
+
+/* Covers morph from the card on the index to the hero on the post page. */
+::view-transition-group(.vt-cover) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Title and description. */
+::view-transition-group(.vt-text) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Text changes size and wrapping between pages. Snapshots keep their natural
+ * size and crossfade instead of being stretched to fit the animating box. */
+::view-transition-old(.vt-text),
+::view-transition-new(.vt-text) {
+  height: 100%;
+  width: auto;
+  object-fit: none;
+  object-position: top left;
+}
+
+/* Tag and draft pills, which barely change size, so a plain morph is enough. */
+::view-transition-group(.vt-chip) {
+  animation-duration: 380ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ===== Scroll reveal ===== */

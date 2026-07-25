@@ -1,0 +1,70 @@
+---
+import Cubo from "../../assets/cubo.svg"
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<div class="empty reveal">
+  <Cubo
+    class="empty-cube"
+    viewBox="2 2 16 16"
+    fill="currentColor"
+    aria-hidden="true"
+  />
+  <h2>{title}</h2>
+  <p><slot /></p>
+  {
+    Astro.slots.has("actions") && (
+      <div class="empty-actions">
+        <slot name="actions" />
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .empty {
+    max-width: 44rem;
+    margin-inline: auto;
+    padding: clamp(2.25rem, 1.5rem + 3vw, 3.5rem);
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .empty-cube {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-inline: auto;
+    color: var(--coral);
+    rotate: -6deg;
+  }
+
+  .empty h2 {
+    margin-top: 1.5rem;
+    font-size: var(--text-xl);
+    color: var(--blue-deep);
+  }
+
+  .empty p {
+    margin-top: 1rem;
+    margin-inline: auto;
+    max-width: 46ch;
+    color: var(--ink-soft);
+    font-size: var(--text-md);
+  }
+
+  .empty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+</style>
