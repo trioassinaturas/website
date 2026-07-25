@@ -78,7 +78,15 @@ const founders = [
                 />
               </div>
               <h2>
-                <a href={founder.url} target="_blank" rel="noopener">
+                <a
+                  href={founder.url}
+                  target="_blank"
+                  rel="noopener"
+                  data-ph-capture-attribute-cta="founder-profile"
+                  data-ph-capture-attribute-cta-section="about"
+                  data-ph-capture-attribute-cta-channel="external"
+                  data-ph-capture-attribute-founder={founder.name}
+                >
                   {founder.name}
                 </a>
               </h2>
@@ -115,10 +123,19 @@ const founders = [
             href={whatsapp}
             target="_blank"
             rel="noopener"
+            data-ph-capture-attribute-cta="demo-request"
+            data-ph-capture-attribute-cta-section="about"
+            data-ph-capture-attribute-cta-channel="whatsapp"
           >
             Chamar no WhatsApp
           </a>
-          <a class="btn btn-secondary" href={`mailto:${CONTACT.email}`}>
+          <a
+            class="btn btn-secondary"
+            href={`mailto:${CONTACT.email}`}
+            data-ph-capture-attribute-cta="contact"
+            data-ph-capture-attribute-cta-section="about"
+            data-ph-capture-attribute-cta-channel="email"
+          >
             Enviar email
           </a>
         </div>

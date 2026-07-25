@@ -43,10 +43,24 @@ const whatsapp = whatsappLink()
         sem compromisso.
       </p>
       <div class="cta-actions">
-        <a class="btn btn-light" href={whatsapp} target="_blank" rel="noopener">
+        <a
+          class="btn btn-light"
+          href={whatsapp}
+          target="_blank"
+          rel="noopener"
+          data-ph-capture-attribute-cta="demo-request"
+          data-ph-capture-attribute-cta-section="final-cta"
+          data-ph-capture-attribute-cta-channel="whatsapp"
+        >
           Solicitar demonstração
         </a>
-        <a class="btn btn-ghost-light" href={`mailto:${CONTACT.email}`}>
+        <a
+          class="btn btn-ghost-light"
+          href={`mailto:${CONTACT.email}`}
+          data-ph-capture-attribute-cta="contact"
+          data-ph-capture-attribute-cta-section="final-cta"
+          data-ph-capture-attribute-cta-channel="email"
+        >
           {CONTACT.email}
         </a>
       </div>

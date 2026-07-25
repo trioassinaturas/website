@@ -31,7 +31,12 @@ const year = new Date().getFullYear()
         <h3>Fale com a gente</h3>
         <ul>
           <li>
-            <a href={`mailto:${CONTACT.email}`}>
+            <a
+              href={`mailto:${CONTACT.email}`}
+              data-ph-capture-attribute-cta="contact"
+              data-ph-capture-attribute-cta-section="footer"
+              data-ph-capture-attribute-cta-channel="email"
+            >
               {CONTACT.email}
             </a>
           </li>
@@ -42,6 +47,9 @@ const year = new Date().getFullYear()
               )}
               target="_blank"
               rel="noopener"
+              data-ph-capture-attribute-cta="contact"
+              data-ph-capture-attribute-cta-section="footer"
+              data-ph-capture-attribute-cta-channel="whatsapp"
             >
               WhatsApp: {CONTACT.whatsappDisplay}
             </a>

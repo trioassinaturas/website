@@ -25,6 +25,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@eslint/js": "^10.0.1",
+    "@posthog/types": "^1.398.0",
     "eslint": "^10.8.0",
     "eslint-plugin-astro": "^3.0.1",
     "globals": "^17.7.0",

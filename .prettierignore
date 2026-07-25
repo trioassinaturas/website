@@ -1,3 +1,6 @@
 dist/
 .astro/
 pnpm-lock.yaml
+
+# PostHog's loader snippet must stay minified on a single line
+src/components/PostHog.astro

@@ -5,6 +5,7 @@ import "@fontsource-variable/baloo-2"
 import "../styles/global.css"
 import Navbar from "../components/Navbar.astro"
 import Footer from "../components/Footer.astro"
+import PostHog from "../components/PostHog.astro"
 import { SITE } from "../config"
 
 interface Props {
@@ -36,6 +37,7 @@ const { title = SITE.title, description = SITE.description } = Astro.props
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:image" content="/images/logo-completo.jpg" />
+    <PostHog />
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>

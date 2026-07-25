@@ -1,0 +1,64 @@
+---
+// PostHog Web SDK (snippet install, via managed reverse proxy).
+//
+// The loader below is the official minified snippet from the project settings
+// (https://us.posthog.com/settings/project#snippet). Keep it minified and on a
+// single line, and keep `is:inline` so Astro does not process/bundle it.
+// This file is listed in .prettierignore so the loader survives `pnpm format`.
+const token = import.meta.env.PUBLIC_POSTHOG_PROJECT_TOKEN
+const apiHost = import.meta.env.PUBLIC_POSTHOG_HOST
+const uiHost = import.meta.env.PUBLIC_POSTHOG_UI_HOST
+---
+
+<script is:inline define:vars={{ token, apiHost, uiHost }}>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="Ji Yi init fn mn Hr pn bn cn capture calculateEventProperties Sn register register_once register_for_session unregister unregister_for_session Tn getFeatureFlag getFeatureFlagPayload getFeatureFlagResult getAllFeatureFlags isFeatureEnabled reloadFeatureFlags updateFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey cancelPendingSurvey canRenderSurvey canRenderSurveyAsync Mn identify setPersonProperties unsetPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset shutdown setIdentity clearIdentity get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException addExceptionStep captureLog startExceptionAutocapture stopExceptionAutocapture loadToolbar get_property getSessionProperty Cn xn createPersonProfile setInternalOrTestUser In hn Pn opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing debug Ur Rt getPageViewId captureTraceFeedback captureTraceMetric an".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+  posthog.init(token, {
+    api_host: apiHost, // managed reverse proxy, so events are first-party
+    ui_host: uiHost, // so toolbar/replay links point back at PostHog itself
+
+    // Opts into the latest recommended behaviours. Notably this already gives us
+    // capture_pageview: 'history_change', session_recording.strictMinimumDuration,
+    // external_scripts_inject_target: 'head', split_storage and the expanded
+    // rageclick defaults. Bump the date to adopt future changes deliberately.
+    defaults: "2026-05-30",
+
+    // --- Identity: fully anonymous ---
+    // No cookies, no localStorage, no sessionStorage. Identity is a rotating
+    // privacy-preserving hash computed server-side by PostHog.
+    // NOTE: cookieless must also be enabled in project settings, or these
+    // events are dropped on ingestion.
+    cookieless_mode: "always",
+    // Never do person processing, so no person profiles are created at all.
+    person_profiles: "never",
+
+    // --- Pageviews & pageleaves ---
+    // Both are on via `defaults`, set explicitly so the intent is obvious.
+    // 'history_change' also covers in-page anchor navigation (/#funcionalidades).
+    capture_pageview: "history_change",
+    capture_pageleave: true,
+
+    // --- Autocapture ---
+    // Left on so every click/submit is captured without extra code. Elements
+    // opt out with class="ph-no-autocapture" or [data-ph-no-autocapture].
+    autocapture: true,
+    // Frustration signals: clicks that do nothing, and rapid repeat clicks.
+    capture_dead_clicks: true,
+    rageclick: true,
+
+    // --- Session replay ---
+    disable_session_recording: false,
+
+    // --- Error tracking ---
+    capture_exceptions: {
+      capture_unhandled_errors: true,
+      capture_unhandled_rejections: true,
+      // Noisy on a marketing site (browser extensions, blocked third parties).
+      capture_console_errors: false,
+    },
+
+    // --- Heatmaps + web vitals ---
+    capture_heatmaps: true,
+    capture_performance: { web_vitals: true },
+  })
+</script>
