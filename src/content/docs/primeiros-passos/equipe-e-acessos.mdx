@@ -1,6 +1,6 @@
 ---
 title: Equipe e acessos
-description: Como convidar pessoas para o painel, o que cada função permite e como funciona a redefinição de senha.
+description: Como convidar pessoas para o painel, o que cada função permite, como trocar a função de alguém e como revogar um acesso.
 order: 40
 navTitle: Equipe e acessos
 keywords:
@@ -9,6 +9,7 @@ keywords:
   - função
   - senha
   - login
+  - desativar
 ---
 
 O painel é de uso da sua equipe, e cada pessoa entra com o próprio acesso. A
@@ -35,32 +36,73 @@ e-mail de redefinição de senha foi enviado."
 
 ## As três funções
 
-| Função            | Para quem                       |
-| ----------------- | ------------------------------- |
-| **Membro**        | o dia a dia da operação         |
-| **Administrador** | quem também gerencia os acessos |
-| **Proprietário**  | quem responde pela conta        |
+| Função            | Para quem                                        |
+| ----------------- | ------------------------------------------------ |
+| **Membro**        | o dia a dia da operação                          |
+| **Administrador** | quem também mexe nas configurações e nos acessos |
+| **Proprietário**  | quem responde pela conta                         |
 
-A tela de **Usuários** exige Administrador ou Proprietário. As áreas
-operacionais do painel (pedidos, assinaturas, cobranças, cupons, clientes,
-catálogo) estão abertas às três funções.
+A diferença entre Membro e as outras duas é o que está atrás de
+**Configurações**:
 
-<Callout type="warning" title="Acesso ao painel é acesso amplo">
-  Convide com esse critério: quem entra no painel enxerga dados de clientes,
-  cobranças e configurações do clube. Dê acesso a quem precisa operar, e prefira
-  o [acesso como assinante](/docs/operacao/clientes-e-leads) para quem só
-  precisa investigar um caso pontual.
+| Área                                                                             | Membro | Administrador e Proprietário |
+| -------------------------------------------------------------------------------- | ------ | ---------------------------- |
+| Dashboard, pedidos, assinaturas, cobranças, clientes, leads, cupons, formulários | sim    | sim                          |
+| Produtos, kits, planos, arquivos estáticos, eventos de cobrança e de webhook     | sim    | sim                          |
+| Configurações da Empresa                                                         | não    | sim                          |
+| Tema do Website                                                                  | não    | sim                          |
+| Tabelas de Frete                                                                 | não    | sim                          |
+| Programa de Indicação                                                            | não    | sim                          |
+| Gerenciamento DNS e integrações                                                  | não    | sim                          |
+| Usuários                                                                         | não    | sim                          |
+
+<Callout type="info" title="O Membro não vê o que não pode abrir">
+  Os itens restritos não aparecem no menu de quem é Membro. Se alguém chegar
+  numa dessas telas por um link antigo ou por um endereço salvo, vê uma página
+  de **Acesso não autorizado**, que orienta a pedir a mudança de função a um
+  administrador ou ao proprietário.
 </Callout>
+
+<Callout type="warning" title="Acesso ao painel ainda é acesso amplo">
+  Mesmo como Membro, quem entra no painel enxerga dados de clientes e cobranças.
+  Dê acesso a quem precisa operar, e prefira o [acesso como
+  assinante](/docs/operacao/clientes-e-leads) para quem só precisa investigar um
+  caso pontual.
+</Callout>
+
+## Trocando a função e revogando o acesso
+
+A edição de um usuário é feita pelo **Proprietário**, na tela de Usuários. Dois
+campos:
+
+- **Função**: pode ser trocada entre Membro e Administrador.
+- **Ativo**: desligar esse interruptor revoga o acesso.
+
+<Callout type="warning" title="Desativar tem efeito imediato">
+  Desativar alguém encerra as sessões abertas na hora, então a pessoa cai para
+  fora do painel mesmo se estiver com a tela aberta. Novas tentativas de login
+  são recusadas com um aviso, e o "esqueci minha senha" para de funcionar para
+  aquele email. É o que usar quando alguém sai da empresa.
+
+Reativar devolve o acesso, com a senha que a pessoa já tinha.
+
+</Callout>
+
+A conta do **Proprietário** é a exceção em tudo isso: ela não pode ser editada
+nem desativada por essa tela, e a função Proprietário não pode ser atribuída a
+mais ninguém. Para transferir a titularidade da conta, fale com o suporte.
+
+## Encontrando gente na lista
+
+A tela de Usuários tem busca por nome ou email, filtros por função e por ativo
+ou inativo, ordenação por coluna e exportação em CSV e XLSX. A exportação inclui
+a coluna de ativo, o que torna fácil conferir de tempo em tempo quem ainda tem
+acesso ao painel.
 
 ## Senhas
 
 A senha precisa ter no mínimo 8 caracteres. Quem esquecer usa o
 "esqueci minha senha" da tela de login, e o link de redefinição vale por um dia.
-
-<Callout type="info" title="Para trocar a função ou remover um acesso">
-  A tela de Usuários lista e cria. Alterar a função de alguém ou revogar um
-  acesso é feito com o suporte.
-</Callout>
 
 ## Redefinir a senha de um cliente
 

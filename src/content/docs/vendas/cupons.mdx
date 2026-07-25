@@ -22,6 +22,7 @@ Cupons ficam em **Cupons**, no painel, com criação, edição e exclusão. Cada
 | **Nome**                                | uma etiqueta interna, para você se lembrar da campanha                  |
 | **Tipo de Desconto**                    | Percentual ou Valor Fixo                                                |
 | **Valor do Desconto**                   | o número. Em Percentual vai de 1 a 100                                  |
+| **Base do Desconto**                    | sobre qual valor o cálculo incide (veja abaixo)                         |
 | **Duração**                             | em quantas cobranças o desconto vale (veja abaixo)                      |
 | **Aplicar em**                          | Total, Assinatura ou Frete                                              |
 | **Máximo de Resgates**                  | quantas vezes o cupom pode ser usado no total. Vazio é ilimitado        |
@@ -56,24 +57,48 @@ recorrência um desconto pode se repetir para sempre.
 Um desconto em Valor Fixo nunca deixa o total negativo: ele é limitado ao valor
 disponível.
 
+## Base do Desconto: sobre qual valor o cálculo é feito
+
+Este campo só muda algo em plano pré-pago, onde uma cobrança cobre vários meses.
+Ele responde se o desconto incide sobre a cobrança inteira ou sobre uma unidade
+do ciclo.
+
+Num plano anual de R$ 1.800, com mensalidade equivalente de R$ 150, um cupom de
+20% dá:
+
+| Base do Desconto          | Desconto  |
+| ------------------------- | --------- |
+| **Uma cobrança do ciclo** | R$ 30,00  |
+| **Valor total cobrado**   | R$ 360,00 |
+
+O padrão é **Uma cobrança do ciclo**, que é o mais conservador. Em plano mensal
+as duas opções dão o mesmo resultado, porque a cobrança já é de um mês só.
+
 ## Como ler o status
 
-O status não é um campo, é o resultado dos outros. A ordem de avaliação:
+O status não é um campo, é o resultado dos outros, e aparece tanto na lista
+quanto na ficha do cupom. A ordem de avaliação, que é o que decide qual status
+ganha quando mais de um se aplica:
 
 <Steps>
 
-1. **Ativo**: está marcado como ativo e dentro da janela de validade. Pode ser
-   usado agora.
+1. **Inativo**: o interruptor **Ativo** está desligado.
 
-2. **Inativo**: o interruptor **Ativo** está desligado.
+2. **Expirado**: a data de "Válido até" já passou.
 
-3. **Expirado**: a data de "Válido até" já passou.
+3. **Esgotado**: o Máximo de Resgates foi alcançado.
 
-4. **Esgotado**: o Máximo de Resgates foi alcançado.
+4. **Agendado**: está ativo, mas o "Válido a partir de" ainda não chegou.
 
-5. **Agendado**: está ativo, mas o "Válido a partir de" ainda não chegou.
+5. **Ativo**: nada acima se aplica. Pode ser usado agora.
 
 </Steps>
+
+<Callout type="info" title="Esgotado vem antes de Ativo, de propósito">
+  Um cupom marcado como ativo e dentro da validade, mas que já bateu o Máximo de
+  Resgates, aparece como **Esgotado**, e não como Ativo. É o status honesto: o
+  checkout vai recusá-lo de qualquer forma.
+</Callout>
 
 ## Resgates
 
@@ -85,20 +110,23 @@ valor varia conforme o plano escolhido.
 
 As mensagens que o cliente pode ver no checkout, e o que cada uma quer dizer:
 
-| Mensagem                                             | Causa                                 |
-| ---------------------------------------------------- | ------------------------------------- |
-| Cupom não encontrado                                 | o código não existe no seu clube      |
-| Cupom inativo                                        | o interruptor Ativo está desligado    |
-| Cupom ainda não válido                               | o "Válido a partir de" não chegou     |
-| Cupom expirado                                       | passou do "Válido até"                |
-| Limite de resgates atingido                          | bateu o Máximo de Resgates            |
-| Você já utilizou este cupom                          | bateu o Máximo por Cliente            |
-| Valor mínimo do pedido não atingido                  | o carrinho é menor que o Valor Mínimo |
-| Você não pode usar o seu próprio código de indicação | é o cupom pessoal do próprio cliente  |
+| Mensagem                                             | Causa                                         |
+| ---------------------------------------------------- | --------------------------------------------- |
+| Cupom não encontrado                                 | o código não existe no seu clube              |
+| Cupom inativo                                        | o interruptor Ativo está desligado            |
+| Cupom ainda não válido                               | o "Válido a partir de" não chegou             |
+| Cupom expirado                                       | passou do "Válido até"                        |
+| Limite de resgates atingido                          | bateu o Máximo de Resgates                    |
+| Você já utilizou este cupom                          | bateu o Máximo por Cliente                    |
+| Valor mínimo do pedido não atingido                  | o carrinho é menor que o Valor Mínimo         |
+| Você não pode usar o seu próprio código de indicação | é o cupom pessoal do próprio cliente          |
+| Você já foi indicado por outro assinante             | a pessoa já usou um código de indicação antes |
 
 ## Cupons de indicação
 
 Cada cliente tem um cupom pessoal gerado automaticamente, que aparece junto dos
 demais na lista. Ele é gerenciado pelo
 [programa de indicação](/docs/vendas/programa-de-indicacao) e não deve ser
-editado à mão.
+editado à mão: o desconto, a base de cálculo e o interruptor Ativo desses cupons
+são sobrescritos pelo programa. Desligar o programa desativa todos eles de uma
+vez.

@@ -27,11 +27,14 @@ atualiza sozinha conforme as cobranças são processadas.
 
 ## O calendário automático
 
-| Rotina                              | Quando roda               |
-| ----------------------------------- | ------------------------- |
-| Processar as cobranças do dia       | uma vez por dia, de manhã |
-| Retentar as tentativas que falharam | a cada 6 horas            |
-| Criar pedidos que ficaram pendentes | a cada 15 minutos         |
+| Rotina                              | Quando roda            |
+| ----------------------------------- | ---------------------- |
+| Processar as cobranças do dia       | uma vez por dia, às 3h |
+| Retentar as tentativas que falharam | a cada 6 horas         |
+| Criar pedidos que ficaram pendentes | a cada 15 minutos      |
+
+O horário é o de Brasília. As cobranças do dia são processadas de madrugada, de
+propósito: quando a sua equipe entra, o resultado do dia já está na tela.
 
 ## Quantas tentativas
 

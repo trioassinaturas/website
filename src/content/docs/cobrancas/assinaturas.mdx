@@ -1,11 +1,10 @@
 ---
 title: Assinaturas
-description: "O ciclo de vida de uma assinatura: pausar, retomar, cancelar, reativar e trocar endereços."
+description: "O ciclo de vida de uma assinatura: cancelar, reativar e trocar endereços."
 order: 10
 navTitle: Assinaturas
 keywords:
   - assinatura
-  - pausar
   - cancelar
   - reativar
   - endereço
@@ -15,24 +14,23 @@ A assinatura é a relação entre uma pessoa e um plano. A tela fica em
 **Assinaturas**, com filtros por situação, clube, kit atual e faixas de data,
 além de exportação em CSV e XLSX.
 
-## Os três estados
+## Os dois estados
 
-| Estado        | Significa                                     |
-| ------------- | --------------------------------------------- |
-| **Ativa**     | cobrando e entregando normalmente             |
-| **Pausada**   | não cobra nem entrega, mas continua existindo |
-| **Cancelada** | encerrada                                     |
+| Estado        | Significa                         |
+| ------------- | --------------------------------- |
+| **Ativa**     | cobrando e entregando normalmente |
+| **Cancelada** | encerrada                         |
 
-## Pausar e retomar
+<Callout type="warning" title="Pausar não existe mais">
+  A plataforma tinha uma ação de **Pausar Assinatura**, e ela foi removida. Nada
+  retomava a assinatura sozinha, nem quando a data de retorno estava preenchida
+  na tela: quem pausava ficava pausado indefinidamente, sem cobrança e sem
+  entrega.
 
-Pausar é o caminho para quem vai viajar, está apertado no mês ou pediu um
-intervalo. A assinatura para de gerar cobranças e volta exatamente de onde
-estava.
+Para quem pede um intervalo, o caminho hoje é cancelar e usar **Reativar
+Assinatura** quando a pessoa voltar. Se você tem o hábito de oferecer pausa no
+atendimento, vale rever o roteiro.
 
-<Callout type="tip" title="A retomada é uma ação sua">
-  Uma assinatura pausada fica pausada até alguém clicar em **Retomar
-  Assinatura**. Se você combina datas de retorno com os assinantes, vale filtrar
-  a lista por pausadas de tempo em tempo para não deixar ninguém esquecido.
 </Callout>
 
 ## Cancelar
@@ -52,10 +50,10 @@ Para trazer alguém de volta existe a ação **Reativar Assinatura**, que leva a
 checkout já preenchido com o clube e o plano da pessoa. A plataforma também tem
 um email de convite para reativação, com esse mesmo link.
 
-<Callout type="info" title="Pausar e cancelar são do painel, não do assinante">
+<Callout type="info" title="Cancelar é do painel, não do assinante">
   O assinante resolve muita coisa sozinho na área dele (endereço, cartão,
-  retentativa de cobrança), mas **pausar e cancelar não estão lá**. Esses
-  pedidos chegam pelo seu atendimento e são executados no painel.
+  retentativa de cobrança), mas **cancelar não está lá**. Esse pedido chega pelo
+  seu atendimento e é executado no painel.
 </Callout>
 
 ## Uma assinatura ativa por clube

@@ -44,6 +44,11 @@ campo a campo, sendo marcada como Válida ou Inválida.
 Formulários marcados como recomendados aparecem para o assinante responder na
 área dele.
 
+As respostas podem ser exportadas em CSV e XLSX, com uma coluna por campo do
+formulário. Toda resposta pertence a um cliente **ou** a um lead, nunca aos dois,
+então a exportação tem um único conjunto de colunas de identificação (nome, email,
+CPF) mais uma coluna dizendo se veio de um cliente ou de um lead.
+
 ## Quiz em página externa
 
 Existe uma API pública para receber respostas de fora da plataforma. É assim que
@@ -51,9 +56,13 @@ um quiz hospedado na sua própria página ("descubra seu perfil de café") alime
 Trio: a resposta é enviada com o email da pessoa, e a plataforma cria ou encontra
 o **lead** correspondente e guarda a resposta.
 
-Quando essa pessoa depois assina, as respostas seguem junto para a ficha de
-cliente. É a forma de fazer um quiz de topo de funil sem perder o que foi
-respondido.
+Junto com a resposta, o quiz pode mandar dados de contato do lead: nome,
+telefone e data de nascimento. Eles são gravados na ficha do lead, sem
+sobrescrever o que já estiver preenchido lá.
+
+Quando essa pessoa depois assina, as respostas e esses dados seguem junto para a
+ficha de cliente. É a forma de fazer um quiz de topo de funil sem perder o que
+foi respondido.
 
 <Callout type="tip" title="Onde hospedar o quiz">
   Se você não tem site próprio, dá para subir o HTML do quiz em **Arquivos
