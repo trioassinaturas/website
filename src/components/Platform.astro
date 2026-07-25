@@ -1,0 +1,444 @@
+---
+const steps = [
+  {
+    title: "Monte o seu clube",
+    text: "Página de vendas otimizada para SEO e mobile, planos com frequência e preços personalizados e checkout no ar de forma rápida e intuitiva.",
+  },
+  {
+    title: "Venda todos os meses",
+    text: "Cobranças recorrentes automáticas, retentativas inteligentes de pagamento e cupons de desconto para as suas campanhas.",
+  },
+  {
+    title: "Gerencie tudo em um só lugar",
+    text: "Assinantes, pagamentos, envios, notas fiscais e relatórios. Sem planilhas, sem processos manuais.",
+  },
+]
+---
+
+<section class="section platform" id="plataforma">
+  <div class="container platform-grid">
+    <div class="platform-copy">
+      <p class="section-eyebrow reveal">A plataforma</p>
+      <h2 class="section-title reveal">
+        Do primeiro assinante à caixinha na porta
+      </h2>
+      <p class="section-lead reveal">
+        A Trio foi desenhada para o dia a dia real de um clube de assinatura,
+        por quem passou 13 anos operando um.
+      </p>
+
+      <ol class="platform-steps">
+        {
+          steps.map((step, i) => (
+            <li class="reveal" style={`--reveal-delay: ${i * 0.1}s`}>
+              <span class="step-number" aria-hidden="true">
+                {i + 1}
+              </span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    {
+      /*
+      Mockup ilustrativo do painel, feito em CSS.
+      Quando houver um screenshot ou GIF real do produto, basta substituir
+      o conteúdo de .mockup-body por <img>/<video>.
+    */
+    }
+    <div class="platform-visual reveal" aria-hidden="true">
+      <div class="mockup">
+        <div class="mockup-bar">
+          <span></span><span></span><span></span>
+          <div class="mockup-url">app.trioassinaturas.com.br</div>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-sidebar">
+            <div class="mockup-logo"></div>
+            <div class="mockup-navitem is-active"></div>
+            <div class="mockup-navitem"></div>
+            <div class="mockup-navitem"></div>
+            <div class="mockup-navitem"></div>
+          </div>
+          <div class="mockup-main">
+            <div class="mockup-stats">
+              <div class="stat">
+                <small>Assinantes ativos</small>
+                <strong>1.284</strong>
+                <em>▲ 12% este mês</em>
+              </div>
+              <div class="stat">
+                <small>Receita recorrente</small>
+                <strong>R$ 86,4 mil</strong>
+                <em>▲ 8% este mês</em>
+              </div>
+              <div class="stat">
+                <small>Envios do mês</small>
+                <strong>1.207</strong>
+                <em>98% no prazo</em>
+              </div>
+            </div>
+            <div class="mockup-chart">
+              {
+                [42, 55, 48, 63, 71, 66, 82, 78, 90, 86, 95, 100].map((h) => (
+                  <span style={`--h: ${h}%`} />
+                ))
+              }
+            </div>
+            <div class="mockup-rows">
+              <div class="row"><i class="ok"></i><b></b><u></u></div>
+              <div class="row"><i class="ok"></i><b></b><u></u></div>
+              <div class="row"><i class="warn"></i><b></b><u></u></div>
+              <div class="row"><i class="ok"></i><b></b><u></u></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-badge">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <g fill="#fff" stroke="#fff" stroke-width="9" stroke-linejoin="round">
+            <path d="M50 13 L80 28 L50 43 L20 28 Z"></path>
+            <path d="M17.5 37 L45.5 51 L45.5 82.5 L17.5 68.5 Z"></path>
+            <path d="M82.5 37 L54.5 51 L54.5 82.5 L82.5 68.5 Z"></path>
+          </g>
+        </svg>
+        Recorrência no piloto automático
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .platform-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: clamp(2.5rem, 2rem + 3vw, 5rem);
+    align-items: center;
+  }
+
+  .platform-steps {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .platform-steps li {
+    display: flex;
+    gap: 1.1rem;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.85rem;
+    background: var(--coral);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    box-shadow: 0 6px 16px rgb(240 93 76 / 0.3);
+  }
+
+  .platform-steps h3 {
+    font-size: 1.2rem;
+    color: var(--blue-deep);
+    margin-bottom: 0.35rem;
+  }
+
+  .platform-steps p {
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+  }
+
+  /* ===== Mockup ===== */
+  .platform-visual {
+    position: relative;
+  }
+
+  .mockup {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    rotate: 1deg;
+    transition: rotate 0.4s ease;
+  }
+
+  .platform-visual:hover .mockup {
+    rotate: 0deg;
+  }
+
+  .mockup-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.7rem 1rem;
+    background: var(--blue-soft);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mockup-bar > span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgb(31 38 71 / 0.15);
+  }
+
+  .mockup-bar > span:first-child {
+    background: var(--coral);
+  }
+
+  .mockup-url {
+    margin-left: 0.75rem;
+    flex: 1;
+    max-width: 60%;
+    padding: 0.25rem 0.8rem;
+    background: #fff;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+
+  .mockup-body {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+  }
+
+  .mockup-sidebar {
+    padding: 1rem 0.9rem;
+    background: var(--blue-deep);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .mockup-logo {
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 0.5rem;
+    background: var(--coral);
+    margin-bottom: 0.6rem;
+  }
+
+  .mockup-navitem {
+    height: 0.65rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.25);
+  }
+
+  .mockup-navitem.is-active {
+    background: var(--coral);
+  }
+
+  .mockup-main {
+    padding: 1.1rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .mockup-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+  }
+
+  .stat {
+    padding: 0.75rem 0.85rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .stat small {
+    font-size: 0.62rem;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  .stat strong {
+    font-family: var(--font-display);
+    font-size: clamp(0.95rem, 0.7rem + 0.8vw, 1.3rem);
+    color: var(--blue-deep);
+    line-height: 1.15;
+  }
+
+  .stat em {
+    font-style: normal;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #2f9e77;
+  }
+
+  .mockup-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    height: 5.5rem;
+    padding: 0.85rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+  }
+
+  .mockup-chart span {
+    flex: 1;
+    height: var(--h);
+    border-radius: 3px 3px 0 0;
+    background: linear-gradient(to top, var(--blue), #5670c4);
+    transform-origin: bottom;
+    animation: bar-grow 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .mockup-chart span:nth-child(3n) {
+    background: linear-gradient(to top, var(--coral), #f47f71);
+  }
+
+  .mockup-chart span:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  .mockup-chart span:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .mockup-chart span:nth-child(3) {
+    animation-delay: 0.15s;
+  }
+  .mockup-chart span:nth-child(4) {
+    animation-delay: 0.2s;
+  }
+  .mockup-chart span:nth-child(5) {
+    animation-delay: 0.25s;
+  }
+  .mockup-chart span:nth-child(6) {
+    animation-delay: 0.3s;
+  }
+  .mockup-chart span:nth-child(7) {
+    animation-delay: 0.35s;
+  }
+  .mockup-chart span:nth-child(8) {
+    animation-delay: 0.4s;
+  }
+  .mockup-chart span:nth-child(9) {
+    animation-delay: 0.45s;
+  }
+  .mockup-chart span:nth-child(10) {
+    animation-delay: 0.5s;
+  }
+  .mockup-chart span:nth-child(11) {
+    animation-delay: 0.55s;
+  }
+  .mockup-chart span:nth-child(12) {
+    animation-delay: 0.6s;
+  }
+
+  @keyframes bar-grow {
+    from {
+      scale: 1 0;
+    }
+
+    to {
+      scale: 1 1;
+    }
+  }
+
+  .mockup-rows {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.7rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+  }
+
+  .row i {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+  }
+
+  .row i.ok {
+    background: #2f9e77;
+  }
+
+  .row i.warn {
+    background: var(--coral);
+  }
+
+  .row b {
+    height: 0.5rem;
+    width: 35%;
+    border-radius: 999px;
+    background: rgb(31 38 71 / 0.15);
+  }
+
+  .row u {
+    height: 0.5rem;
+    width: 18%;
+    margin-left: auto;
+    border-radius: 999px;
+    background: rgb(31 38 71 / 0.08);
+  }
+
+  .platform-badge {
+    position: absolute;
+    bottom: -1.1rem;
+    left: -0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 1.15rem;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border-radius: 999px;
+    box-shadow: var(--shadow-md);
+    rotate: -2deg;
+  }
+
+  .platform-badge svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  @media (max-width: 56rem) {
+    .platform-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .platform-badge {
+      left: auto;
+      right: 0.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mockup,
+    .platform-visual:hover .mockup {
+      rotate: 0deg;
+      transition: none;
+    }
+
+    .mockup-chart span {
+      animation: none;
+    }
+  }
+</style>

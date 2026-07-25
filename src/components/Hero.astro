@@ -1,0 +1,407 @@
+---
+import { whatsappLink } from "../config"
+
+const whatsapp = whatsappLink()
+---
+
+<section class="hero" id="inicio">
+  <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="container hero-content">
+    <p class="hero-eyebrow">Feita para clubes de assinatura</p>
+    <h1>
+      A plataforma completa para o seu{" "}
+      <span class="hero-highlight">clube de assinatura</span>
+    </h1>
+    <p class="hero-sub">
+      Gerencie planos personalizados, assinantes, pagamentos e envios, tudo em
+      um só lugar. Crie sua página de vendas, checkout e área do assinante de
+      forma rápida e intuitiva.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={whatsapp} target="_blank" rel="noopener">
+        Solicitar demonstração
+      </a>
+      <a class="btn btn-secondary" href="#plataforma">Conheça a plataforma</a>
+    </div>
+    <p class="hero-trust">
+      Construída por quem opera clubes de assinatura há mais de 13 anos.
+    </p>
+  </div>
+
+  <p class="hero-hint" aria-hidden="true">psiu… clique nas caixinhas 📦</p>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4.5rem, 3rem + 7vw, 9rem) clamp(5rem, 4rem + 6vw, 8rem);
+  }
+
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 62% 75% at 50% 45%,
+      var(--cream) 42%,
+      color-mix(in srgb, var(--cream) 65%, transparent) 70%,
+      transparent 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .hero-content a,
+  .hero-content .hero-actions {
+    pointer-events: auto;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    background: var(--coral-soft);
+    color: var(--coral-dark);
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  .hero h1 {
+    margin-top: 1.25rem;
+    font-size: var(--text-hero);
+    color: var(--blue-deep);
+    max-width: 18ch;
+  }
+
+  .hero-highlight {
+    position: relative;
+    color: var(--coral);
+  }
+
+  @media (min-width: 44rem) {
+    .hero-highlight {
+      white-space: nowrap;
+    }
+  }
+
+  .hero-highlight::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0.02em 0;
+    height: 0.14em;
+    border-radius: 0.1em;
+    background: color-mix(in srgb, var(--coral) 30%, transparent);
+    transform-origin: left;
+    animation: underline-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s backwards;
+  }
+
+  @keyframes underline-in {
+    from {
+      scale: 0 1;
+    }
+
+    to {
+      scale: 1 1;
+    }
+  }
+
+  .hero-sub {
+    margin-top: 1.5rem;
+    font-size: var(--text-md);
+    color: var(--ink-soft);
+    max-width: 52ch;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero-trust {
+    margin-top: 2.5rem;
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+
+  .hero-hint {
+    position: absolute;
+    bottom: 1.1rem;
+    right: 1.4rem;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    rotate: -2deg;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  @media (max-width: 44rem) {
+    .hero-hint {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-highlight::after {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById("hero-canvas") as HTMLCanvasElement
+  const ctx = canvas.getContext("2d")!
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches
+
+  // Paletas [topo, esquerda, direita] de cada caixinha isométrica
+  const PALETTES: [string, string, string][] = [
+    ["#f47f71", "#f05d4c", "#d84836"],
+    ["#5670c4", "#314ba0", "#26397c"],
+    ["#a3e0d2", "#7fd4c1", "#5fbca8"],
+    ["#f9b9b0", "#f8a196", "#e08578"],
+  ]
+
+  interface Cube {
+    x: number
+    y: number
+    size: number
+    vx: number
+    vy: number
+    bobPhase: number
+    bobSpeed: number
+    palette: [string, string, string]
+    scale: number // para o "pop" de entrada
+    dying: boolean
+  }
+
+  interface Particle {
+    x: number
+    y: number
+    vx: number
+    vy: number
+    size: number
+    life: number
+    color: string
+  }
+
+  let cubes: Cube[] = []
+  let particles: Particle[] = []
+  let width = 0
+  let height = 0
+  let dpr = 1
+  const mouse = { x: -9999, y: -9999 }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2)
+    width = canvas.clientWidth
+    height = canvas.clientHeight
+    canvas.width = width * dpr
+    canvas.height = height * dpr
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  }
+
+  function randomPalette() {
+    return PALETTES[Math.floor(Math.random() * PALETTES.length)]
+  }
+
+  function makeCube(x?: number, y?: number, pop = false): Cube {
+    return {
+      x: x ?? Math.random() * width,
+      y: y ?? Math.random() * height,
+      size: 14 + Math.random() * 22,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: (Math.random() - 0.5) * 0.18,
+      bobPhase: Math.random() * Math.PI * 2,
+      bobSpeed: 0.4 + Math.random() * 0.5,
+      palette: randomPalette(),
+      scale: pop ? 0 : 1,
+      dying: false,
+    }
+  }
+
+  function drawCube(c: Cube, t: number) {
+    const s = c.size * c.scale
+    if (s <= 0.5) return
+    const bob = Math.sin(t * c.bobSpeed + c.bobPhase) * 4
+    const x = c.x
+    const y = c.y + bob
+    const h = s * 0.5
+
+    ctx.save()
+    ctx.globalAlpha = 0.92
+
+    // topo
+    ctx.fillStyle = c.palette[0]
+    ctx.beginPath()
+    ctx.moveTo(x, y - s)
+    ctx.lineTo(x + s, y - h)
+    ctx.lineTo(x, y)
+    ctx.lineTo(x - s, y - h)
+    ctx.closePath()
+    ctx.fill()
+
+    // face esquerda
+    ctx.fillStyle = c.palette[1]
+    ctx.beginPath()
+    ctx.moveTo(x - s, y - h)
+    ctx.lineTo(x, y)
+    ctx.lineTo(x, y + s)
+    ctx.lineTo(x - s, y + h)
+    ctx.closePath()
+    ctx.fill()
+
+    // face direita
+    ctx.fillStyle = c.palette[2]
+    ctx.beginPath()
+    ctx.moveTo(x + s, y - h)
+    ctx.lineTo(x, y)
+    ctx.lineTo(x, y + s)
+    ctx.lineTo(x + s, y + h)
+    ctx.closePath()
+    ctx.fill()
+
+    ctx.restore()
+  }
+
+  function burst(c: Cube) {
+    for (let i = 0; i < 10; i++) {
+      const angle = (Math.PI * 2 * i) / 10 + Math.random() * 0.5
+      const speed = 1.5 + Math.random() * 2.5
+      particles.push({
+        x: c.x,
+        y: c.y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 1,
+        size: 2 + Math.random() * 4,
+        life: 1,
+        color: c.palette[Math.floor(Math.random() * 3)],
+      })
+    }
+  }
+
+  function step(t: number) {
+    ctx.clearRect(0, 0, width, height)
+
+    for (const c of cubes) {
+      if (!reduceMotion) {
+        c.x += c.vx
+        c.y += c.vy
+
+        // repele do cursor
+        const dx = c.x - mouse.x
+        const dy = c.y - mouse.y
+        const dist = Math.hypot(dx, dy)
+        if (dist < 130 && dist > 0.01) {
+          const force = ((130 - dist) / 130) * 0.35
+          c.x += (dx / dist) * force * 4
+          c.y += (dy / dist) * force * 4
+        }
+
+        // dá a volta nas bordas
+        const m = 60
+        if (c.x < -m) c.x = width + m
+        if (c.x > width + m) c.x = -m
+        if (c.y < -m) c.y = height + m
+        if (c.y > height + m) c.y = -m
+      }
+
+      // animação de escala (pop de entrada / saída)
+      const target = c.dying ? 0 : 1
+      c.scale += (target - c.scale) * 0.12
+
+      drawCube(c, t)
+    }
+
+    cubes = cubes.filter((c) => !(c.dying && c.scale < 0.05))
+
+    for (const p of particles) {
+      p.x += p.vx
+      p.y += p.vy
+      p.vy += 0.08
+      p.life -= 0.025
+      ctx.globalAlpha = Math.max(p.life, 0)
+      ctx.fillStyle = p.color
+      ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size)
+    }
+    ctx.globalAlpha = 1
+    particles = particles.filter((p) => p.life > 0)
+  }
+
+  function loop(now: number) {
+    step(now / 1000)
+    requestAnimationFrame(loop)
+  }
+
+  function init() {
+    resize()
+    const count = Math.min(22, Math.max(10, Math.floor(width / 70)))
+    cubes = Array.from({ length: count }, () => makeCube())
+
+    if (reduceMotion) {
+      // desenha uma única cena estática
+      step(0)
+      return
+    }
+    requestAnimationFrame(loop)
+  }
+
+  window.addEventListener("resize", () => {
+    resize()
+    if (reduceMotion) step(0)
+  })
+
+  canvas.parentElement!.addEventListener("pointermove", (e) => {
+    const rect = canvas.getBoundingClientRect()
+    mouse.x = e.clientX - rect.left
+    mouse.y = e.clientY - rect.top
+  })
+
+  canvas.parentElement!.addEventListener("pointerleave", () => {
+    mouse.x = -9999
+    mouse.y = -9999
+  })
+
+  canvas.addEventListener("click", (e) => {
+    const rect = canvas.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+
+    // clicou numa caixinha? ela estoura. senão, nasce uma nova.
+    const hit = cubes.find(
+      (c) => !c.dying && Math.hypot(c.x - x, c.y - y) < c.size * 1.2,
+    )
+    if (hit) {
+      hit.dying = true
+      burst(hit)
+    } else if (cubes.length < 40) {
+      cubes.push(makeCube(x, y, true))
+    }
+    if (reduceMotion) step(0)
+  })
+
+  init()
+</script>

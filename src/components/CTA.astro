@@ -1,0 +1,115 @@
+---
+import { CONTACT, whatsappLink } from "../config"
+
+const whatsapp = whatsappLink()
+---
+
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-panel reveal">
+      <div class="cta-cubes" aria-hidden="true">
+        {
+          [
+            { size: "3.5rem", top: "12%", left: "6%", delay: "0s" },
+            { size: "2.25rem", top: "68%", left: "13%", delay: "1.2s" },
+            { size: "2.75rem", top: "20%", left: "88%", delay: "0.6s" },
+            { size: "4rem", top: "62%", left: "82%", delay: "1.8s" },
+          ].map((cube) => (
+            <svg
+              viewBox="0 0 100 100"
+              style={`width:${cube.size};top:${cube.top};left:${cube.left};animation-delay:${cube.delay}`}
+            >
+              <g
+                fill="rgb(255 255 255 / 0.14)"
+                stroke="rgb(255 255 255 / 0.14)"
+                stroke-width="9"
+                stroke-linejoin="round"
+              >
+                <path d="M50 13 L80 28 L50 43 L20 28 Z" />
+                <path d="M17.5 37 L45.5 51 L45.5 82.5 L17.5 68.5 Z" />
+                <path d="M82.5 37 L54.5 51 L54.5 82.5 L82.5 68.5 Z" />
+              </g>
+            </svg>
+          ))
+        }
+      </div>
+
+      <h2>
+        Experimente uma nova forma de gerenciar seu clube e leve seu negócio a
+        outro patamar
+      </h2>
+      <p>
+        Fale com a gente e veja a Trio funcionando com uma demonstração ao vivo,
+        sem compromisso.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-light" href={whatsapp} target="_blank" rel="noopener">
+          Solicitar demonstração
+        </a>
+        <a class="btn btn-ghost-light" href={`mailto:${CONTACT.email}`}>
+          {CONTACT.email}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-panel {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cta-cubes svg {
+    position: absolute;
+    animation: cta-float 6s ease-in-out infinite;
+  }
+
+  @keyframes cta-float {
+    0%,
+    100% {
+      translate: 0 0;
+      rotate: 0deg;
+    }
+
+    50% {
+      translate: 0 -14px;
+      rotate: 4deg;
+    }
+  }
+
+  .cta-panel h2 {
+    position: relative;
+    font-size: var(--text-2xl);
+    max-width: 24ch;
+    margin-inline: auto;
+  }
+
+  .cta-panel p {
+    position: relative;
+    margin-top: 1rem;
+    color: rgb(255 255 255 / 0.8);
+    font-size: var(--text-md);
+  }
+
+  .cta-actions {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 2.25rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-cubes svg {
+      animation: none;
+    }
+  }
+</style>

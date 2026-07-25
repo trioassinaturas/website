@@ -1,0 +1,318 @@
+---
+import { Image } from "astro:assets"
+import Layout from "../layouts/Layout.astro"
+import Cubo from "../assets/cubo.svg"
+import fotoTomas from "../assets/founders/tomas.jpg"
+import fotoRafael from "../assets/founders/rafael.jpg"
+import { CONTACT, FOUNDER_LINKS, whatsappLink } from "../config"
+
+const whatsapp = whatsappLink(
+  "Olá! Quero conversar sobre meu clube de assinatura.",
+)
+
+const founders = [
+  {
+    photo: fotoTomas,
+    name: "Tomas Susin",
+    url: FOUNDER_LINKS.tomas,
+    role: "Co-fundador & CEO",
+    bio: "Founder da TAG Livros, um dos maiores clubes de assinatura do Brasil, e do Tinta Club del Libro, um clube com milhares de assinantes na Colômbia, Chile, Peru e México. São mais de 13 anos criando, escalando e operando clubes na prática, das primeiras caixinhas aos milhares de envios por mês. Na Trio, cuida para que a plataforma resolva os problemas reais de quem vive de recorrência.",
+    accent: "coral",
+  },
+  {
+    photo: fotoRafael,
+    name: "Rafael Audibert",
+    url: FOUNDER_LINKS.rafael,
+    role: "Co-fundador & CTO",
+    bio: "Desenvolvedor de software com experiência não apenas na prática após trabalhar na TAG Livros mas também em produtos de alta escala usados por milhares de empresas no mundo todo. Na Trio, lidera a tecnologia: uma plataforma confiável, rápida e simples de usar, para que a recorrência do seu clube rode no piloto automático.",
+    accent: "blue",
+  },
+]
+---
+
+<Layout
+  title="Sobre nós | Trio Assinaturas"
+  description="Conheça os fundadores da Trio: Tomas Susin (founder da TAG Livros) e Rafael Audibert. Uma plataforma feita por quem vive clubes de assinatura há mais de 13 anos."
+>
+  <section class="section about-hero">
+    <div class="container">
+      <p class="section-eyebrow">Sobre nós</p>
+      <h1 class="about-title">
+        Feita por quem vive clubes de assinatura <span>na prática</span>
+      </h1>
+      <p class="section-lead">
+        A Trio nasceu para preencher uma lacuna: não existia no Brasil um
+        sistema que realmente atendesse às necessidades de um clube de
+        assinatura. A gestão da recorrência era complexa e, muitas vezes,
+        manual. Depois de 13 anos enfrentando esses desafios todos os dias,
+        decidimos construir a plataforma que gostaríamos de ter usado.
+      </p>
+    </div>
+  </section>
+
+  <section class="section founders">
+    <div class="container">
+      <div class="founders-grid">
+        {
+          founders.map((founder, i) => (
+            <article
+              class:list={[
+                "founder-card",
+                "reveal",
+                `accent-${founder.accent}`,
+              ]}
+              style={`--reveal-delay: ${i * 0.12}s`}
+            >
+              <div class="founder-avatar">
+                <Image
+                  src={founder.photo}
+                  alt={`Foto de ${founder.name}`}
+                  width={160}
+                  height={160}
+                />
+                <Cubo
+                  class="founder-cube"
+                  viewBox="2 2 16 16"
+                  fill="currentColor"
+                  aria-hidden="true"
+                />
+              </div>
+              <h2>
+                <a href={founder.url} target="_blank" rel="noopener">
+                  {founder.name}
+                </a>
+              </h2>
+              <p class="founder-role">{founder.role}</p>
+              <p class="founder-bio">{founder.bio}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="about-values reveal">
+        <h2>No que a gente acredita</h2>
+        <ul>
+          <li>
+            <strong>Recorrência não pode ser manual.</strong> Planilha e retrabalho
+            não escalam um clube; automação escala.
+          </li>
+          <li>
+            <strong>Quem entende do negócio é você.</strong> A plataforma tem que
+            se adaptar ao seu clube, e não o contrário.
+          </li>
+          <li>
+            <strong>Proximidade importa.</strong> Você fala direto com quem constrói
+            o produto, sem fila de suporte infinita.
+          </li>
+        </ul>
+      </div>
+
+      <div class="about-cta reveal">
+        <p>Quer conversar com a gente sobre o seu clube?</p>
+        <div class="about-cta-actions">
+          <a
+            class="btn btn-primary"
+            href={whatsapp}
+            target="_blank"
+            rel="noopener"
+          >
+            Chamar no WhatsApp
+          </a>
+          <a class="btn btn-secondary" href={`mailto:${CONTACT.email}`}>
+            Enviar email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .about-hero {
+    padding-bottom: 0;
+  }
+
+  .about-title {
+    font-size: var(--text-hero);
+    color: var(--blue-deep);
+    margin-top: 0.75rem;
+    max-width: 22ch;
+  }
+
+  .about-title span {
+    color: var(--coral);
+  }
+
+  .founders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    gap: 1.5rem;
+  }
+
+  .founder-card {
+    padding: 2.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition:
+      translate 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .founder-card:hover {
+    translate: 0 -4px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .founder-avatar {
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .founder-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+
+  .accent-coral .founder-avatar {
+    background: var(--coral-soft);
+    color: var(--coral-dark);
+  }
+
+  .accent-blue .founder-avatar {
+    background: var(--blue-soft);
+    color: var(--blue);
+  }
+
+  .founder-cube {
+    position: absolute;
+    width: 1.9rem;
+    height: 1.9rem;
+    right: -0.65rem;
+    bottom: -0.65rem;
+    rotate: 8deg;
+  }
+
+  .accent-coral .founder-cube {
+    color: var(--coral);
+  }
+
+  .accent-blue .founder-cube {
+    color: var(--blue);
+  }
+
+  .founder-card h2 {
+    font-size: 1.6rem;
+    color: var(--blue-deep);
+  }
+
+  .founder-card h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .founder-card h2 a:hover,
+  .founder-card h2 a:focus-visible {
+    color: var(--coral);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .founder-role {
+    margin-top: 0.2rem;
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .accent-coral .founder-role {
+    color: var(--coral);
+  }
+
+  .accent-blue .founder-role {
+    color: var(--blue);
+  }
+
+  .founder-bio {
+    margin-top: 1rem;
+    color: var(--ink-soft);
+  }
+
+  .about-values {
+    margin-top: 4rem;
+    padding: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+    background: var(--blue-soft);
+    border-radius: var(--radius-lg);
+  }
+
+  .about-values h2 {
+    font-size: var(--text-xl);
+    color: var(--blue-deep);
+  }
+
+  .about-values ul {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .about-values li {
+    position: relative;
+    padding-left: 1.75rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  .about-values li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.42em;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 0.25rem;
+    background: var(--coral);
+    rotate: 45deg;
+  }
+
+  .about-values strong {
+    color: var(--ink);
+  }
+
+  .about-cta {
+    margin-top: 4rem;
+    text-align: center;
+  }
+
+  .about-cta > p {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    color: var(--blue-deep);
+  }
+
+  .about-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .founder-card,
+    .founder-card:hover {
+      translate: none;
+      transition: none;
+    }
+  }
+</style>

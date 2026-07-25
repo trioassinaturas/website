@@ -1,0 +1,55 @@
+---
+import Cubo from "../assets/cubo.svg"
+
+interface Props {
+  /** 'color' for light backgrounds, 'white' for the blue footer */
+  variant?: "color" | "white"
+}
+
+const { variant = "color" } = Astro.props
+---
+
+<span class:list={["logo", variant]}>
+  <Cubo
+    class="logo-cube"
+    viewBox="2 2 16 16"
+    fill="var(--coral)"
+    aria-hidden="true"
+  />
+  <span class="logo-word">trio<span class="logo-dot">.</span></span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--blue);
+  }
+
+  .logo.white {
+    color: #fff;
+  }
+
+  .logo-cube {
+    width: 1.9rem;
+    height: 1.9rem;
+    transition: rotate 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  :global(a:hover) > .logo .logo-cube {
+    rotate: -8deg;
+  }
+
+  .logo-word {
+    translate: 0 -0.05em;
+  }
+
+  .logo-dot {
+    color: var(--coral);
+  }
+</style>

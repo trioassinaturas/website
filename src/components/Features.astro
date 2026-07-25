@@ -1,0 +1,222 @@
+---
+import { whatsappLink } from "../config"
+
+const whatsapp = whatsappLink(
+  "Olá! Preciso de uma funcionalidade específica para meu clube.",
+)
+
+const features = [
+  {
+    icon: "box",
+    title: "Planos flexíveis",
+    text: "Crie planos com frequência e preços personalizados, do jeito que o seu clube funciona.",
+  },
+  {
+    icon: "users",
+    title: "Gestão de assinantes",
+    text: "Visualize e edite os dados das assinaturas em poucos cliques, sem planilhas paralelas.",
+  },
+  {
+    icon: "card",
+    title: "Pagamentos inteligentes",
+    text: "Acompanhe e exporte pagamentos efetuados e com falha, com retentativas automáticas inteligentes de cobrança.",
+  },
+  {
+    icon: "truck",
+    title: "Envios sob controle",
+    text: "Gere relatórios de envio confiáveis para a sua operação logística rodar sem sustos.",
+  },
+  {
+    icon: "storefront",
+    title: "Página de vendas + CMS",
+    text: "Página otimizada para SEO e mobile, com CMS para você editar tudo sem depender de ninguém.",
+  },
+  {
+    icon: "tag",
+    title: "Checkout e cupons",
+    text: "Checkout simples e efetivo, com cupons de desconto personalizados para suas campanhas.",
+  },
+  {
+    icon: "user-circle",
+    title: "Área do assinante",
+    text: "Seus assinantes gerenciam dados da assinatura e pedidos sozinhos, sem abrir chamado.",
+  },
+  {
+    icon: "mail",
+    title: "Emails transacionais",
+    text: "Comunicação personalizada e automática em cada etapa da vida da assinatura.",
+  },
+  {
+    icon: "gift",
+    title: "Member get member",
+    text: "Programa de indicação nativo: seus assinantes indicam amigos e ganham recompensas, e o clube cresce sozinho.",
+  },
+]
+
+const icons: Record<string, string> = {
+  box: '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/><path d="M12 12v9"/>',
+  users:
+    '<circle cx="9" cy="8" r="3.25"/><path d="M3.5 19c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/><path d="M16 5.5a3 3 0 010 5.5"/><path d="M17.5 14.6c1.7.6 2.7 1.9 3 4"/>',
+  card: '<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18"/><path d="M7 14.5h4"/>',
+  truck:
+    '<path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.75"/><circle cx="17" cy="17.5" r="1.75"/>',
+  storefront:
+    '<path d="M4 9L5.5 4h13L20 9"/><path d="M4 9a2.5 2.5 0 005 0 2.5 2.5 0 005.1 0A2.5 2.5 0 0019 9"/><path d="M5 11.5V20h14v-8.5"/><path d="M9.5 20v-5h5v5"/>',
+  tag: '<path d="M3.5 12.5v-9h9L21 12l-8.5 8.5z"/><circle cx="8" cy="8" r="1.5"/>',
+  "user-circle":
+    '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M5.8 18.5c1.2-2.5 3.4-3.7 6.2-3.7s5 1.2 6.2 3.7"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/>',
+  gift: '<rect x="4" y="8" width="16" height="4" rx="1"/><path d="M6 12v7.5h12V12"/><path d="M12 8v11.5"/><path d="M12 8c-1.5-4.2-6.8-3.8-6 0"/><path d="M12 8c1.5-4.2 6.8-3.8 6 0"/>',
+}
+---
+
+<section class="section features" id="funcionalidades">
+  <div class="container">
+    <p class="section-eyebrow reveal">Funcionalidades</p>
+    <h2 class="section-title reveal">
+      Tudo o que o seu clube precisa para crescer
+    </h2>
+    <p class="section-lead reveal">
+      Da página de vendas ao envio da caixinha: a Trio cuida da recorrência para
+      você cuidar da experiência dos seus assinantes.
+    </p>
+
+    <div class="features-grid">
+      {
+        features.map((feature, i) => (
+          <article
+            class="feature-card reveal"
+            style={`--reveal-delay: ${(i % 3) * 0.08}s`}
+          >
+            <div class="feature-icon" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                set:html={icons[feature.icon]}
+              />
+            </div>
+            <h3>{feature.title}</h3>
+            <p>{feature.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="features-note reveal">
+      Precisa de algo específico? <a
+        href={whatsapp}
+        target="_blank"
+        rel="noopener"
+      >
+        Consulte nossa equipe
+      </a> para integrações e funcionalidades personalizadas.
+    </p>
+  </div>
+</section>
+
+<style>
+  .features {
+    background: var(--surface);
+    border-block: 1px solid var(--border);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 56rem) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 38rem) {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-card {
+    padding: 1.75rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition:
+      translate 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .feature-card:hover {
+    translate: 0 -4px;
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in srgb, var(--coral) 35%, var(--border));
+  }
+
+  .feature-icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.85rem;
+    background: var(--blue-soft);
+    color: var(--blue);
+    margin-bottom: 1.1rem;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease,
+      rotate 0.25s ease;
+  }
+
+  .feature-card:hover .feature-icon {
+    background: var(--coral-soft);
+    color: var(--coral);
+    rotate: -5deg;
+  }
+
+  .feature-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.15rem;
+    color: var(--blue-deep);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+
+  .features-note {
+    margin-top: 2.5rem;
+    text-align: center;
+    color: var(--ink-soft);
+  }
+
+  .features-note a {
+    font-weight: 700;
+    color: var(--coral);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feature-card,
+    .feature-card:hover,
+    .feature-card:hover .feature-icon {
+      translate: none;
+      rotate: none;
+      transition: none;
+    }
+  }
+</style>

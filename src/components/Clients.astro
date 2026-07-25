@@ -1,0 +1,139 @@
+---
+import { whatsappLink } from "../config"
+
+const whatsapp = whatsappLink("Olá! Quero levar meu clube para a Trio.")
+---
+
+<section class="section clients" id="clientes">
+  <div class="container">
+    <p class="section-eyebrow reveal">Clientes</p>
+    <h2 class="section-title reveal">Quem já cresce com a Trio</h2>
+
+    <div class="clients-grid">
+      <article class="client-card reveal">
+        <p class="client-logo">lingebox<span>.</span></p>
+        <p class="client-desc">
+          Clube de assinatura de lingerie que entrega autoestima na porta de
+          milhares de assinantes, todos os meses, com a recorrência rodando na
+          Trio.
+        </p>
+        <a
+          class="client-link"
+          href="https://www.lingebox.com.br"
+          target="_blank"
+          rel="noopener"
+        >
+          lingebox.com.br ↗
+        </a>
+      </article>
+
+      <a
+        class="client-card client-card-cta reveal"
+        style="--reveal-delay: 0.1s"
+        href={whatsapp}
+        target="_blank"
+        rel="noopener"
+      >
+        <p class="client-logo client-logo-you">seu clube aqui<span>?</span></p>
+        <p class="client-desc">
+          Está montando um clube de assinatura ou quer migrar de plataforma?
+          Vamos conversar.
+        </p>
+        <span class="client-link">Chamar no WhatsApp →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .clients {
+    background: var(--surface);
+    border-block: 1px solid var(--border);
+  }
+
+  .clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+
+  .client-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 2rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      translate 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .client-card:hover {
+    translate: 0 -4px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .client-card-cta {
+    border-style: dashed;
+    border-width: 2px;
+    border-color: color-mix(in srgb, var(--coral) 45%, transparent);
+    background: var(--coral-soft);
+  }
+
+  .client-card-cta:hover {
+    border-color: var(--coral);
+  }
+
+  .client-logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.75rem;
+    color: var(--blue-deep);
+    line-height: 1;
+  }
+
+  .client-logo span {
+    color: var(--coral);
+  }
+
+  .client-logo-you {
+    color: var(--coral-dark);
+  }
+
+  .client-logo-you span {
+    color: var(--blue);
+  }
+
+  .client-desc {
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    max-width: 44ch;
+  }
+
+  .client-link {
+    margin-top: auto;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .client-card:hover .client-link {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .client-card,
+    .client-card:hover {
+      translate: none;
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,5 @@
+#!/bin/sh
+# Fails the commit if linting, formatting, or types are off.
+# Run `pnpm format` to fix formatting.
+
+pnpm lint && pnpm format:check && pnpm check
