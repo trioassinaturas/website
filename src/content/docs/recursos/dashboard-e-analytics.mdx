@@ -1,0 +1,64 @@
+---
+title: Dashboard e analytics
+description: Os números que a plataforma calcula para você, o funil de checkout e as rotinas que rodam sozinhas.
+order: 30
+navTitle: Dashboard e analytics
+keywords:
+  - dashboard
+  - analytics
+  - funil
+  - receita
+  - indicadores
+  - relatórios
+---
+
+## Dashboard
+
+A tela inicial do painel reúne os números que você olharia todo dia:
+
+- **Indicadores**: clientes, assinaturas ativas, assinaturas pausadas e cobranças
+  com falha nos últimos 30 dias.
+- **Atividade recente** das últimas 72 horas: assinaturas, cobranças, pedidos e
+  leads.
+- **Gráficos**: novas assinaturas por dia (30 dias), receita por dia (30 dias),
+  receita corrida de 30 dias e distribuição das assinaturas por situação.
+
+A receita corrida é a mais útil das quatro para um clube de assinatura: ela
+suaviza o efeito de ter muitas cobranças caindo no mesmo dia do mês e mostra a
+tendência de verdade.
+
+## Analytics
+
+A tela de **Analytics** trata do tráfego, com janelas de 7, 30 e 90 dias:
+
+- visitas por dia
+- origens do tráfego e campanhas (UTM)
+- sites que mandaram visita
+- páginas mais vistas
+- **funil de checkout**: quantos chegaram ao checkout, quantos concluíram e
+  quantos abandonaram
+
+<Callout type="tip" title="Dois funis que se completam">
+  O funil do Analytics conta visitas; a lista de **Leads** conta pessoas com
+  nome e email, e mostra em qual etapa cada uma parou. Use o Analytics para
+  saber **quanto** você perde e de onde vem quem converte, e os
+  [leads](/docs/operacao/clientes-e-leads) para saber **quem** parou e **onde**.
+</Callout>
+
+Os números do Analytics são calculados periodicamente durante o horário
+comercial, então podem levar alguns minutos para refletir algo que acabou de
+acontecer.
+
+## O que roda sozinho
+
+Para referência, as rotinas automáticas da plataforma:
+
+| Rotina                                                  | Frequência                           |
+| ------------------------------------------------------- | ------------------------------------ |
+| Processar as cobranças do dia                           | uma vez por dia, de manhã            |
+| Retentar tentativas de cobrança que falharam            | a cada 6 horas                       |
+| Criar pedidos de cobranças pagas que ficaram sem pedido | a cada 15 minutos                    |
+| Atualizar os números do Analytics                       | a cada 15 minutos, horário comercial |
+
+Sobre cobranças e retentativas, veja
+[Pagamentos e retentativas](/docs/cobrancas/pagamentos-e-retentativas).

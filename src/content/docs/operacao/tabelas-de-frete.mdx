@@ -1,0 +1,100 @@
+---
+title: Tabelas de frete
+description: Como montar o CSV de faixas de CEP, em que unidade informar os valores e como testar o custo de um CEP.
+order: 20
+navTitle: Tabelas de frete
+keywords:
+  - frete
+  - CEP
+  - CSV
+  - importação
+  - entrega
+---
+
+A tabela de frete diz quanto custa entregar em cada faixa de CEP. Sem ela, o
+checkout não sabe cobrar entrega. A tela fica em **Tabelas de Frete**, e cada
+clube aponta para uma tabela.
+
+## O formato do CSV
+
+O arquivo precisa ter exatamente estas três colunas, nesta ordem, com estes
+nomes:
+
+```csv
+zip_from,zip_to,shipping_fee
+01000-000,01999-999,1200
+02000-000,09999-999,1850
+```
+
+| Coluna         | O que é                                        |
+| -------------- | ---------------------------------------------- |
+| `zip_from`     | o CEP inicial da faixa, no formato `00000-000` |
+| `zip_to`       | o CEP final da faixa, no mesmo formato         |
+| `shipping_fee` | o valor do frete **em centavos**               |
+
+<Callout type="warning" title="Duas coisas que reprovam o arquivo inteiro">
+  **Valores em centavos, não em reais.** R$ 12,00 se escreve `1200`. Se você
+  escrever `12`, o frete daquela faixa vai custar doze centavos.
+
+**O hífen no CEP é obrigatório.** `01000-000` passa, `01000000` não.
+
+</Callout>
+
+A importação também recusa o arquivo quando: algum valor de frete é zero ou
+negativo, algum campo está vazio, ou o CEP inicial é maior que o final. As
+mensagens de erro dizem quantas linhas falharam e quais são, para você corrigir
+de uma vez.
+
+## Valores mensais, sempre
+
+Este é o ponto que mais gera confusão na hora de conferir uma cobrança.
+
+Você informa **sempre o valor mensal** do frete. A plataforma multiplica sozinha
+conforme a frequência de cobrança da assinatura:
+
+| Frequência de cobrança | Multiplicador | Exemplo com frete de R$ 10,00              |
+| ---------------------- | ------------- | ------------------------------------------ |
+| Mensal                 | 1×            | R$ 10,00 por cobrança, 12 cobranças no ano |
+| Semestral              | 6×            | R$ 60,00 por cobrança, 2 cobranças no ano  |
+| Anual                  | 12×           | R$ 120,00 em uma cobrança                  |
+
+<Callout type="info" title="O multiplicador segue a frequência de cobrança">
+  Não é a duração do plano que manda, é a **frequência de cobrança**. Um plano
+  anual cobrado mensalmente multiplica por 1, porque cobra doze vezes. Veja
+  [Clubes e planos](/docs/catalogo/clubes-e-planos) se essa distinção ainda não
+  estiver clara.
+</Callout>
+
+## Importando e conferindo
+
+<Steps>
+
+1. Monte o CSV. A tela oferece um arquivo de exemplo para baixar.
+
+2. Faça o upload na tabela de frete. A plataforma valida tudo antes de salvar: ou
+   o arquivo entra inteiro, ou nada muda.
+
+3. Confira as regras importadas na própria tela. Tabelas grandes carregam sob
+   demanda, com um botão para ver todas as regras.
+
+4. Use **Testar custo para CEP** para conferir alguns CEPs reais: um da capital,
+   um do interior, um de outra região.
+
+</Steps>
+
+A data da **Última Importação** fica visível, o que ajuda a saber se a tabela
+ainda reflete o contrato atual com a transportadora.
+
+## Como uma faixa é escolhida
+
+A plataforma percorre as regras e usa **a primeira faixa que contém o CEP**. Se
+duas faixas se sobrepõem, quem estiver primeiro no arquivo ganha. Se nenhuma
+contém, o CEP é tratado como sem cobertura, e o checkout avisa que não há entrega
+para aquele endereço.
+
+<Callout type="tip" title="Cobertura nacional sem esquecer ninguém">
+  Se você entrega para todo o Brasil, feche o arquivo com uma faixa final ampla
+  (por exemplo `00000-000` a `99999-999`) com a sua tarifa mais alta. As faixas
+  específicas vêm antes e ganham; a última pega qualquer CEP que você não
+  previu, em vez de deixar a venda cair.
+</Callout>

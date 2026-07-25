@@ -1,0 +1,170 @@
+---
+/**
+ * Tabbed panels for MDX. Each item's `id` is the name of the slot that holds
+ * its content:
+ *
+ * ```mdx
+ * <Tabs items={[{ id: "cartao", label: "Cartão" }]}>
+ *   <Fragment slot="cartao">
+ *
+ *     Conteúdo em **markdown**.
+ *
+ *   </Fragment>
+ * </Tabs>
+ * ```
+ *
+ * Panels are not hidden on the server, so without JavaScript every panel stays
+ * visible and stacked, and search indexes all of them.
+ */
+interface Props {
+  items: { id: string; label: string }[]
+}
+
+const { items } = Astro.props
+
+// Unique per instance, so several tab groups can share a page.
+const uid = Math.random().toString(36).slice(2, 8)
+const tabId = (id: string) => `tab-${uid}-${id}`
+const panelId = (id: string) => `panel-${uid}-${id}`
+---
+
+<div class="tabs" data-tabs>
+  <div class="tabs-list" role="tablist">
+    {
+      items.map((item) => (
+        <button
+          type="button"
+          role="tab"
+          id={tabId(item.id)}
+          class="tabs-tab"
+          aria-controls={panelId(item.id)}
+          aria-selected="false"
+        >
+          {item.label}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    items.map((item) => (
+      <div
+        role="tabpanel"
+        id={panelId(item.id)}
+        class="tabs-panel"
+        aria-labelledby={tabId(item.id)}
+        tabindex="0"
+      >
+        <slot name={item.id} />
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .tabs {
+    margin-block: 2rem;
+  }
+
+  .tabs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tabs-tab {
+    padding: 0.5rem 0.95rem;
+    border: none;
+    border-radius: 999px;
+    background: none;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .tabs-tab:hover {
+    background: var(--blue-soft);
+    color: var(--blue);
+  }
+
+  .tabs-tab[aria-selected="true"] {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .tabs-panel {
+    padding-top: 1.25rem;
+  }
+
+  /* The panel is focusable so it can be scrolled by keyboard, but it doesn't
+   * need a focus ring of its own until it's actually focused. */
+  .tabs-panel:focus-visible {
+    outline-offset: 6px;
+  }
+
+  /* Slotted MDX. `prose.css` only spaces its own direct children, so panel
+   * content needs its own rhythm, then the outer margins are trimmed so the
+   * panel padding governs the edges. */
+  .tabs-panel :global(> * + *) {
+    margin-top: 1.35em;
+  }
+
+  .tabs-panel :global(> :first-child) {
+    margin-top: 0;
+  }
+
+  .tabs-panel :global(> :last-child) {
+    margin-bottom: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tabs-tab {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-tabs]").forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')]
+    const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')]
+
+    const select = (index: number, focus = true) => {
+      tabs.forEach((tab, i) => {
+        const selected = i === index
+        tab.setAttribute("aria-selected", String(selected))
+        // Roving tabindex: only the selected tab is in the tab order.
+        tab.tabIndex = selected ? 0 : -1
+        panels[i].hidden = !selected
+      })
+      if (focus) tabs[index].focus()
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(i, false))
+
+      tab.addEventListener("keydown", (event) => {
+        const step: Record<string, number> = {
+          ArrowRight: 1,
+          ArrowLeft: -1,
+          Home: -i,
+          End: tabs.length - 1 - i,
+        }
+        const delta = step[event.key]
+        if (delta === undefined) return
+
+        event.preventDefault()
+        select((i + delta + tabs.length) % tabs.length)
+      })
+    })
+
+    // Panels render visible so they work without JavaScript; collapse now.
+    select(0, false)
+  })
+</script>

@@ -1,0 +1,98 @@
+---
+title: Formulários e emails
+description: Como funcionam os formulários e quizzes, a API pública de respostas, e a lista completa de emails automáticos.
+order: 20
+navTitle: Formulários e emails
+keywords:
+  - formulário
+  - quiz
+  - API
+  - email
+  - transacional
+  - notificação
+---
+
+Duas coisas nesta página: como você coleta informação dos assinantes, e o que a
+plataforma envia por email sem você pedir.
+
+## Formulários
+
+Formulários servem para conhecer o assinante: preferência de moagem, tamanho de
+roupa, restrição alimentar, o que for relevante para montar a caixa certa.
+
+Os tipos de campo disponíveis:
+
+| Tipo               | Vira o quê                               |
+| ------------------ | ---------------------------------------- |
+| **Texto**          | resposta livre                           |
+| **Número**         | um inteiro                               |
+| **Número Decimal** | um valor fracionário                     |
+| **Sim ou Não**     | uma escolha binária                      |
+| **Opção**          | uma escolha entre alternativas definidas |
+
+Qualquer tipo pode virar uma **lista**, para aceitar várias respostas no mesmo
+campo. Campos podem ser obrigatórios ou opcionais, e cada resposta é validada
+campo a campo, sendo marcada como Válida ou Inválida.
+
+<Callout type="info" title="Formulários são montados junto com a equipe Trio">
+  No painel você acompanha os formulários e as respostas, com estatísticas
+  (total de campos, obrigatórios, opcionais, total de respostas) e filtros por
+  tipo de respondente e data. Para criar um formulário novo ou mudar um campo,
+  fale com o suporte.
+</Callout>
+
+Formulários marcados como recomendados aparecem para o assinante responder na
+área dele.
+
+## Quiz em página externa
+
+Existe uma API pública para receber respostas de fora da plataforma. É assim que
+um quiz hospedado na sua própria página ("descubra seu perfil de café") alimenta a
+Trio: a resposta é enviada com o email da pessoa, e a plataforma cria ou encontra
+o **lead** correspondente e guarda a resposta.
+
+Quando essa pessoa depois assina, as respostas seguem junto para a ficha de
+cliente. É a forma de fazer um quiz de topo de funil sem perder o que foi
+respondido.
+
+<Callout type="tip" title="Onde hospedar o quiz">
+  Se você não tem site próprio, dá para subir o HTML do quiz em **Arquivos
+  Estáticos** e servi-lo pelo seu domínio. Veja [Loja e
+  tema](/docs/catalogo/loja-e-tema).
+</Callout>
+
+## Emails para o assinante
+
+A plataforma envia sozinha, em cada momento da vida da assinatura:
+
+| Quando                            | Email                                     |
+| --------------------------------- | ----------------------------------------- |
+| Primeira assinatura               | boas-vindas                               |
+| Assinatura criada                 | confirmação da nova assinatura            |
+| Cobrança paga                     | confirmação de pagamento                  |
+| Cobrança falhou                   | aviso de falha no pagamento               |
+| Tentativas esgotadas              | aviso de que a plataforma parou de tentar |
+| Cartão pediu autenticação         | link para autorizar o pagamento           |
+| Pedido despachado                 | aviso de envio                            |
+| Rastreio adicionado depois        | aviso com o código                        |
+| Assinatura cancelada              | confirmação do cancelamento               |
+| Assinatura encerrada há um tempo  | convite para reativar                     |
+| Endereço alterado pela sua equipe | aviso da alteração                        |
+| Email alterado                    | confirmação da troca                      |
+| Senha                             | redefinição de senha                      |
+
+## Emails para a sua equipe
+
+| Quando                       | Email                        |
+| ---------------------------- | ---------------------------- |
+| Alguém assina                | aviso de nova assinatura     |
+| Uma cobrança falha           | aviso de falha               |
+| Kits criados automaticamente | aviso para preencher os kits |
+
+Sobre o último, veja [Kits e produtos](/docs/catalogo/kits-e-produtos).
+
+<Callout type="tip" title="O email avisa, o contato humano recupera">
+  Os emails automáticos cobrem o aviso, mas em caso de cartão recusado um
+  contato direto por WhatsApp costuma recuperar bem mais assinantes do que o
+  quarto email da sequência. Use o aviso como gatilho para essa conversa.
+</Callout>

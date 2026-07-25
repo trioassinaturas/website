@@ -1,0 +1,86 @@
+---
+title: Programa de indicação
+description: Como ativar o member get member, definir as duas recompensas e acompanhar as indicações.
+order: 30
+navTitle: Programa de indicação
+keywords:
+  - member get member
+  - indicação
+  - referral
+  - recompensa
+  - amigo
+---
+
+O programa de indicação dá a cada assinante um código pessoal para compartilhar.
+Quem usa o código ganha desconto ao assinar, e quem indicou ganha desconto na
+própria próxima cobrança.
+
+A tela fica em **Programa de Indicação**, e há um programa por clube.
+
+## Ativando
+
+<Steps>
+
+1. Marque **Ativar programa de indicação**.
+
+2. Defina a **Recompensa de quem indica**: tipo (percentual ou valor fixo) e
+   valor. Esse desconto entra na próxima cobrança de quem indicou, uma vez por
+   amigo que assinar.
+
+3. Defina a **Recompensa de quem é indicado**: o desconto que o amigo ganha na
+   primeira cobrança dele.
+
+4. Salve. A plataforma gera os códigos pessoais.
+
+</Steps>
+
+<Callout type="info" title="Ativar já contempla quem é cliente hoje">
+  Ao ativar, todos os clientes existentes recebem um código, não apenas os
+  novos. O processo roda em segundo plano, então os códigos aparecem em
+  instantes.
+</Callout>
+
+## Os códigos pessoais
+
+O código é gerado a partir do nome da pessoa: as primeiras letras do nome,
+completadas com letras aleatórias até dez caracteres, tudo em maiúsculas. Cada
+cliente tem exatamente um.
+
+Os códigos aparecem na lista de [Cupons](/docs/vendas/cupons) com o nome
+"Indicação de (nome)". Eles são administrados pelo programa, então evite
+editá-los à mão: ao mudar a recompensa de quem é indicado, a plataforma
+sincroniza todos os códigos de uma vez.
+
+## O que o assinante vê
+
+Na área do assinante existe a página **Suas indicações**, com o código em um
+cartão que pode ser copiado, e a lista de amigos que assinaram. Cada linha mostra
+o valor da recompensa e o estado:
+
+- **Desconto pendente**: o amigo assinou, e o seu desconto entra na próxima
+  cobrança.
+- **Desconto aplicado**: o desconto já foi usado em uma cobrança.
+
+O item de menu só aparece quando o programa está ativo.
+
+## As regras que evitam abuso
+
+- **Ninguém usa o próprio código.** O checkout bloqueia com mensagem explícita.
+- **Cada pessoa só pode ser indicada uma vez**, para sempre. Um cliente indicado
+  não pode ser indicado de novo por outra pessoa.
+- **Uma recompensa por cobrança.** Se um assinante indicou cinco amigos, ele não
+  ganha cinco descontos numa cobrança só: ganha um desconto em cada uma das cinco
+  cobranças seguintes, das mais antigas para as mais novas.
+
+<Callout type="tip" title="Recompensas pendentes não mudam de valor">
+  O valor da recompensa de quem indica é congelado no momento em que o amigo
+  assina. Se você depois aumentar ou reduzir a recompensa do programa, as
+  indicações que já estão pendentes mantêm o valor prometido. Só as novas usam o
+  valor novo.
+</Callout>
+
+## Ordem dos descontos numa cobrança
+
+Quando há cupom e recompensa de indicação na mesma cobrança, a conta é feita
+nesta ordem: primeiro o cupom, depois a recompensa de indicação sobre o valor já
+descontado. Nenhum dos dois deixa o total abaixo de zero.

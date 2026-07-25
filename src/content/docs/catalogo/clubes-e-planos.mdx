@@ -1,0 +1,107 @@
+---
+title: Clubes e planos
+description: Como o clube e seus planos se relacionam, o que significam duração, frequência de cobrança e renovação automática.
+order: 10
+navTitle: Clubes e planos
+keywords:
+  - clube
+  - plano
+  - preço
+  - mensal
+  - semestral
+  - anual
+  - compra única
+---
+
+O **clube** é a linha de assinatura que você vende. Dentro dele ficam os
+**planos**, que são as formas de assinar: cada plano tem um preço, uma duração e
+uma frequência de cobrança.
+
+A tela fica em **Clubes**.
+
+## Configurando o clube
+
+O que você edita no clube em si:
+
+- **Nome** e **foto**, usados na loja e no checkout.
+- **Tabela de frete**, que define quanto custa entregar em cada faixa de CEP.
+  Sem ela o checkout não sabe cobrar entrega. Veja
+  [Tabelas de frete](/docs/operacao/tabelas-de-frete).
+- **Estratégia de cobrança padrão**, que decide em que dia do mês as cobranças
+  caem para as novas assinaturas deste clube. Veja
+  [Estratégias de cobrança](/docs/cobrancas/estrategias-de-cobranca).
+
+## Duração e frequência são coisas diferentes
+
+Esta é a distinção que mais confunde, e vale entender bem porque ela define
+quanto o cliente paga por vez.
+
+**Duração da assinatura** é por quanto tempo a pessoa se compromete: Plano
+Mensal, Plano Semestral ou Plano Anual.
+
+**Frequência de cobrança** é de quanto em quanto tempo você cobra: Cobrança
+Mensal, Semestral ou Anual.
+
+Combinando as duas, você monta ofertas bem diferentes:
+
+| Duração   | Frequência | O que acontece                                   |
+| --------- | ---------- | ------------------------------------------------ |
+| Mensal    | Mensal     | cobra todo mês, o clássico                       |
+| Anual     | Mensal     | compromisso de um ano, cobrado mês a mês         |
+| Anual     | Anual      | um ano pago de uma vez, normalmente com desconto |
+| Semestral | Semestral  | seis meses pagos de uma vez                      |
+
+<Callout type="warning" title="O preço é sempre por cobrança, nunca o total">
+  O valor cadastrado no plano é o que sai do cartão **em cada cobrança**, não o
+  valor cheio da assinatura. Num plano anual cobrado mensalmente, o preço é o
+  valor do mês. Num plano anual cobrado uma vez, é o valor do ano inteiro.
+</Callout>
+
+Quando a duração é maior que a frequência, uma assinatura gera várias entregas
+por cobrança: cobrança semestral rende 6 entregas, cobrança anual rende 12.
+
+## Renovação automática ou compra única
+
+Um plano pode renovar sozinho ao fim do período ou terminar ali.
+
+- **Recorrente**: renova automaticamente. É o padrão.
+- **Compra Única**: não renova. Aparece assim para o cliente no checkout, e a
+  plataforma nunca gera uma nova cobrança quando o período acaba.
+
+Compra única é o formato certo para presentear alguém, ou para uma campanha de
+"experimente três meses".
+
+## Visibilidade e destaque
+
+Cada plano tem dois controles independentes:
+
+- **Visível** ou **Invisível**: só os visíveis aparecem na loja e no checkout.
+  Deixar um plano invisível é como aposentá-lo sem apagar o histórico de quem já
+  assina por ele.
+- **Recomendado**: coloca o selo de destaque no cartão do plano no checkout.
+
+## Como o valor é cobrado
+
+| Modo                          | O que faz                                                             |
+| ----------------------------- | --------------------------------------------------------------------- |
+| **Recorrente (cobra mensal)** | a Trio cobra a cada período, usando pouco do limite do cartão por vez |
+| **Pagamento Único**           | cobra o valor cheio de uma vez                                        |
+
+<Callout type="tip" title="Diluir o valor sem comprometer o limite do cartão">
+  Um plano de duração longa com **frequência de cobrança mensal** deixa o valor
+  parcelado na prática para o assinante, e ocupa muito menos limite do cartão do
+  que uma cobrança única do período inteiro.
+</Callout>
+
+## Criando e mudando planos
+
+<Callout type="info" title="Planos são configurados junto com a equipe Trio">
+  A criação e a edição de planos não estão disponíveis no painel: o que você
+  edita ali é o clube (foto, tabela de frete, estratégia padrão). Para criar um
+  plano novo, mudar um preço ou ajustar duração e frequência, fale com o
+  suporte.
+
+Isso é intencional, porque mexer em preço de assinatura recorrente tem
+consequências sobre quem já assina, e é melhor fazer a quatro mãos.
+
+</Callout>

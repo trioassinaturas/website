@@ -1,0 +1,79 @@
+---
+title: Domínio próprio e DNS
+description: Como apontar o seu domínio para a Trio, quais registros criar e como acompanhar a verificação.
+order: 30
+navTitle: Domínio próprio
+keywords:
+  - DNS
+  - CNAME
+  - domínio
+  - HTTPS
+  - certificado
+---
+
+Por padrão o seu clube vive em um subdomínio da Trio. Quando você quer o
+endereço próprio (`clube.com.br` em vez de `clube.trioassinaturas.com.br`), são
+dois passos: informar o domínio no painel e criar cinco registros no seu
+provedor de DNS.
+
+<Steps>
+
+1. Em **Configurações da Empresa → Informações Básicas**, preencha o campo
+   **Domínio do Cliente** com o seu domínio e salve.
+
+2. Abra **Configurações → Gerenciamento DNS**. A tela passa a listar os
+   registros exatos que você precisa criar, já com os valores do seu clube.
+
+3. No painel do seu provedor de DNS (Registro.br, Cloudflare, GoDaddy e afins),
+   crie os cinco registros da tabela abaixo.
+
+4. Volte ao Gerenciamento DNS e clique em **Atualizar**. Cada registro passa a
+   mostrar seu estado individual.
+
+</Steps>
+
+## Os registros
+
+Todos são do tipo **CNAME**. Substitua `seu-clube` pelo subdomínio do seu clube,
+que a tela mostra preenchido.
+
+| Registro          | Nome              | Aponta para                                   | Para quê               |
+| ----------------- | ----------------- | --------------------------------------------- | ---------------------- |
+| Website           | `@`               | `seu-clube.trioassinaturas.com.br`            | a loja                 |
+| Dashboard         | `dashboard`       | `dashboard.seu-clube.trioassinaturas.com.br`  | o painel da sua equipe |
+| Checkout          | `checkout`        | `checkout.seu-clube.trioassinaturas.com.br`   | o checkout             |
+| Área do Assinante | `assinantes`      | `assinantes.seu-clube.trioassinaturas.com.br` | o portal do assinante  |
+| Validação HTTPS   | `_acme-challenge` | o valor mostrado na tela                      | emitir o certificado   |
+
+<Callout type="warning" title="Não invente o valor do _acme-challenge">
+  Ele é específico do seu domínio e serve para provar que o domínio é seu, para
+  então emitir o certificado HTTPS. Copie exatamente o que a tela do
+  Gerenciamento DNS mostra. Sem esse registro, o site fica sem HTTPS.
+</Callout>
+
+## Acompanhando a verificação
+
+A tela mostra um **Status Geral** e o estado de cada registro:
+
+- **Correto**: o registro existe e aponta para o lugar certo.
+- **Alvo Incorreto**: o registro existe, mas aponta para outro lugar. Quase
+  sempre é um valor colado pela metade ou um domínio antigo.
+- **Não Encontrado**: o registro ainda não existe, ou o DNS ainda não propagou.
+- **Erro**: a consulta em si falhou. Tente atualizar de novo em alguns minutos.
+
+Há também **Última verificação**, para você saber se está olhando um resultado
+fresco ou de dez minutos atrás.
+
+<Callout type="tip" title="Propagação leva tempo">
+  Registro recém-criado costuma aparecer em minutos, mas pode levar horas
+  dependendo do provedor. "Não Encontrado" logo depois de criar é normal: espere
+  e clique em Atualizar novamente antes de mexer em qualquer coisa.
+</Callout>
+
+## CNAME no domínio raiz
+
+Alguns provedores não deixam criar um CNAME no domínio raiz (`@`), por uma
+limitação antiga do padrão de DNS. A própria tela tem uma seção sobre isso.
+Provedores modernos resolvem com um recurso chamado ALIAS, ANAME ou "CNAME
+flattening". Se o seu não tiver nenhum dos três, o caminho é transferir o DNS
+para um que tenha.

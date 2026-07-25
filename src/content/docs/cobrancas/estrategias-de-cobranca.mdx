@@ -1,0 +1,106 @@
+---
+title: Estratégias de cobrança
+description: As três formas de decidir em que dia do mês cada assinatura é cobrada, e quando usar cada uma.
+order: 20
+navTitle: Estratégias de cobrança
+keywords:
+  - cobrança
+  - dia de cobrança
+  - dia de corte
+  - dia fixo
+  - aniversário
+---
+
+Uma estratégia de cobrança responde a uma pergunta só: **em que dia do mês esta
+assinatura é cobrada?** A tela fica em **Estratégias de Cobrança**, e cada clube
+tem uma estratégia padrão para novas assinaturas.
+
+## O dia de aniversário
+
+Toda assinatura nasce com um **dia de aniversário da cobrança**, tirado da data em
+que ela foi criada. Quem assinou dia 8 tem aniversário no dia 8.
+
+<Callout type="info" title="Por que o dia máximo é 28">
+  Dias 29, 30 e 31 são convertidos para 28. Se não fosse assim, quem assinasse
+  dia 31 não teria data de cobrança em fevereiro, abril, junho e mais quatro
+  meses do ano. O 28 é o último dia que existe em todos os meses.
+</Callout>
+
+## As três estratégias
+
+<Tabs
+  items={[
+    { id: "mesmo-dia", label: "Mesmo Dia" },
+    { id: "corte", label: "Mesmo Dia com Corte" },
+    { id: "fixo", label: "Dia Fixo" },
+  ]}
+>
+  <Fragment slot="mesmo-dia">
+
+    Cobra na data de aniversário de cada assinatura. Quem assinou dia 8 é cobrado
+    todo dia 8; quem assinou dia 22, todo dia 22.
+
+    **Quando usar:** é o comportamento mais intuitivo e o que o assinante espera.
+    Boa escolha padrão.
+
+    **O custo:** sua receita entra pingada ao longo do mês, e a operação de envio
+    também se espalha.
+
+  </Fragment>
+  <Fragment slot="corte">
+
+    Cobra na data de aniversário, **desde que ela não passe do dia de corte**. Se
+    passar, a cobrança é puxada para o dia de corte.
+
+    Com corte no dia 10: quem assinou dia 5 é cobrado dia 5; quem assinou dia 20
+    é cobrado dia 10.
+
+    **Quando usar:** quando você quer concentrar as cobranças na primeira parte do
+    mês sem tirar de todos a data própria. Ajuda a fechar o lote de envio numa
+    janela previsível.
+
+  </Fragment>
+  <Fragment slot="fixo">
+
+    Cobra todo mundo no mesmo dia do mês, independentemente de quando cada um
+    assinou.
+
+    **Quando usar:** quando a operação é em lote e você quer um único dia de
+    faturamento e um único dia de separação de caixas.
+
+    **O custo:** quem assina no dia 12 com dia fixo 5 tem um primeiro intervalo
+    curto até a segunda cobrança. Vale explicar isso na página de vendas.
+
+  </Fragment>
+</Tabs>
+
+Tanto o **Dia de Corte** quanto o **Dia Fixo** aceitam valores de 1 a 28, pela
+mesma razão do dia de aniversário.
+
+## Como a próxima data é calculada
+
+A conta é sempre em duas etapas:
+
+<Steps>
+
+1. Avança a data pelo intervalo da frequência de cobrança: um mês para cobrança
+   mensal, seis meses para semestral, doze para anual.
+
+2. Ajusta o dia conforme a estratégia: aniversário, aniversário limitado pelo
+   corte, ou o dia fixo. Se o mês não tiver aquele dia, usa o último dia do mês.
+
+</Steps>
+
+## Definindo a estratégia
+
+Cada clube tem uma **estratégia de cobrança padrão**, aplicada às novas
+assinaturas daquele clube (o campo está na edição do clube, em
+[Clubes e planos](/docs/catalogo/clubes-e-planos)). Assinaturas individuais
+mostram, na ficha, qual estratégia está valendo para elas.
+
+<Callout type="tip" title="Trocar a estratégia não reescreve o passado">
+  Mudar a estratégia padrão do clube afeta como as próximas datas são calculadas
+  daqui para a frente. Não reagenda retroativamente cobranças já programadas, e
+  não devolve nem cobra diferença de dias. Para um clube em operação, prefira
+  mudar isso em época de baixo movimento.
+</Callout>

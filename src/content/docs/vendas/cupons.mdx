@@ -1,0 +1,104 @@
+---
+title: Cupons de desconto
+description: Como criar cupons, o que cada campo controla e como ler o status de um cupom.
+order: 20
+navTitle: Cupons
+keywords:
+  - cupom
+  - desconto
+  - promoção
+  - campanha
+  - resgate
+---
+
+Cupons ficam em **Cupons**, no painel, com criação, edição e exclusão. Cada cupom
+é um código que o cliente digita no checkout.
+
+## Os campos
+
+| Campo                                   | O que faz                                                               |
+| --------------------------------------- | ----------------------------------------------------------------------- |
+| **Código**                              | o que o cliente digita. Salvo sempre em maiúsculas e único no seu clube |
+| **Nome**                                | uma etiqueta interna, para você se lembrar da campanha                  |
+| **Tipo de Desconto**                    | Percentual ou Valor Fixo                                                |
+| **Valor do Desconto**                   | o número. Em Percentual vai de 1 a 100                                  |
+| **Duração**                             | em quantas cobranças o desconto vale (veja abaixo)                      |
+| **Aplicar em**                          | Total, Assinatura ou Frete                                              |
+| **Máximo de Resgates**                  | quantas vezes o cupom pode ser usado no total. Vazio é ilimitado        |
+| **Máximo por Cliente**                  | quantas vezes a mesma pessoa pode usar. O padrão é 1                    |
+| **Valor Mínimo do Pedido**              | abaixo disso o cupom é recusado                                         |
+| **Válido a partir de** / **Válido até** | a janela de validade. Ambos opcionais                                   |
+| **Ativo**                               | o interruptor geral                                                     |
+
+## Duração: quantas cobranças o desconto acompanha
+
+Este é o campo que mais muda o custo de uma campanha, porque num negócio de
+recorrência um desconto pode se repetir para sempre.
+
+| Duração                   | Efeito                                                        |
+| ------------------------- | ------------------------------------------------------------- |
+| **Primeira cobrança**     | desconta só no checkout                                       |
+| **Cobranças recorrentes** | desconta por um número de meses que você define               |
+| **Todas as cobranças**    | desconta em todas as cobranças, enquanto a assinatura existir |
+
+<Callout type="warning" title="Cuidado com a duração “Todas as cobranças”">
+  Um cupom de 30% com duração "Todas as cobranças" reduz a receita daquele
+  assinante em 30% pelo tempo que ele ficar, não só no primeiro mês. Para
+  campanha de aquisição, "Primeira cobrança" quase sempre é o que você quer.
+</Callout>
+
+## Aplicar em: sobre o que incide o desconto
+
+- **Total**: sobre assinatura mais frete.
+- **Assinatura**: só sobre o valor do plano, o frete continua cheio.
+- **Frete**: o clássico "frete grátis", que combina bem com Valor Fixo.
+
+Um desconto em Valor Fixo nunca deixa o total negativo: ele é limitado ao valor
+disponível.
+
+## Como ler o status
+
+O status não é um campo, é o resultado dos outros. A ordem de avaliação:
+
+<Steps>
+
+1. **Ativo**: está marcado como ativo e dentro da janela de validade. Pode ser
+   usado agora.
+
+2. **Inativo**: o interruptor **Ativo** está desligado.
+
+3. **Expirado**: a data de "Válido até" já passou.
+
+4. **Esgotado**: o Máximo de Resgates foi alcançado.
+
+5. **Agendado**: está ativo, mas o "Válido a partir de" ainda não chegou.
+
+</Steps>
+
+## Resgates
+
+A ficha do cupom mostra quantas vezes ele foi usado e os resgates recentes, com o
+desconto real concedido em cada um. Isso importa porque em desconto percentual o
+valor varia conforme o plano escolhido.
+
+## Quando um cupom é recusado
+
+As mensagens que o cliente pode ver no checkout, e o que cada uma quer dizer:
+
+| Mensagem                                             | Causa                                 |
+| ---------------------------------------------------- | ------------------------------------- |
+| Cupom não encontrado                                 | o código não existe no seu clube      |
+| Cupom inativo                                        | o interruptor Ativo está desligado    |
+| Cupom ainda não válido                               | o "Válido a partir de" não chegou     |
+| Cupom expirado                                       | passou do "Válido até"                |
+| Limite de resgates atingido                          | bateu o Máximo de Resgates            |
+| Você já utilizou este cupom                          | bateu o Máximo por Cliente            |
+| Valor mínimo do pedido não atingido                  | o carrinho é menor que o Valor Mínimo |
+| Você não pode usar o seu próprio código de indicação | é o cupom pessoal do próprio cliente  |
+
+## Cupons de indicação
+
+Cada cliente tem um cupom pessoal gerado automaticamente, que aparece junto dos
+demais na lista. Ele é gerenciado pelo
+[programa de indicação](/docs/vendas/programa-de-indicacao) e não deve ser
+editado à mão.

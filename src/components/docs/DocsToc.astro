@@ -1,0 +1,79 @@
+---
+import type { MarkdownHeading } from "astro"
+
+interface Props {
+  headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+
+// Only h2/h3: h1 is the page title, h4 and below is too much detail.
+const items = headings.filter(({ depth }) => depth === 2 || depth === 3)
+
+// A one-item list is noise rather than navigation.
+const show = items.length > 1
+---
+
+{
+  show && (
+    <nav
+      class="docs-rail docs-toc"
+      aria-labelledby="docs-toc-label"
+      data-pagefind-ignore
+    >
+      <p class="docs-toc-label" id="docs-toc-label">
+        Nesta página
+      </p>
+      <ul class="docs-toc-list" data-toc>
+        {items.map((heading) => (
+          <li
+            class:list={["docs-toc-item", { "is-nested": heading.depth === 3 }]}
+          >
+            <a class="docs-toc-link" href={`#${heading.slug}`}>
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<script>
+  const toc = document.querySelector<HTMLElement>("[data-toc]")
+
+  if (toc) {
+    const links = [...toc.querySelectorAll<HTMLAnchorElement>(".docs-toc-link")]
+    const byId = new Map(
+      links.map((link) => [decodeURIComponent(link.hash.slice(1)), link]),
+    )
+    const headings = [...byId.keys()]
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null)
+
+    const setActive = (id: string) => {
+      for (const [key, link] of byId) {
+        link.classList.toggle("is-active", key === id)
+      }
+    }
+
+    /* Tracks the heading closest above the top of the viewport, so the marker
+     * follows reading position rather than whichever heading is merely visible. */
+    const observer = new IntersectionObserver(
+      () => {
+        const scrolled = window.scrollY + 96
+        let current = headings[0]
+
+        for (const heading of headings) {
+          if (heading.offsetTop <= scrolled) current = heading
+          else break
+        }
+
+        if (current) setActive(current.id)
+      },
+      { rootMargin: "-80px 0px -70% 0px", threshold: [0, 1] },
+    )
+
+    for (const heading of headings) observer.observe(heading)
+  }
+</script>

@@ -1,0 +1,95 @@
+---
+title: Pagamentos e retentativas
+description: O que acontece quando o cartão recusa, quantas tentativas a plataforma faz e quando uma assinatura é cancelada por falha de pagamento.
+order: 30
+navTitle: Pagamentos e retentativas
+keywords:
+  - cobrança
+  - falha
+  - retentativa
+  - churn involuntário
+  - cartão recusado
+  - cartão de crédito
+---
+
+Falha de pagamento não é exceção em assinatura: é rotina. Cartão vence, limite
+estoura, banco bloqueia. Esta página é sobre o que a plataforma faz sozinha nesses
+casos, e onde você entra.
+
+## Cobranças e tentativas
+
+Uma **cobrança** é o valor devido em um ciclo. Uma **tentativa** é cada
+investida no cartão. Uma cobrança pode ter várias tentativas.
+
+A tela de **Cobranças** mostra valor, situação (Pendente, Sucesso, Falhou),
+provedor, método, o período cobrado e as tentativas com seus erros. A lista se
+atualiza sozinha conforme as cobranças são processadas.
+
+## O calendário automático
+
+| Rotina                              | Quando roda               |
+| ----------------------------------- | ------------------------- |
+| Processar as cobranças do dia       | uma vez por dia, de manhã |
+| Retentar as tentativas que falharam | a cada 6 horas            |
+| Criar pedidos que ficaram pendentes | a cada 15 minutos         |
+
+## Quantas tentativas
+
+São até **5 tentativas automáticas** por cobrança, com **2 dias de intervalo**
+entre elas. Ou seja, uma cobrança que falha na primeira investida tem cerca de
+oito dias de tentativas antes de a plataforma desistir dela.
+
+Quando as cinco terminam sem sucesso, o cliente e a sua equipe recebem um email
+avisando que as tentativas se esgotaram.
+
+## Retentativa manual pelo assinante
+
+Além das automáticas, o assinante pode forçar uma nova tentativa na área dele, em
+**Cobranças**. Essa tentativa é imediata e **não respeita o limite de cinco**:
+serve justamente para o caso de a pessoa ter resolvido o problema (trocou o
+cartão, liberou o limite) e não querer esperar o próximo ciclo.
+
+<Callout type="tip" title="O roteiro de atendimento para cartão recusado">
+  Peça para o assinante atualizar o cartão na área dele e, em seguida, usar a
+  retentativa manual na cobrança que falhou. Isso resolve o caso na hora, sem
+  precisar de ninguém do seu time no painel.
+</Callout>
+
+## Cancelamento por falha repetida
+
+Se **3 ciclos consecutivos** falharem por completo, a plataforma cancela a
+assinatura automaticamente. Esse cancelamento é registrado como churn
+involuntário, para você conseguir separar quem foi embora por escolha de quem foi
+embora por problema de pagamento.
+
+O contador de ciclos falhos volta a zero assim que uma cobrança tem sucesso, e
+ele aparece na ficha da assinatura.
+
+<Callout type="warning" title="Vale agir antes do terceiro ciclo">
+  Entre o primeiro ciclo falho e o cancelamento passam-se semanas, e nesse
+  intervalo a pessoa ainda quer ser sua assinante. É o melhor momento para um
+  contato humano: um WhatsApp costuma recuperar mais do que o quinto email
+  automático.
+</Callout>
+
+## Eventos de cobrança
+
+A tela de **Eventos de Cobrança** é o histórico de tudo que o motor de cobrança
+fez, com tipo de evento, nível (informação, alerta, erro) e data. É onde olhar
+quando um caso específico não fecha e você precisa reconstruir o que aconteceu,
+na ordem.
+
+## Método de pagamento
+
+As assinaturas são cobradas em **cartão de crédito**. O método habilitado no seu
+clube aparece em **Configurações da Empresa → Configuração de Pagamento**, e é
+definido junto com a equipe Trio.
+
+Sobre como o valor de cada cobrança é formado, veja
+[Clubes e planos](/docs/catalogo/clubes-e-planos).
+
+## Trocar o cartão
+
+O assinante troca o cartão na área dele, por um portal do próprio provedor de
+pagamento. A sua equipe não tem (e não deve ter) acesso aos dados do cartão em
+nenhum momento.

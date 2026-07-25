@@ -1,0 +1,92 @@
+---
+title: Kits e produtos
+description: Como montar a caixa de cada período, as regras de data dos kits e o cadastro de produtos.
+order: 20
+navTitle: Kits e produtos
+keywords:
+  - kit
+  - caixa
+  - produto
+  - SKU
+  - período
+---
+
+O **kit** é o conteúdo da caixa em um período. O de março tem uma lista de
+produtos, o de abril tem outra: é o kit que dá ao clube a graça da surpresa.
+
+Os kits ficam dentro de cada clube, em **Clubes → (o clube) → Kits**.
+
+## Produtos
+
+Antes de montar kits, cadastre o que vai dentro deles, em **Produtos**. Cada
+produto tem nome, **SKU** (um código único seu), descrição e foto.
+
+O mesmo produto pode entrar em vários kits, com quantidades diferentes em cada
+um. Cadastrar bem os produtos é o que permite depois saber quanto de cada item
+você precisa comprar para o lote do mês.
+
+## Criando um kit
+
+A criação é de um clique, não um formulário: a plataforma já sabe qual deveria
+ser o próximo período.
+
+<Steps>
+
+1. No clube, abra **Kits** e crie um novo kit.
+
+2. A plataforma calcula as datas sozinha: o início é o dia seguinte ao fim do
+   último kit (ou hoje, se for o primeiro), e o fim vem da duração do período do
+   clube. O nome sai como "Kit (nome do clube) - (data)", e a foto é copiada do
+   clube.
+
+3. Depois de criado, edite o kit para dar o nome de verdade, trocar a foto e
+   escolher os produtos com as quantidades.
+
+</Steps>
+
+## As regras de data
+
+Os kits de um clube formam uma linha do tempo contínua, sem buracos nem
+sobreposição. Duas validações garantem isso:
+
+- **A data final tem que fechar o período exato.** Se o clube entrega
+  mensalmente, um kit que começa em 1º de março precisa terminar em 31 de março.
+  Nem antes, nem depois.
+- **Dois kits do mesmo clube não podem se sobrepor.** Se as datas colidirem, a
+  plataforma recusa e diz com qual kit houve o conflito.
+
+<Callout type="warning" title="A duração do período vem dos planos visíveis">
+  O tamanho do período de um clube é definido pela **frequência de cobrança mais
+  curta entre os planos visíveis**, porque é essa que define de quanto em quanto
+  tempo você despacha caixas.
+
+A consequência prática: tornar visível um plano com frequência mais curta muda
+qual data final é válida para os kits seguintes. Se você começar a receber erro
+de data ao criar kits, foi provavelmente isso que mudou.
+
+</Callout>
+
+## Estados do kit
+
+A lista de kits pode ser filtrada por três estados, calculados a partir da data
+de hoje:
+
+| Estado      | Significa                   |
+| ----------- | --------------------------- |
+| **Próximo** | o período ainda não começou |
+| **Ativo**   | hoje está dentro do período |
+| **Passado** | o período já terminou       |
+
+## Kits criados automaticamente
+
+Quando alguém assina um plano pré-pago (paga seis meses ou um ano de uma vez), a
+plataforma precisa de kits para todos os períodos já pagos, senão os pedidos não
+têm o que referenciar. Se esses kits ainda não existem, ela cria kits provisórios
+com nomes de período ("Janeiro 2026", "Fevereiro 2026") e avisa a sua equipe por
+email.
+
+<Callout type="tip" title="Kits provisórios pedem para ser preenchidos">
+  Eles nascem sem produtos, só para reservar o período. Assim que você souber o
+  que vai na caixa, entre no kit e monte a lista. O email de aviso existe
+  justamente para você não descobrir isso na hora de despachar.
+</Callout>

@@ -2,12 +2,13 @@
 import { defineConfig } from "astro/config"
 import { unified } from "@astrojs/markdown-remark"
 import mdx from "@astrojs/mdx"
+import sitemap from "@astrojs/sitemap"
+import pagefind from "./src/integrations/pagefind"
 
 // https://astro.build/config
 export default defineConfig({
-  // Needed to build absolute canonical/og:image URLs.
   site: "https://trioassinaturas.com.br",
-  integrations: [mdx()],
+  integrations: [mdx(), sitemap(), pagefind()],
   markdown: {
     shikiConfig: {
       // The site is light mode only, so a single light theme is enough.

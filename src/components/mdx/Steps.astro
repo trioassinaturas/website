@@ -1,0 +1,60 @@
+---
+/**
+ * Turns a plain Markdown ordered list into a numbered walkthrough, with a line
+ * connecting the steps. Wrap a single `1. 2. 3.` list in it.
+ */
+---
+
+<div class="steps">
+  <slot />
+</div>
+
+<style>
+  /* `:global()` throughout: the list comes from slotted MDX, which Astro's
+   * scoped styles don't reach. Builds on the counters in `prose.css`. */
+  .steps {
+    margin-block: 2rem;
+  }
+
+  .steps :global(ol) {
+    position: relative;
+  }
+
+  /* The connecting line, inset so it starts and ends inside the first and last
+   * markers rather than floating past them. */
+  .steps :global(ol)::before {
+    content: "";
+    position: absolute;
+    left: 0.9rem;
+    top: 1.2rem;
+    bottom: 1.2rem;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(
+      to bottom,
+      var(--blue-soft),
+      color-mix(in srgb, var(--coral) 30%, transparent)
+    );
+  }
+
+  .steps :global(ol > li) {
+    padding-inline-start: 3rem;
+  }
+
+  .steps :global(ol > li + li) {
+    margin-top: 1.5rem;
+  }
+
+  .steps :global(ol > li)::before {
+    width: 1.85rem;
+    height: 1.85rem;
+    top: -0.1em;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 2px solid var(--blue);
+    color: var(--blue-deep);
+    font-size: 0.9rem;
+    /* Lifts the marker above the connecting line. */
+    box-shadow: 0 0 0 4px var(--cream);
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+title: Loja e tema do site
+description: Como editar a página de vendas do clube, quais seções existem no tema e quando usar um HTML personalizado.
+order: 30
+navTitle: Loja e tema
+keywords:
+  - landing page
+  - página de vendas
+  - tema
+  - CMS
+  - HTML
+  - arquivos estáticos
+---
+
+A loja é a página pública do clube: onde a pessoa entende a proposta, vê os
+planos e clica para assinar. Ela é editada em **Configurações → Tema do
+Website**.
+
+Há dois caminhos, e você escolhe um deles.
+
+## Caminho 1: o tema pronto
+
+O tema disponível hoje se chama **Café**. Você não mexe em código: monta a página
+ligando e preenchendo seções.
+
+| Seção                    | Para que serve                                                      | Pode repetir |
+| ------------------------ | ------------------------------------------------------------------- | ------------ |
+| **Banner**               | a primeira dobra, com imagem, título, subtítulo e um botão opcional | sim          |
+| **Sobre a empresa**      | blocos curtos com ícone, título e descrição                         | sim          |
+| **Depoimentos**          | foto, nome, informação, texto e uma nota de 0 a 10                  | sim          |
+| **Perguntas Frequentes** | pares de pergunta e resposta                                        | sim          |
+| **Produtos/Checkout**    | a vitrine dos planos                                                | fixa         |
+| **Rodapé**               | o pé da página                                                      | fixa         |
+
+As duas últimas são automáticas: a plataforma as monta a partir dos seus planos
+e dos dados da empresa, e você não as edita.
+
+### Regras de imagem
+
+As seções com imagem validam dimensões, e o motivo é evitar banner esticado ou
+ícone borrado:
+
+- **Banner**: entre 1200×600 e 3840×2160 px.
+- **Sobre a empresa**: quadrada, entre 64×64 e 200×200 px.
+
+Sempre preencha o texto alternativo da imagem. É o que leitores de tela
+descrevem e o que o Google lê.
+
+<Callout type="warning" title="O que você salva vai direto ao ar">
+  Toda alteração no tema é aplicada imediatamente na página pública. O hábito
+  que salva: edite uma seção por vez e abra a loja em outra aba para conferir.
+  Evite reescrever a página inteira em horário de movimento.
+</Callout>
+
+## Caminho 2: HTML personalizado
+
+Se você quer controle total, ou já tem uma página feita por alguém, dá para subir
+um arquivo **HTML** (até 20 MB) como tema. Nesse modo a plataforma serve o seu
+HTML como página inicial do clube.
+
+<Callout type="info" title="Um ou outro, nunca os dois">
+  A plataforma não deixa ter um tema selecionado e um HTML personalizado ao
+  mesmo tempo. Ao subir o HTML você abandona as seções do tema Café, e para
+  voltar basta remover o arquivo.
+</Callout>
+
+Duas coisas continuam funcionando no modo HTML, e vale saber:
+
+- Os **códigos de rastreamento** (Meta Pixel, Google Tag Manager) são injetados
+  automaticamente. Você não precisa colar os scripts no seu HTML.
+- Você pode hospedar os arquivos que a página precisa (CSS, imagens, um quiz em
+  HTML) em **Arquivos Estáticos**, no painel. Cada arquivo ganha um endereço
+  público em `/static/(chave)`, que você referencia no seu HTML.
+
+## Arquivos estáticos
+
+A tela de **Arquivos Estáticos** aceita HTML, CSS, JSON, PDF e imagens de até
+20 MB, mostra o endereço público de cada um e tem um controle de download (se o
+arquivo abre no navegador ou baixa direto).
+
+É o lugar certo para páginas de campanha, um regulamento em PDF ou o quiz que
+alimenta a captação de leads. Veja
+[Formulários e emails](/docs/recursos/formularios-e-emails) para conectar um quiz
+externo à plataforma.

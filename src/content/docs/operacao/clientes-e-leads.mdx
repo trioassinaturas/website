@@ -1,0 +1,78 @@
+---
+title: Clientes e leads
+description: A ficha do cliente, a lista de quem começou o checkout e não terminou, e o acesso à área do assinante como se fosse ele.
+order: 30
+navTitle: Clientes e leads
+keywords:
+  - cliente
+  - lead
+  - CRM
+  - CPF
+  - funil
+  - impersonação
+---
+
+Duas telas, dois momentos da mesma pessoa: **Leads** são quem começou a assinar,
+**Clientes** são quem completou.
+
+## Clientes
+
+A ficha reúne tudo sobre a pessoa: dados de contato, CPF, telefone, endereços,
+assinaturas, pedidos, cobranças, respostas de formulários e indicações. A lista
+pode ser filtrada pela situação da assinatura (ativa, pausada, cancelada, ou sem
+assinatura) e exportada em CSV e XLSX.
+
+Duas ações úteis na ficha:
+
+- **Enviar redefinição de senha**, para quando a pessoa não consegue entrar na
+  área do assinante.
+- **Acessar como assinante**, explicado mais abaixo.
+
+<Callout type="info" title="O documento é o CPF do assinante">
+  O campo valida formato e dígitos verificadores de CPF, e pode ficar vazio.
+</Callout>
+
+## Leads
+
+Todo mundo que começa o checkout entra aqui, com a **etapa mais distante** que
+alcançou: plano, dados, endereço, pagamento ou concluído. A lista se atualiza em
+tempo real, e pode ser filtrada por convertidos e não convertidos.
+
+Quando a pessoa completa a assinatura, o lead é promovido a cliente
+automaticamente, levando junto as respostas de formulários que ela tenha dado
+antes.
+
+<Callout type="tip" title="O relatório mais acionável do painel">
+  Filtre os leads não convertidos e olhe em que etapa eles pararam. Muita gente
+  parando em **endereço** costuma significar frete alto ou CEP sem cobertura.
+  Muita gente parando em **pagamento** aponta para cartão recusado ou dúvida
+  sobre a recorrência. É informação que se transforma em ajuste concreto.
+</Callout>
+
+## Acessar como assinante
+
+Você pode gerar um link temporário que abre a área do assinante como aquela
+pessoa. É o jeito mais rápido de entender um problema que o cliente relata mas
+não consegue descrever ("não acho onde troca o endereço").
+
+O acesso é limitado no tempo: o link vale poucos minutos e a sessão tem duração
+curta. Também é possível gerar um QR code, útil no atendimento por telefone. Toda
+sessão desse tipo fica marcada como tal.
+
+<Callout type="warning" title="É o acesso a uma conta real, com dados reais">
+  Enquanto estiver nesse modo você está dentro da conta da pessoa, e o que fizer
+  lá conta como ação dela. Use para diagnosticar, evite usar para alterar coisas
+  sem que ela tenha pedido, e saia ao terminar.
+</Callout>
+
+## Boas-vindas
+
+Na primeira assinatura, o cliente recebe um email de boas-vindas. A partir daí a
+comunicação segue os eventos da assinatura, descritos em
+[Formulários e emails](/docs/recursos/formularios-e-emails).
+
+## Filtros, ordenação e exportação
+
+Todas as listas do painel seguem o mesmo padrão: busca por texto, filtros de
+período e de situação, botão para limpar filtros, ordenação por coluna, paginação
+e exportação em **CSV** e **XLSX**. Aprendendo em uma tela, você sabe usar todas.

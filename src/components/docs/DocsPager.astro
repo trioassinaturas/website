@@ -1,0 +1,48 @@
+---
+import type { DocsPager } from "../../lib/docs"
+
+interface Props {
+  pager: DocsPager
+}
+
+const { pager } = Astro.props
+const { prev, next } = pager
+---
+
+{
+  (prev || next) && (
+    <nav class="docs-pager" aria-label="Navegação entre páginas">
+      {prev && (
+        <a
+          class="docs-pager-link is-prev"
+          href={prev.url}
+          rel="prev"
+          data-ph-capture-attribute-cta="docs-pager"
+          data-ph-capture-attribute-cta-section="docs"
+          data-ph-capture-attribute-cta-channel="internal"
+        >
+          <span class="docs-pager-direction">
+            <span aria-hidden="true">←</span> Anterior
+          </span>
+          <span class="docs-pager-title">{prev.title}</span>
+        </a>
+      )}
+
+      {next && (
+        <a
+          class="docs-pager-link is-next"
+          href={next.url}
+          rel="next"
+          data-ph-capture-attribute-cta="docs-pager"
+          data-ph-capture-attribute-cta-section="docs"
+          data-ph-capture-attribute-cta-channel="internal"
+        >
+          <span class="docs-pager-direction">
+            Próxima <span aria-hidden="true">→</span>
+          </span>
+          <span class="docs-pager-title">{next.title}</span>
+        </a>
+      )}
+    </nav>
+  )
+}

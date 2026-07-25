@@ -37,4 +37,23 @@ const blog = defineCollection({
     }),
 })
 
-export const collections = { authors, blog }
+const docs = defineCollection({
+  // Nested directories become the first URL segment and the sidebar group,
+  // so `pagamentos/cupons.mdx` is `/docs/pagamentos/cupons`. Group labels and
+  // their display order live in `src/lib/docs.ts`.
+  loader: glob({ pattern: "**/*.mdx", base: "./src/content/docs" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    /** Position inside the section. Sparse numbering (10, 20, 30) eases inserts. */
+    order: z.number().int(),
+    /** Shorter label for the sidebar, when the page title is too long. */
+    navTitle: z.string().optional(),
+    /** Extra search terms, indexed without appearing in the copy. */
+    keywords: z.array(z.string()).default([]),
+    /** Drafts show up in `astro dev`, never in the published site. */
+    draft: z.boolean().default(false),
+  }),
+})
+
+export const collections = { authors, blog, docs }

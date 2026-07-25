@@ -1,0 +1,118 @@
+---
+import type { MarkdownHeading } from "astro"
+import Layout from "./Layout.astro"
+import DocsSidebar from "../components/docs/DocsSidebar.astro"
+import DocsToc from "../components/docs/DocsToc.astro"
+import DocsPager from "../components/docs/DocsPager.astro"
+import DocsSearch from "../components/docs/DocsSearch.astro"
+import {
+  docSection,
+  sectionLabel,
+  type Doc,
+  type DocsNav,
+  type DocsPager as Pager,
+} from "../lib/docs"
+import "../styles/prose.css"
+import "../styles/docs.css"
+
+interface Props {
+  doc: Doc
+  headings: MarkdownHeading[]
+  nav: DocsNav
+  pager: Pager
+}
+
+const { doc, headings, nav, pager } = Astro.props
+const { title, description, keywords } = doc.data
+const label = sectionLabel(docSection(doc))
+---
+
+<Layout
+  title={`${title} | Documentação Trio Assinaturas`}
+  description={description}
+>
+  <div class="container docs-shell">
+    <div class="docs-sidebar-column">
+      <div class="docs-sidebar-search">
+        <DocsSearch placeholder="Buscar" section="docs-sidebar" />
+      </div>
+      <DocsSidebar nav={nav} />
+    </div>
+
+    <div class="docs-main">
+      {
+        /* The only `data-pagefind-body` on the site, which is what keeps the
+          search index scoped to the documentation. */
+      }
+      <article data-pagefind-body data-pagefind-meta={`secao:${label}`}>
+        <header class="docs-article-header">
+          <p class="section-eyebrow">{label}</p>
+          <h1 class="docs-article-title" data-pagefind-meta="title">{title}</h1>
+          <p class="docs-article-description">{description}</p>
+        </header>
+
+        <div class="prose docs-article-body">
+          <slot />
+        </div>
+
+        {
+          keywords.length > 0 && (
+            /* Indexed as synonyms without showing up on the page. */
+            <span class="sr-only">{keywords.join(", ")}</span>
+          )
+        }
+      </article>
+
+      <DocsPager pager={pager} />
+    </div>
+
+    <DocsToc headings={headings} />
+  </div>
+</Layout>
+
+<style>
+  .docs-sidebar-column {
+    position: sticky;
+    top: 5.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-width: 0;
+  }
+
+  /* The sidebar scrolls inside the column, so the column itself must not. */
+  .docs-sidebar-column :global(.docs-sidebar) {
+    position: static;
+    max-height: calc(100vh - 12rem);
+  }
+
+  @media (max-width: 51rem) {
+    .docs-sidebar-column {
+      position: static;
+    }
+
+    .docs-sidebar-column :global(.docs-sidebar) {
+      max-height: none;
+    }
+  }
+</style>
+
+<script>
+  /* Anchor links for headings. Astro already assigns the ids; `prose.css`
+   * styles links inside headings, and `docs.css` handles the hover reveal. */
+  const headings = document.querySelectorAll<HTMLElement>(
+    ".docs-article-body :is(h2, h3, h4)[id]",
+  )
+
+  for (const heading of headings) {
+    const anchor = document.createElement("a")
+    anchor.className = "heading-anchor"
+    anchor.href = `#${heading.id}`
+    anchor.textContent = "#"
+    anchor.setAttribute(
+      "aria-label",
+      `Link para a seção ${heading.textContent}`,
+    )
+    heading.append(anchor)
+  }
+</script>

@@ -1,0 +1,16 @@
+---
+/**
+ * MDX override for `<table>`.
+ *
+ * `prose.css` sizes tables with `width: max-content` so columns don't wrap into
+ * cramped strips, and expects a `.table-wrapper` around them to scroll the
+ * overflow. Without that wrapper a wide table spills out of its grid column and
+ * paints over the table of contents, so every Markdown table gets one here.
+ */
+---
+
+<div class="table-wrapper">
+  <table>
+    <slot />
+  </table>
+</div>

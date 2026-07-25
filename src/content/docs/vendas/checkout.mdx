@@ -1,0 +1,101 @@
+---
+title: Checkout
+description: As etapas do checkout, o cálculo de frete por CEP, cupons e o que acontece quando um cliente antigo volta.
+order: 10
+navTitle: Checkout
+keywords:
+  - checkout
+  - assinar
+  - CEP
+  - frete
+  - cartão
+  - 3DS
+---
+
+O checkout vive em `checkout.seudominio.com.br` e é uma página única com quatro
+etapas em acordeão. Cada etapa fecha ao ser concluída e pode ser reaberta para
+edição, com o resumo do pedido sempre visível ao lado.
+
+## As quatro etapas
+
+<Steps>
+
+1. **Escolha seu plano.** Os cartões mostram a duração (Plano Mensal, Semestral
+   ou Anual), a frequência de cobrança, o selo "Recomendado" quando houver, e se
+   é Compra Única ou renovação automática.
+
+2. **Suas informações.** Nome, email, telefone e CPF.
+
+3. **Endereço de entrega.** O CEP preenche o endereço sozinho, e o frete é
+   calculado na hora. Há a opção de usar um endereço diferente para cobrança.
+
+4. **Pagamento.** Os dados do cartão são digitados num campo do próprio provedor
+   de pagamento, e a plataforma nunca vê o número do cartão.
+
+</Steps>
+
+O **Resumo do pedido** acompanha tudo: plano, subtotal, frete, desconto e total,
+mostrando "Grátis" quando o valor é zero.
+
+## CEP e frete
+
+Ao digitar o CEP, duas coisas acontecem: o endereço é preenchido
+automaticamente, e o frete é calculado a partir da
+[tabela de frete](/docs/operacao/tabelas-de-frete) do clube.
+
+Se o CEP não estiver em nenhuma faixa da tabela, o checkout diz que não há
+entrega para aquele endereço, em vez de deixar a pessoa concluir e descobrir
+depois.
+
+<Callout type="tip" title="Frete some do checkout? Olhe a tabela do clube">
+  Se o frete aparece como zero para todo mundo, provavelmente o clube está sem
+  tabela de frete associada. Se aparece só para alguns CEPs, é a cobertura das
+  faixas que está incompleta.
+</Callout>
+
+## Cupons
+
+Há um campo de cupom validado no servidor na hora da digitação, com mensagem
+clara quando não vale: cupom não encontrado, expirado, esgotado, já utilizado por
+você, ou valor mínimo não atingido.
+
+Uma proteção específica: ninguém consegue usar o próprio código de indicação
+("Você não pode usar o seu próprio código de indicação"). Veja
+[Cupons](/docs/vendas/cupons) e
+[Programa de indicação](/docs/vendas/programa-de-indicacao).
+
+## Quando um cliente antigo volta
+
+Se o email digitado já existe no seu clube, o checkout pede a senha e conecta a
+nova assinatura à conta existente, em vez de criar um cliente duplicado. Endereços
+já salvos ficam disponíveis para reuso.
+
+## Links com dados preenchidos
+
+O checkout aceita parâmetros na URL para vir preenchido: clube, plano, email e
+CEP. É o que a plataforma usa nos emails de convite para reativar uma assinatura,
+e você pode usar o mesmo recurso em campanhas para levar a pessoa direto ao plano
+certo.
+
+## Autenticação do cartão (3DS)
+
+Quando o banco exige a autenticação extra do cartão, ela acontece **no
+checkout**, no momento em que o cartão é salvo. A pessoa resolve o desafio ali e
+segue.
+
+<Callout
+  type="info"
+  title="Nas renovações, quem autoriza é o assinante pelo email"
+>
+  As cobranças seguintes acontecem sem a pessoa presente. Se o banco pedir
+  autenticação numa renovação, o assinante recebe um email com o link para
+  autorizar o pagamento. Veja [Pagamentos e
+  retentativas](/docs/cobrancas/pagamentos-e-retentativas).
+</Callout>
+
+## Leads: quem começou e não terminou
+
+Toda vez que alguém avança uma etapa, a plataforma registra o progresso. Isso
+alimenta a lista de **Leads** no painel, com a etapa mais distante que a pessoa
+alcançou, e é o que permite ver onde o checkout perde gente. Veja
+[Clientes e leads](/docs/operacao/clientes-e-leads).

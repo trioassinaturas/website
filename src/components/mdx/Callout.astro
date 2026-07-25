@@ -56,6 +56,12 @@ const { label, icon } = defaults[type]
     margin-bottom: 0.25rem;
   }
 
+  /* `prose.css` only spaces its own direct children, so multi-paragraph
+   * callout content would otherwise run together. */
+  .callout-body :global(> * + *) {
+    margin-top: 0.85em;
+  }
+
   .callout-body :global(> :last-child) {
     margin-bottom: 0;
   }

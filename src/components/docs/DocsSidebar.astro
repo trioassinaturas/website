@@ -1,0 +1,66 @@
+---
+import { normalizePath, type DocsNav } from "../../lib/docs"
+
+interface Props {
+  nav: DocsNav
+}
+
+const { nav } = Astro.props
+
+// `Astro.url.pathname` keeps a trailing slash in the build but not in dev.
+const here = normalizePath(Astro.url.pathname)
+---
+
+{
+  /* A <details> so the mobile version is a disclosure with keyboard support for
+    free. Rendered open, because on desktop it is always expanded and the
+    <summary> is hidden; the inline script below collapses it on small screens. */
+}
+<details class="docs-rail docs-sidebar" data-pagefind-ignore open>
+  <summary class="docs-sidebar-summary">Nesta documentação</summary>
+
+  <nav class="docs-sidebar-groups" aria-label="Navegação da documentação">
+    {
+      nav.groups.map((group) => (
+        <div class="docs-sidebar-group">
+          <p class="docs-sidebar-label">{group.label}</p>
+          <ul class="docs-sidebar-list">
+            {group.items.map((item) => {
+              const isActive = normalizePath(item.url) === here
+              return (
+                <li>
+                  <a
+                    href={item.url}
+                    class:list={["docs-nav-link", { "is-active": isActive }]}
+                    aria-current={isActive ? "page" : undefined}
+                    data-ph-capture-attribute-cta="docs-sidebar"
+                    data-ph-capture-attribute-cta-section="docs"
+                    data-ph-capture-attribute-cta-channel="internal"
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      ))
+    }
+  </nav>
+</details>
+
+{
+  /* Inline and adjacent to the element so it runs during parse: collapsing the
+   sidebar from a deferred script would shift the page after first paint. */
+}
+<script is:inline>
+  ;(() => {
+    const sidebar = document.currentScript.previousElementSibling
+    // Matches the breakpoint in docs.css where the <summary> appears.
+    const compact = matchMedia("(max-width: 51rem)")
+    const sync = () => (sidebar.open = !compact.matches)
+
+    sync()
+    compact.addEventListener("change", sync)
+  })()
+</script>

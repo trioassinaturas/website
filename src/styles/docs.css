@@ -1,0 +1,549 @@
+/*
+ * Chrome for the /docs section: the three-column shell, sidebar, table of
+ * contents, pager and search panel. Prose typography lives in `prose.css`.
+ */
+
+/* Visually hidden but readable by screen readers and by the search indexer.
+ * `prose.css` has its own copy scoped to `.prose`; this one covers the docs
+ * chrome, which renders outside of it. */
+.docs-shell .sr-only,
+.docs-search .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== Shell ===== */
+.docs-shell {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr) 13rem;
+  gap: 3rem;
+  align-items: start;
+  padding-block: 3rem 5rem;
+}
+
+.docs-main {
+  min-width: 0;
+}
+
+.docs-article-header {
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.docs-article-title {
+  margin-top: 0.75rem;
+  font-size: var(--text-2xl);
+  color: var(--blue-deep);
+}
+
+.docs-article-description {
+  margin-top: 1rem;
+  font-size: var(--text-md);
+  color: var(--ink-soft);
+  max-width: 54ch;
+}
+
+.docs-article-body {
+  margin-top: 2.5rem;
+}
+
+/* ===== Sticky rails ===== */
+.docs-rail {
+  position: sticky;
+  /* Clears the sticky navbar, matching `scroll-padding-top` in global.css. */
+  top: 5.5rem;
+  max-height: calc(100vh - 7rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* Room for focus rings that would otherwise be clipped by the scroll box. */
+  padding: 0.25rem;
+  margin: -0.25rem;
+  font-size: 0.9rem;
+}
+
+.docs-rail::-webkit-scrollbar {
+  width: 6px;
+}
+
+.docs-rail::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: var(--border);
+}
+
+/* ===== Sidebar ===== */
+.docs-sidebar-group + .docs-sidebar-group {
+  margin-top: 1.75rem;
+}
+
+.docs-sidebar-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.docs-sidebar-list {
+  list-style: none;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  /* The rule the active marker sits on. */
+  border-inline-start: 2px solid var(--border);
+}
+
+.docs-nav-link {
+  display: block;
+  padding: 0.4rem 0.75rem;
+  margin-inline-start: -2px;
+  border-inline-start: 2px solid transparent;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.35;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.docs-nav-link:hover {
+  color: var(--blue);
+  border-inline-start-color: color-mix(in srgb, var(--blue) 40%, transparent);
+}
+
+.docs-nav-link.is-active {
+  color: var(--blue);
+  border-inline-start-color: var(--coral);
+  font-weight: 700;
+}
+
+/* ===== Table of contents ===== */
+.docs-toc-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.docs-toc-list {
+  list-style: none;
+  margin: 0.65rem 0 0;
+  padding: 0;
+}
+
+.docs-toc-link {
+  display: block;
+  padding: 0.3rem 0;
+  color: var(--ink-soft);
+  text-decoration: none;
+  line-height: 1.35;
+  transition: color 0.15s ease;
+}
+
+.docs-toc-item.is-nested .docs-toc-link {
+  padding-inline-start: 0.85rem;
+  font-size: 0.85rem;
+}
+
+.docs-toc-link:hover,
+.docs-toc-link.is-active {
+  color: var(--blue);
+}
+
+.docs-toc-link.is-active {
+  font-weight: 700;
+}
+
+/* ===== Tables ===== */
+/* `prose.css` sizes tables to `max-content` so blog data tables keep their
+ * columns and scroll. Docs tables are prose (short labels and a sentence of
+ * explanation), so fitting the column and wrapping beats a clipped table the
+ * reader has to discover is scrollable. The wrapper still scrolls if a table
+ * genuinely can't fit, which is what saves this on narrow screens. */
+.docs-article-body table {
+  width: 100%;
+}
+
+/* Keeps the first column from collapsing to one word per line. */
+.docs-article-body :is(th, td):first-child {
+  min-width: 7rem;
+}
+
+/* ===== Heading anchors ===== */
+/* Added by the script in DocsLayout. `prose.css` already resets the color and
+ * underline of links inside headings. */
+.docs-article-body .heading-anchor {
+  padding-inline-start: 0.4rem;
+  color: var(--ink-faint);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+:is(h2, h3, h4):hover > .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+/* ===== Pager ===== */
+.docs-pager {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.docs-pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-decoration: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.docs-pager-link:hover {
+  border-color: color-mix(in srgb, var(--blue) 35%, transparent);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+/* Pushes "next" to the right edge when there is no "previous". */
+.docs-pager-link.is-next {
+  grid-column: 2;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.docs-pager-direction {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.docs-pager-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--blue-deep);
+  line-height: 1.25;
+}
+
+/* ===== Search ===== */
+.docs-search {
+  position: relative;
+}
+
+.docs-search-field {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.docs-search-field:focus-within {
+  border-color: color-mix(in srgb, var(--blue) 45%, transparent);
+  box-shadow: 0 0 0 4px var(--blue-soft);
+}
+
+.docs-search-icon {
+  flex-shrink: 0;
+  color: var(--ink-faint);
+}
+
+.docs-search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.docs-search-input:focus-visible {
+  outline: none;
+}
+
+.docs-search-input::placeholder {
+  color: var(--ink-faint);
+}
+
+.docs-search-hint {
+  flex-shrink: 0;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 0.4rem;
+  color: var(--ink-faint);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.docs-search-panel {
+  position: absolute;
+  z-index: 40;
+  inset-inline: 0;
+  top: calc(100% + 0.5rem);
+  max-height: 24rem;
+  overflow-y: auto;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+}
+
+.docs-search-panel[hidden] {
+  display: none;
+}
+
+.docs-search-status {
+  padding: 0.75rem 0.85rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.docs-search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.docs-search-result {
+  display: block;
+  padding: 0.7rem 0.85rem;
+  border-radius: 0.7rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.docs-search-result:hover,
+.docs-search-result.is-active {
+  background: var(--blue-soft);
+}
+
+.docs-search-result-section {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+
+.docs-search-result-title {
+  margin-top: 0.15rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--blue-deep);
+  line-height: 1.25;
+}
+
+.docs-search-result-excerpt {
+  margin-top: 0.2rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+/* Pagefind wraps matched terms in <mark>. */
+.docs-search-result-excerpt :is(mark) {
+  background: var(--coral-soft);
+  color: var(--coral-dark);
+  border-radius: 0.2rem;
+  padding-inline: 0.1rem;
+}
+
+.docs-search-subresults {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  border-inline-start: 2px solid var(--border);
+}
+
+.docs-search-subresult {
+  display: block;
+  padding: 0.35rem 0.85rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.docs-search-subresult:hover,
+.docs-search-subresult.is-active {
+  color: var(--blue);
+  background: var(--blue-soft);
+  border-radius: 0.5rem;
+}
+
+/* ===== Landing page ===== */
+.docs-index-search {
+  max-width: 32rem;
+  margin-top: 2rem;
+}
+
+.docs-index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+
+.docs-index-card {
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.docs-index-card h2 {
+  font-size: var(--text-lg);
+  color: var(--blue-deep);
+}
+
+.docs-index-card-list {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+}
+
+.docs-index-card-list li + li {
+  margin-top: 0.55rem;
+}
+
+.docs-index-card-list a {
+  display: flex;
+  gap: 0.5rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.35;
+  transition: color 0.15s ease;
+}
+
+.docs-index-card-list a::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.5em;
+  border-radius: 0.15rem;
+  background: var(--coral);
+  rotate: 45deg;
+}
+
+.docs-index-card-list a:hover {
+  color: var(--blue);
+}
+
+/* ===== Responsive ===== */
+/* The table of contents is the first thing to go. */
+@media (max-width: 64rem) {
+  .docs-shell {
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .docs-toc {
+    display: none;
+  }
+}
+
+/* Same breakpoint as the navbar: the sidebar collapses into a <details>. */
+@media (max-width: 51rem) {
+  .docs-shell {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .docs-sidebar {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .docs-sidebar-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--blue-deep);
+  }
+
+  .docs-sidebar-summary::after {
+    content: "";
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 2px solid var(--ink-faint);
+    border-bottom: 2px solid var(--ink-faint);
+    rotate: 45deg;
+    transition: rotate 0.2s ease;
+  }
+
+  .docs-sidebar[open] .docs-sidebar-summary::after {
+    rotate: -135deg;
+  }
+
+  .docs-sidebar-groups {
+    padding: 0.25rem 1.1rem 1.25rem;
+  }
+
+  .docs-pager {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .docs-pager-link.is-next {
+    grid-column: 1;
+  }
+}
+
+/* On desktop the <details> wrapper should not exist as a box at all. */
+@media (min-width: 51.0625rem) {
+  .docs-sidebar-summary {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-nav-link,
+  .docs-toc-link,
+  .docs-pager-link,
+  .docs-search-field,
+  .heading-anchor,
+  .docs-sidebar-summary::after {
+    transition: none;
+  }
+
+  .docs-pager-link:hover {
+    transform: none;
+  }
+}

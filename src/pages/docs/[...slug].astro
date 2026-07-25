@@ -1,0 +1,33 @@
+---
+import { render } from "astro:content"
+import DocsLayout from "../../layouts/DocsLayout.astro"
+import Callout from "../../components/mdx/Callout.astro"
+import Steps from "../../components/mdx/Steps.astro"
+import Table from "../../components/mdx/Table.astro"
+import Tabs from "../../components/mdx/Tabs.astro"
+import { getDocs, getDocsNav, getPager, type Doc } from "../../lib/docs"
+
+export async function getStaticPaths() {
+  const docs = await getDocs()
+  return docs.map((doc) => ({ params: { slug: doc.id }, props: { doc } }))
+}
+
+interface Props {
+  doc: Doc
+}
+
+const { doc } = Astro.props
+const { Content, headings } = await render(doc)
+
+const nav = await getDocsNav()
+const pager = getPager(nav.flat, doc.id)
+
+// Components available to every MDX page without an explicit import. `table`
+// (lowercase) overrides the element Markdown generates, rather than adding a
+// component authors write by hand.
+const mdxComponents = { Callout, Steps, Tabs, table: Table }
+---
+
+<DocsLayout doc={doc} headings={headings} nav={nav} pager={pager}>
+  <Content components={mdxComponents} />
+</DocsLayout>

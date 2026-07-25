@@ -1,0 +1,140 @@
+---
+title: Visão geral da plataforma
+description: Os conceitos, o vocabulário e os quatro ambientes que formam o seu clube de assinatura na Trio.
+order: 10
+navTitle: Visão geral
+keywords:
+  - introdução
+  - conceitos
+  - glossário
+  - como funciona
+---
+
+A Trio é a plataforma que roda o seu clube de assinatura de ponta a ponta: a
+página onde as pessoas conhecem o clube, o checkout que cobra todos os meses, a
+área onde o assinante resolve as próprias coisas e o painel onde a sua equipe
+enxerga tudo.
+
+Esta página explica o vocabulário e como as peças se encaixam. Vale ler antes
+das outras, porque os mesmos termos aparecem em todo lugar.
+
+## Os quatro ambientes
+
+Cada clube na Trio tem quatro endereços, todos no seu domínio.
+
+<Tabs
+  items={[
+    { id: "loja", label: "Loja" },
+    { id: "checkout", label: "Checkout" },
+    { id: "assinantes", label: "Área do assinante" },
+    { id: "painel", label: "Painel" },
+  ]}
+>
+  <Fragment slot="loja">
+
+    A página de vendas pública, no endereço principal do clube. É onde você
+    apresenta a proposta, mostra os planos disponíveis e conduz a pessoa ao
+    checkout. Pode usar um tema pronto ou um HTML totalmente seu.
+
+    Veja [Loja e tema](/docs/catalogo/loja-e-tema).
+
+  </Fragment>
+  <Fragment slot="checkout">
+
+    Onde a assinatura acontece, em `checkout.seudominio.com.br`. Escolha do
+    plano, dados da pessoa, endereço de entrega com frete calculado na hora e
+    pagamento, tudo numa página só.
+
+    Veja [Checkout](/docs/vendas/checkout).
+
+  </Fragment>
+  <Fragment slot="assinantes">
+
+    Em `assinantes.seudominio.com.br`, é onde quem já assina troca o endereço,
+    atualiza o cartão, acompanha os pedidos e indica amigos. Cada coisa
+    resolvida aqui é um atendimento que a sua equipe não faz. Pausar e cancelar
+    ficam fora: isso passa pela sua equipe.
+
+    Veja [Área do assinante](/docs/recursos/area-do-assinante).
+
+  </Fragment>
+  <Fragment slot="painel">
+
+    Em `dashboard.seudominio.com.br`, é o ambiente da sua equipe: catálogo,
+    assinaturas, cobranças, pedidos, clientes e configurações.
+
+  </Fragment>
+</Tabs>
+
+## O vocabulário
+
+Seis palavras aparecem em praticamente toda tela do painel. Vale fixá-las
+agora.
+
+**Clube** é a linha de assinatura que você vende. Um clube de café e um clube de
+chá são dois clubes; a maioria dos negócios começa com um só.
+
+**Plano** é uma forma de assinar o clube: um preço, uma duração (mensal,
+semestral ou anual) e uma frequência de cobrança. Um mesmo clube costuma ter
+vários planos, e é isso que permite oferecer desconto para quem se compromete
+por mais tempo.
+
+**Kit** é o que vai dentro da caixa em um período específico. O kit de março tem
+uma lista de produtos; o de abril tem outra. É o kit que dá ao clube a graça da
+surpresa.
+
+**Assinatura** é a relação entre uma pessoa e um plano: quando começou, em que
+kit está, para onde vai a caixa, quando cai a próxima cobrança.
+
+**Cobrança** é cada tentativa de tirar dinheiro do cartão em um ciclo. Uma
+assinatura de um ano gera doze cobranças; uma cobrança pode ter várias
+tentativas se o cartão recusar.
+
+**Pedido** é a caixa a caminho. Nasce de uma cobrança paga e caminha por estados
+até chegar na porta do assinante.
+
+<Callout type="tip" title="A ordem em que as coisas nascem">
+  Clube, plano e kit são coisas que **você** cria. Assinatura, cobrança e pedido
+  são coisas que a plataforma cria sozinha, a partir do que a pessoa contrata no
+  checkout.
+</Callout>
+
+## Do primeiro assinante à caixa na porta
+
+O caminho completo, uma vez:
+
+<Steps>
+
+1. Alguém chega na sua loja e clica para assinar.
+
+2. No checkout, escolhe um plano, informa os dados e o endereço, e paga. A
+   plataforma cria o **cliente** e a **assinatura**, e registra a primeira
+   **cobrança** como paga.
+
+3. Da cobrança paga nasce um **pedido**, já com o kit do período e o endereço de
+   entrega. Ele aparece no painel esperando envio.
+
+4. Sua equipe separa as caixas, marca os pedidos como enviados e informa o
+   código de rastreio. O assinante recebe um email com o link dos Correios.
+
+5. No dia seguinte do ciclo, a plataforma cobra de novo, sozinha. Se o cartão
+   recusar, ela tenta outras vezes antes de desistir.
+
+6. O ciclo se repete. O assinante troca o endereço e o cartão sozinho na área
+   dele; pausar e cancelar são feitos pela sua equipe, no painel.
+
+</Steps>
+
+## Por onde começar
+
+Se o clube ainda não está no ar, esta é a ordem que dá menos retrabalho:
+
+1. [Configurações da empresa](/docs/primeiros-passos/configuracoes-da-empresa),
+   para os dados que aparecem em todo lugar.
+2. [Clubes e planos](/docs/catalogo/clubes-e-planos), o catálogo em si.
+3. [Kits e produtos](/docs/catalogo/kits-e-produtos), o que vai nas caixas.
+4. [Tabelas de frete](/docs/operacao/tabelas-de-frete), porque sem elas o
+   checkout não sabe cobrar entrega.
+5. [Estratégias de cobrança](/docs/cobrancas/estrategias-de-cobranca), para
+   definir em que dia o dinheiro entra.
+6. [Loja e tema](/docs/catalogo/loja-e-tema), a página que o público vê.

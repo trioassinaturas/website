@@ -1,0 +1,85 @@
+---
+title: Pedidos e envios
+description: Como os pedidos nascem, os estados por que passam, as ações em lote e o código de rastreio.
+order: 10
+navTitle: Pedidos e envios
+keywords:
+  - pedido
+  - envio
+  - rastreio
+  - Correios
+  - lote
+  - entrega
+---
+
+O **pedido** é a caixa a caminho. Ele nasce de uma cobrança paga e caminha até a
+porta do assinante. A tela fica em **Pedidos**.
+
+## Como os pedidos aparecem
+
+Você não cria pedidos à mão: eles são gerados automaticamente quando uma cobrança
+é paga, já com o kit do período, o endereço de entrega e o número da entrega
+dentro da assinatura.
+
+Duas garantias em cima disso:
+
+- Assinaturas pré-pagas (que pagaram seis meses ou um ano de uma vez) recebem
+  todos os pedidos do período de uma vez, para você conseguir planejar os lotes.
+- Uma rotina roda a cada 15 minutos procurando cobranças pagas que ficaram sem
+  pedido, e cria o que faltou. É uma rede de segurança para falhas momentâneas.
+
+## Os estados
+
+| Estado                | Significa                                           |
+| --------------------- | --------------------------------------------------- |
+| **Pendente de envio** | esperando ser despachado. É onde todo pedido começa |
+| **Enviado**           | despachado, normalmente com código de rastreio      |
+| **Entregue**          | chegou                                              |
+| **Cancelado**         | não será enviado                                    |
+
+## Ações em lote
+
+É aqui que a operação ganha tempo. As três ações funcionam tanto em um pedido
+quanto em vários selecionados:
+
+- **Enviar pedidos selecionados**, com a opção de informar um código de rastreio.
+- **Entregar pedidos selecionados**, para dar baixa quando a entrega confirma.
+- **Cancelar pedidos selecionados**.
+
+As transições respeitam o estado atual: só pedidos pendentes podem ser enviados,
+só enviados podem ser entregues, e pedidos já entregues ou cancelados não podem
+ser cancelados de novo.
+
+<Callout type="tip" title="Rastreio individual por caixa">
+  O código informado no envio em lote vale para todos os pedidos selecionados, o
+  que serve para postagem agrupada. Quando cada caixa tem o seu próprio código,
+  marque os pedidos como enviados sem informar código e preencha o rastreio de
+  cada um na tela do pedido.
+</Callout>
+
+## Código de rastreio
+
+O campo é livre, sem formato obrigatório. O comportamento dos emails é o que
+importa:
+
+- Ao **marcar como enviado**, o cliente recebe o email de pedido enviado.
+- Ao **editar o rastreio de um pedido já enviado**, o cliente recebe um email
+  específico avisando que o código foi adicionado.
+
+Na área do assinante, o pedido com rastreio ganha um link direto para consultar
+nos Correios.
+
+<Callout type="tip" title="A ordem que gera menos email">
+  Informe o código de rastreio já no momento do envio: sai um email só. Se você
+  envia primeiro e preenche o rastreio depois, o cliente recebe dois emails.
+</Callout>
+
+## Filtros e exportação
+
+Como as outras listas do painel, os pedidos têm busca, filtros de estado e de
+data, ordenação por coluna e exportação em **CSV** e **XLSX**. A exportação é o
+caminho natural para passar o lote do dia para quem faz a separação e a postagem.
+
+O frete de cada pedido vem da
+[tabela de frete](/docs/operacao/tabelas-de-frete) do clube, e é cobrado em cada
+cobrança, registrado separadamente do valor da assinatura.
