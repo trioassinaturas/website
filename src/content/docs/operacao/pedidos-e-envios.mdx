@@ -21,13 +21,6 @@ Você não cria pedidos à mão: eles são gerados automaticamente quando uma co
 é paga, já com o kit do período, o endereço de entrega e o número da entrega
 dentro da assinatura.
 
-Duas garantias em cima disso:
-
-- Assinaturas pré-pagas (que pagaram seis meses ou um ano de uma vez) recebem
-  todos os pedidos do período de uma vez, para você conseguir planejar os lotes.
-- Uma rotina roda a cada 15 minutos procurando cobranças pagas que ficaram sem
-  pedido, e cria o que faltou. É uma rede de segurança para falhas momentâneas.
-
 ## Os estados
 
 | Estado                | Significa                                           |
@@ -48,16 +41,7 @@ quanto em vários selecionados:
 
 As transições respeitam o estado atual: só pedidos pendentes podem ser enviados,
 só enviados podem ser entregues, e pedidos já entregues ou cancelados não podem
-ser cancelados de novo. Quando nenhum dos pedidos selecionados estava no estado
-necessário, a plataforma diz exatamente isso, em vez de anunciar sucesso sobre
-zero pedidos.
-
-<Callout type="info" title="O rastreio é sempre por caixa, um a um">
-  O envio em lote **não** pede código de rastreio: cada caixa tem o seu, e um
-  código repetido em vários pedidos manda o assinante consultar a encomenda de
-  outra pessoa. Marque o lote como enviado e preencha o rastreio de cada pedido
-  na tela dele, ou envie pedido por pedido já com o código.
-</Callout>
+ser cancelados de novo.
 
 ## Código de rastreio
 

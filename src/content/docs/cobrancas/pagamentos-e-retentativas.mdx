@@ -32,12 +32,6 @@ O bloco **Configuração de Pagamento**, em Configurações da Empresa, mostra q
 provedor está conectado e quais métodos estão habilitados. Ele é somente leitura:
 trocar de provedor ou habilitar um método passa pelo suporte.
 
-<Callout type="info" title="Boleto não está disponível">
-  O boleto aparece no vocabulário da plataforma, mas nenhum provedor em operação
-  o oferece. Parcelamento no cartão também não: os provedores ativos trabalham
-  com uma parcela só.
-</Callout>
-
 ## Cobranças e tentativas
 
 Uma **cobrança** é o valor devido em um ciclo. Uma **tentativa** é cada investida
@@ -58,8 +52,7 @@ cobranças são processadas.
 
 <Callout type="info" title="Reembolso não é uma situação">
   Uma cobrança reembolsada continua como **Sucesso**, e ganha um selo separado
-  de **Reembolsada** com a data. É o registro honesto: o dinheiro entrou e
-  depois voltou, e as duas coisas aconteceram. Reembolsos feitos no painel do
+  de **Reembolsada** com a data. Reembolsos feitos no painel do
   provedor chegam por webhook e aparecem aqui sozinhos.
 </Callout>
 
@@ -72,8 +65,7 @@ cobranças são processadas.
 | Conferir os PIX aguardando pagamento | a cada hora            |
 | Criar pedidos que ficaram pendentes  | a cada 15 minutos      |
 
-O horário é o de Brasília. As cobranças do dia são processadas de madrugada, de
-propósito: quando a sua equipe entra, o resultado do dia já está na tela.
+O horário é o de Brasília.
 
 ## Quantas tentativas
 
@@ -83,8 +75,7 @@ oito dias de tentativas antes de a plataforma desistir dela.
 
 A cada tentativa que falha e ainda tem retentativa marcada, o assinante recebe um
 email dizendo em que tentativa está e quando será a próxima. Na quinta, o email é
-outro: o de tentativas esgotadas. Veja
-[Formulários e emails](/docs/recursos/formularios-e-emails).
+outro: o de tentativas esgotadas.
 
 <Callout type="warning" title="Sua equipe não recebe email de cobrança falha">
   O aviso de falha vai para o assinante, não para você. Acompanhar isso é ativo:
@@ -148,15 +139,6 @@ a plataforma trata a cobrança como falha e o assinante recebe o aviso de
 tentativas esgotadas, mesmo que a escada de cinco tentativas não tenha sido
 percorrida.
 
-<Callout type="info" title="A conferência horária evita cobrar quem já pagou">
-  Uma rotina roda a cada hora atrás de PIX que ficaram em Aguardando pagamento.
-  Antes de dar qualquer um por perdido, ela **pergunta ao provedor** se aquele
-  pagamento foi feito, e conclui como sucesso se foi. Ela também espera três
-  horas depois do vencimento do código antes de agir, para dar tempo de a
-  confirmação chegar. É a rede de segurança para quando um aviso do provedor se
-  perde no caminho.
-</Callout>
-
 ## Cancelamento por falha repetida
 
 Se **3 ciclos consecutivos** falharem por completo, a plataforma cancela a
@@ -195,5 +177,5 @@ checkout, que ainda não são cobranças de assinatura, veja
 ## Trocar o cartão
 
 O assinante troca o cartão na área dele, por um portal do próprio provedor de
-pagamento. A sua equipe não tem (e não deve ter) acesso aos dados do cartão em
-nenhum momento.
+pagamento. A sua equipe (e a nossa) não tem (e não deve ter) acesso aos dados
+do cartão em nenhum momento.
