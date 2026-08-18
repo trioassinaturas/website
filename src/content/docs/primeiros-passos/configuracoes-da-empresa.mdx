@@ -25,15 +25,13 @@ A tela é dividida em blocos, nesta ordem.
 
 ## Informações Básicas
 
-Nome do clube, descrição curta, fuso horário e o **Domínio do Cliente**, que é o
-endereço próprio do seu clube. A configuração de domínio tem
-[uma página só para ela](/docs/primeiros-passos/dominio-proprio), porque envolve
-mexer no DNS.
+Nome do clube, descrição curta e fuso horário.
 
-<Callout type="warning" title="Trocar o domínio derruba o site">
-  A própria tela avisa: alterar o domínio exige atualizar os registros DNS e
-  pode deixar o site fora do ar no intervalo. Se já existe tráfego, fale com o
-  suporte antes.
+<Callout type="info" title="O domínio saiu desta tela">
+  O campo **Domínio do Cliente** ficava aqui e foi removido. Definir ou trocar o
+  endereço próprio do clube passou a ser feito pelo suporte, porque exige
+  preparar os certificados antes de o DNS apontar para cá. Veja [Domínio próprio
+  e DNS](/docs/primeiros-passos/dominio-proprio).
 </Callout>
 
 ## Configurações de SEO
@@ -73,6 +71,17 @@ Logo e favicon:
   Logo em torno de 300×100 px e favicon de 32×32 px cobrem os dois casos com
   folga. A logo é redimensionada automaticamente em três tamanhos (64, 128 e 256
   px), que é o que as páginas públicas usam.
+</Callout>
+
+<Callout type="info" title="O arquivo é conferido por dentro, não pela extensão">
+  A plataforma abre o arquivo e verifica se ele é mesmo uma imagem do formato
+  que diz ser. Renomear um `.pdf` para `.png` não engana a validação: a resposta
+  é “não é realmente uma imagem PNG ou WebP”. Um arquivo corrompido, que não
+  consegue ser lido como imagem, é recusado com “não pôde ser lido como imagem”.
+
+A mesma checagem vale para as fotos de produtos, variantes e kits, e para
+qualquer anexo enviado ao painel.
+
 </Callout>
 
 ## Configuração de Pagamento
