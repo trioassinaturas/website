@@ -34,6 +34,38 @@ Qualquer tipo pode virar uma **lista**, para aceitar várias respostas no mesmo
 campo. Campos podem ser obrigatórios ou opcionais, e cada resposta é validada
 campo a campo, sendo marcada como Válida ou Inválida.
 
+### Opções desabilitadas
+
+Um campo do tipo **Opção** tem, além da lista de alternativas, uma lista de
+**Opções desabilitadas**. Desabilitar não é apagar: a alternativa continua
+existindo, mas para de ser oferecida.
+
+É o que pedir quando um sabor acaba, um tamanho sai de linha ou uma variação sai
+do catálogo por um mês. Apagar a opção quebraria as respostas antigas, que
+deixariam de fazer sentido; desabilitar preserva o histórico.
+
+Como o resto da configuração de formulários, quem desabilita e reabilita é o
+suporte. No painel, na página do formulário, as opções nesse estado aparecem
+marcadas com “Opção desabilitada: não aceita em novas respostas”, então você
+consegue conferir o que está no ar sem precisar perguntar.
+
+O efeito prático, do lado do assinante:
+
+- Quem responde pela primeira vez simplesmente não vê a opção desabilitada.
+- Quem já tinha escolhido aquela opção mantém a resposta como está, e ela
+  continua valendo para você montar a caixa.
+- Se essa pessoa abrir a resposta para editar, a opção aparece marcada como “não
+  mais disponível” e ela precisa escolher outra para conseguir salvar. A tela diz
+  isso com todas as letras: “A opção X não está mais disponível. Escolha outra
+  opção para poder salvar.”
+
+<Callout type="tip" title="Não dá para desabilitar todas as opções">
+  A plataforma recusa deixar um campo de Opção sem nenhuma alternativa
+  disponível, porque isso tornaria o formulário impossível de responder. Se a
+  linha inteira saiu de catálogo, o caminho é tirar o campo (ou o formulário) da
+  recomendação, e não zerar as opções.
+</Callout>
+
 <Callout type="info" title="Formulários são montados junto com a equipe Trio">
   No painel você acompanha os formulários e as respostas, com estatísticas
   (total de campos, obrigatórios, opcionais, total de respostas) e filtros por
@@ -74,21 +106,34 @@ foi respondido.
 
 A plataforma envia sozinha, em cada momento da vida da assinatura:
 
-| Quando                            | Email                                     |
-| --------------------------------- | ----------------------------------------- |
-| Primeira assinatura               | boas-vindas                               |
-| Assinatura criada                 | confirmação da nova assinatura            |
-| Cobrança paga                     | confirmação de pagamento                  |
-| Cobrança falhou                   | aviso de falha no pagamento               |
-| Tentativas esgotadas              | aviso de que a plataforma parou de tentar |
-| Cartão pediu autenticação         | link para autorizar o pagamento           |
-| Pedido despachado                 | aviso de envio                            |
-| Rastreio adicionado depois        | aviso com o código                        |
-| Assinatura cancelada              | confirmação do cancelamento               |
-| Assinatura encerrada há um tempo  | convite para reativar                     |
-| Endereço alterado pela sua equipe | aviso da alteração                        |
-| Email alterado                    | confirmação da troca                      |
-| Senha                             | redefinição de senha                      |
+| Quando                              | Email                                     |
+| ----------------------------------- | ----------------------------------------- |
+| Primeira assinatura                 | boas-vindas                               |
+| Assinatura criada                   | confirmação da nova assinatura            |
+| Cobrança paga                       | confirmação de pagamento                  |
+| **Cada tentativa automática falha** | aviso da falha, com o número da tentativa |
+| Tentativas esgotadas                | aviso de que a plataforma parou de tentar |
+| **Cobrança em PIX à espera**        | o QR code para pagar aquele ciclo         |
+| Cartão pediu autenticação           | link para autorizar o pagamento           |
+| Pedido despachado                   | aviso de envio                            |
+| Rastreio adicionado depois          | aviso com o código                        |
+| Assinatura cancelada                | confirmação do cancelamento               |
+| Assinatura encerrada há um tempo    | convite para reativar                     |
+| Endereço alterado pela sua equipe   | aviso da alteração                        |
+| Email alterado                      | confirmação da troca                      |
+| Senha                               | redefinição de senha                      |
+
+<Callout type="info" title="O aviso de falha virou um por tentativa">
+  Antes saía um email quando a cobrança falhava. Hoje sai um a **cada tentativa
+  automática que falha**, e ele diz em que tentativa está (“2 de 5”) e quando
+  será a próxima, com link direto para aquela cobrança na área do assinante.
+
+Isso muda o volume de email que o seu assinante recebe num cartão problemático:
+até cinco avisos ao longo de oito dias, mais o aviso final de tentativas
+esgotadas. Vale considerar isso ao desenhar a régua de contato da sua equipe,
+para não falar com a pessoa no mesmo dia em que a plataforma já falou.
+
+</Callout>
 
 ## Emails para a sua equipe
 
