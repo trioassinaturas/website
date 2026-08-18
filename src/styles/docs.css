@@ -330,7 +330,9 @@
 }
 
 .docs-search-result {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
   padding: 0.7rem 0.85rem;
   border-radius: 0.7rem;
   color: inherit;
@@ -351,7 +353,6 @@
 }
 
 .docs-search-result-title {
-  margin-top: 0.15rem;
   font-family: var(--font-display);
   font-weight: 700;
   color: var(--blue-deep);
@@ -359,7 +360,6 @@
 }
 
 .docs-search-result-excerpt {
-  margin-top: 0.2rem;
   color: var(--ink-soft);
   font-size: 0.85rem;
   line-height: 1.45;
