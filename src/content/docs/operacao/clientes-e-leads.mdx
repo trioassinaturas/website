@@ -37,13 +37,35 @@ Duas ações úteis na ficha:
   ficha de cliente na conversão), ser editada por você na ficha, ou ser
   preenchida pelo próprio assinante em **Perfil**, na área dele. Serve bem para
   campanha de aniversário.
+
+O checkout **não** pergunta data de nascimento, e ela também não sai na
+exportação de clientes. Para uma campanha de aniversário, o caminho é a ficha ou
+um quiz. Veja [Formulários e emails](/docs/recursos/formularios-e-emails).
+
+</Callout>
+
+<Callout type="warning" title="O mesmo CPF pode ter duas fichas">
+  Quem já é cliente e volta ao checkout com **outro email** vira um cliente novo,
+  mesmo usando o mesmo CPF: a plataforma identifica pessoas pelo email. As duas
+  fichas ficam separadas, cada uma com o seu histórico.
+
+Quando alguém disser que “sumiu tudo”, esse é o primeiro palpite: procure pelo
+CPF na busca e veja se existem duas fichas. Veja
+[Checkout](/docs/vendas/checkout).
+
 </Callout>
 
 ## Leads
 
 Todo mundo que começa o checkout entra aqui, com a **etapa mais distante** que
-alcançou: plano, dados, endereço, pagamento ou concluído. A lista se atualiza em
-tempo real, e pode ser filtrada por convertidos e não convertidos.
+alcançou: plano, dados pessoais, endereço, pagamento ou concluído. A lista se
+atualiza em tempo real, e pode ser filtrada por convertidos e não convertidos.
+
+O lead guarda email, nome, telefone e **CPF**, conforme a pessoa vai preenchendo
+o checkout, além das respostas de formulário que ela tenha dado. A coluna de
+**status de abandono** é mais detalhada que a etapa: separa quem “parou nos dados
+pessoais” de quem “concluiu checkout (pendente)”, que é o caso de quem foi até o
+fim e o pagamento não confirmou.
 
 Quando a pessoa completa a assinatura, o lead é promovido a cliente
 automaticamente, levando junto as respostas de formulários que ela tenha dado
@@ -54,6 +76,12 @@ antes.
   parando em **endereço** costuma significar frete alto ou CEP sem cobertura.
   Muita gente parando em **pagamento** aponta para cartão recusado ou dúvida
   sobre a recorrência. É informação que se transforma em ajuste concreto.
+
+Para os que pararam no pagamento, [Pagamentos de
+checkout](/docs/cobrancas/pagamentos-de-checkout) mostra o motivo exato que o
+provedor devolveu, o que costuma separar “cartão sem limite” de “dado digitado
+errado”.
+
 </Callout>
 
 ## Acessar como assinante
