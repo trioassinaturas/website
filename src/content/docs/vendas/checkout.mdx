@@ -79,10 +79,10 @@ cidade, estado e país em colunas distintas, no formato que os sistemas de
 etiqueta esperam. Veja
 [Pedidos e envios](/docs/operacao/pedidos-e-envios).
 
-<Callout type="info" title="Pedidos antigos não foram divididos">
-  Endereços salvos antes dessa mudança continuam com número junto do logradouro.
-  Na exportação eles aparecem como “Rua das Flores, 123” na coluna Rua, com a
-  coluna Número vazia. Só endereços novos vêm separados.
+<Callout type="info" title="Nem todo endereço tem o número em coluna própria">
+  Alguns endereços já salvos guardam o número junto do logradouro. Na exportação
+  eles aparecem como “Rua das Flores, 123” na coluna Rua, com a coluna Número
+  vazia. Vale conferir esses casos antes de gerar etiquetas em lote.
 </Callout>
 
 ## Cupons
@@ -99,7 +99,7 @@ outro assinante"). Veja [Cupons](/docs/vendas/cupons) e
 
 ## Quando um cliente antigo volta
 
-O checkout **não pede mais senha**. Quem já é cliente digita email e CPF como
+O checkout **não pede senha**. Quem já é cliente digita email e CPF como
 qualquer pessoa, e a plataforma liga a nova assinatura à conta existente sem
 nenhuma etapa a mais.
 
@@ -111,8 +111,8 @@ mesmo ela:
 - **Email conhecido e CPF diferente**: o checkout recusa antes de qualquer
   cobrança, com a mensagem “Já existe uma conta com este e-mail, mas o CPF
   informado não confere. Verifique o CPF ou use outro e-mail.”
-- **Contas antigas sem CPF salvo**: o CPF digitado é gravado na ficha e a compra
-  segue normalmente.
+- **Conta sem CPF salvo**: o CPF digitado é gravado na ficha e a compra segue
+  normalmente.
 
 <Callout type="warning" title="Email diferente cria cliente novo, mesmo com o mesmo CPF">
   A busca é pelo email, e só por ele. Se a pessoa assinou com o email pessoal e

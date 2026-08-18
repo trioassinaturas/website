@@ -37,6 +37,20 @@ flow, frame it as something the merchant needs to know in order to support,
 configure, or anticipate it. The practical test: if a sentence only makes sense
 when read by someone who subscribes to the club, it is on the wrong site.
 
+**Describe the platform as it is today, never how it changed.** No "antes era
+assim, hoje é assado", no "essa tela mudou", no callout announcing a removed
+button. A merchant reading a page wants to know what to do now; the history of
+the product is our problem, not theirs. Release notes are a different genre and
+they do not live in `/docs`.
+
+**The reader is not technical.** They run a subscription club, they do not read
+code. Describe what they see and click on the screen, in the words the screen
+uses. Leave out anything that only makes sense from the inside: field and column
+names from the database, internal timestamps, jobs, rendering, API details.
+"A seção desligada não aparece na página" belongs; "a seção não é renderizada"
+does not. The test is whether a detail changes what the merchant should do; if it
+does not, cut it.
+
 Content lives in `src/content/docs/<secao>/<pagina>.mdx`. The directory **is** the
 sidebar group and the first URL segment, so moving a file between directories
 changes its URL. Group labels and their display order are defined once, in
