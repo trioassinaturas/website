@@ -18,7 +18,7 @@ tela fica em **Usuários**.
 ## Convidando alguém
 
 Não existe um convite por email separado: você cria o usuário e o sistema envia a
-senha.
+senha. Criar usuários é permitido a Administradores e ao Proprietário.
 
 <Steps>
 
@@ -70,6 +70,12 @@ A diferença entre Membro e as outras duas é o que está atrás de
   caso pontual.
 </Callout>
 
+## Não existe excluir usuário
+
+A tela não tem ação de exclusão, e isso é proposital: apagar um usuário apagaria
+junto o rastro de quem fez o quê no painel. **Desativar é o caminho definitivo**
+para tirar o acesso de alguém, e o registro histórico continua de pé.
+
 ## Trocando a função e revogando o acesso
 
 A edição de um usuário é feita pelo **Proprietário**, na tela de Usuários. Dois
@@ -89,8 +95,27 @@ Reativar devolve o acesso, com a senha que a pessoa já tinha.
 </Callout>
 
 A conta do **Proprietário** é a exceção em tudo isso: ela não pode ser editada
-nem desativada por essa tela, e a função Proprietário não pode ser atribuída a
-mais ninguém. Para transferir a titularidade da conta, fale com o suporte.
+nem desativada por essa tela. Para transferir a titularidade da conta, fale com o
+suporte.
+
+<Callout type="info" title="Proprietário só na criação">
+  A função Proprietário aparece na lista ao **criar** um usuário, mas não na
+  edição: depois de criada, uma conta só pode ir e voltar entre Membro e
+  Administrador, e a própria tela avisa que a função “deve ser Membro ou
+  Administrador”.
+
+Na prática isso quer dizer que a plataforma não impede criar um segundo
+proprietário, e que, uma vez criado, ele não pode ser rebaixado nem desativado
+pelo painel. Trate a criação de um proprietário como algo a combinar com o
+suporte, não como uma escolha de rotina.
+
+</Callout>
+
+<Callout type="info" title="Quem pode mexer em quem">
+  **Administrador** vê a lista de usuários e cria gente nova, mas **não edita**
+  ninguém: trocar função e desativar acesso é exclusivo do **Proprietário**. O
+  botão de editar simplesmente não aparece para quem é Administrador.
+</Callout>
 
 ## Encontrando gente na lista
 
