@@ -17,13 +17,11 @@ dois passos: pedir o domínio à equipe Trio e criar cinco registros no seu
 provedor de DNS.
 
 <Callout type="info" title="O domínio não é editável pelo painel">
-  O campo **Domínio do Cliente** já existiu em Configurações da Empresa e foi
-  removido de lá. Trocar o domínio envolve preparar os hostnames e os
-  certificados na borda antes de o DNS apontar para cá, e uma edição solta no
-  painel deixava o clube fora do ar nesse intervalo. Hoje quem faz essa mudança
-  é o suporte.
+  Quem define ou troca o endereço próprio de um clube é o suporte. A troca exige
+  preparar os certificados antes de o DNS apontar para cá, e sem isso o clube
+  ficaria fora do ar nesse intervalo.
 
-O **Gerenciamento DNS** continua no painel, e é lá que você acompanha o
+O **Gerenciamento DNS** fica no painel, e é lá que você acompanha o
 resultado. A tela exige função de Administrador ou Proprietário. Veja [Equipe e
 acessos](/docs/primeiros-passos/equipe-e-acessos).
 
@@ -67,11 +65,10 @@ que a tela mostra preenchido.
   ele, quem digitar assim vê um erro.
 </Callout>
 
-<Callout type="tip" title="Não existe mais registro de validação HTTPS">
-  Versões anteriores desta página pediam um quinto registro chamado
-  `_acme-challenge`. Ele não é mais necessário: a validação do certificado
-  passou a ser feita por HTTP, durante a preparação que a Trio faz no passo 1.
-  Se esse registro ainda existir no seu DNS, pode apagá-lo.
+<Callout type="tip" title="Não é preciso registro de validação do certificado">
+  Nenhum dos cinco registros é um `_acme-challenge`: a validação do certificado
+  fica com a Trio, na preparação do passo 1, e não passa pelo seu DNS. Se um
+  registro com esse nome existir no seu provedor, pode apagá-lo.
 </Callout>
 
 ## Acompanhando a verificação
@@ -96,7 +93,7 @@ fresco ou de dez minutos atrás.
 ## CNAME no domínio raiz
 
 Alguns provedores não deixam criar um CNAME no domínio raiz (`@`), por uma
-limitação antiga do padrão de DNS. A própria tela tem uma seção sobre isso.
+limitação do padrão de DNS. A própria tela tem uma seção sobre isso.
 Provedores modernos resolvem com um recurso chamado ALIAS, ANAME ou "CNAME
 flattening". Se o seu não tiver nenhum dos três, o caminho é transferir o DNS
 para um que tenha.
