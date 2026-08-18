@@ -46,9 +46,31 @@ repetida, que são registrados como churn involuntário. Veja
 
 ## Reativar
 
-Para trazer alguém de volta existe a ação **Reativar Assinatura**, que leva a um
-checkout já preenchido com o clube e o plano da pessoa. A plataforma também tem
-um email de convite para reativação, com esse mesmo link.
+Para trazer alguém de volta existe a ação **Reativar Assinatura**, e ela funciona
+diferente nos dois lados:
+
+- **No painel**, o botão **envia um email de convite** para o cliente, com o link
+  de reativação. Ele não reativa nada sozinho: a confirmação é da mensagem
+  enviada (“Email enviado ao cliente com o link para reativar a assinatura.”).
+- **Na área do assinante**, o botão leva a pessoa a um checkout já preenchido com
+  o clube, o plano, o email e o CEP dela.
+
+<Callout type="info" title="Reativar cria uma assinatura nova">
+  Em nenhum dos dois caminhos a assinatura antiga volta à vida. A pessoa passa
+  pelo checkout e uma assinatura nova é criada, com data de início nova e
+  cobrança nova. A antiga continua cancelada no histórico, o que é bom para
+  entender a jornada dela depois.
+</Callout>
+
+A ação só aparece quando a reativação é possível: a assinatura precisa estar
+cancelada, a pessoa não pode ter uma assinatura viva do mesmo clube, e ainda
+precisa existir um plano à venda para aquele clube.
+
+<Callout type="tip" title="Quem cancelou duas vezes agora consegue voltar">
+  Antes, ter qualquer outra assinatura cancelada do mesmo clube escondia o
+  botão, então quem tinha ido e voltado uma vez ficava sem caminho de retorno.
+  Hoje só uma assinatura **ativa** bloqueia a reativação.
+</Callout>
 
 <Callout type="info" title="Cancelar é do painel, não do assinante">
   O assinante resolve muita coisa sozinho na área dele (endereço, cartão,
@@ -59,13 +81,15 @@ um email de convite para reativação, com esse mesmo link.
 ## Uma assinatura ativa por clube
 
 A mesma pessoa não pode ter duas assinaturas ativas do mesmo clube. Se tentar, o
-checkout avisa que ela "já possui uma assinatura ativa para este clube". Ter
+checkout avisa: “Você já possui uma assinatura ativa deste plano.” Ter
 assinaturas de clubes diferentes é permitido.
 
 ## Trocando endereços
 
-Cada assinatura tem endereço de entrega e endereço de cobrança, editáveis pelo
-painel e pela área do assinante.
+Cada assinatura tem endereço de entrega e endereço de cobrança. Pelo painel você
+edita os dois. Na área do assinante a pessoa edita só o **endereço de entrega**:
+o de cobrança é acompanhado dos dados de pagamento, e a própria tela orienta a
+falar com o suporte para mudá-lo.
 
 Quando o endereço de entrega muda, a alteração se propaga para os pedidos que
 ainda não foram enviados, para a caixa não sair para o lugar errado. Se a troca
@@ -76,6 +100,17 @@ foi feita pela sua equipe, o cliente recebe um email avisando.
   o endereço antigo, que é o correto: é para lá que a transportadora está
   levando.
 </Callout>
+
+## O que não dá para fazer pelo painel
+
+Duas coisas que costumam ser pedidas e não existem na tela de assinaturas:
+
+- **Trocar o plano de um assinante.** Não há como mudar alguém de mensal para
+  anual, nem de um clube para outro. O caminho é cancelar e assinar de novo no
+  plano certo, o que significa novo checkout e novo pagamento.
+- **Pular um ciclo.** Não existe adiar uma cobrança ou saltar uma entrega. O que
+  dá para ajustar na ficha é o kit atual, as datas do período e a estratégia de
+  cobrança.
 
 ## O que a ficha mostra
 

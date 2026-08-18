@@ -26,13 +26,19 @@ edição, com o resumo do pedido sempre visível ao lado.
 
 2. **Suas informações.** Nome, email, telefone e CPF.
 
-3. **Endereço de entrega.** O CEP preenche o endereço sozinho, e o frete é
-   calculado na hora. Há a opção de usar um endereço diferente para cobrança.
+3. **Endereço de entrega.** O CEP preenche rua, cidade e estado sozinho, e o
+   frete é calculado na hora. Número e complemento são sempre digitados. Há a
+   opção de usar um endereço diferente para cobrança.
 
-4. **Pagamento.** Os dados do cartão são digitados num campo do próprio provedor
-   de pagamento, e a plataforma nunca vê o número do cartão.
+4. **Pagamento.** Cartão de crédito ou PIX, conforme o que o seu clube aceita.
+   Os dados do cartão são digitados num campo do próprio provedor de pagamento, e
+   a plataforma nunca vê o número do cartão.
 
 </Steps>
+
+Quando o clube aceita os dois métodos, aparecem as opções **Cartão de crédito** e
+**PIX**. Com um método só, a escolha nem é mostrada. Veja
+[Pagamentos e retentativas](/docs/cobrancas/pagamentos-e-retentativas).
 
 O **Resumo do pedido** acompanha tudo: plano, subtotal, frete, desconto e total,
 mostrando "Grátis" quando o valor é zero.
@@ -53,6 +59,32 @@ depois.
   faixas que está incompleta.
 </Callout>
 
+<Callout type="info" title="O complemento é sempre digitado, e o CEP o apaga">
+  A busca por CEP preenche rua, cidade e estado, e deixa **número** e
+  **complemento** em branco de propósito: o que o serviço de CEP devolve como
+  complemento é informação da faixa de numeração da rua, não o apartamento da
+  pessoa.
+
+Efeito colateral que gera atendimento: **reeditar o CEP limpa o complemento já
+digitado**. Se um assinante reclamar que a caixa foi sem o número do apartamento,
+foi provavelmente isso. Oriente a preencher o complemento depois do CEP.
+
+</Callout>
+
+## O endereço é guardado em partes
+
+O número da rua tem campo próprio e é gravado separado do logradouro. Isso é o
+que permite à exportação de pedidos entregar CEP, rua, número, complemento,
+cidade, estado e país em colunas distintas, no formato que os sistemas de
+etiqueta esperam. Veja
+[Pedidos e envios](/docs/operacao/pedidos-e-envios).
+
+<Callout type="info" title="Pedidos antigos não foram divididos">
+  Endereços salvos antes dessa mudança continuam com número junto do logradouro.
+  Na exportação eles aparecem como “Rua das Flores, 123” na coluna Rua, com a
+  coluna Número vazia. Só endereços novos vêm separados.
+</Callout>
+
 ## Cupons
 
 Há um campo de cupom validado no servidor na hora da digitação, com mensagem
@@ -67,9 +99,37 @@ outro assinante"). Veja [Cupons](/docs/vendas/cupons) e
 
 ## Quando um cliente antigo volta
 
-Se o email digitado já existe no seu clube, o checkout pede a senha e conecta a
-nova assinatura à conta existente, em vez de criar um cliente duplicado. Endereços
-já salvos ficam disponíveis para reuso.
+O checkout **não pede mais senha**. Quem já é cliente digita email e CPF como
+qualquer pessoa, e a plataforma liga a nova assinatura à conta existente sem
+nenhuma etapa a mais.
+
+Quem identifica a pessoa é o **email**. O **CPF** serve para confirmar que é
+mesmo ela:
+
+- **Email conhecido e CPF confere**: segue direto, ligado à conta que já existe.
+  A pessoa não vê aviso nenhum.
+- **Email conhecido e CPF diferente**: o checkout recusa antes de qualquer
+  cobrança, com a mensagem “Já existe uma conta com este e-mail, mas o CPF
+  informado não confere. Verifique o CPF ou use outro e-mail.”
+- **Contas antigas sem CPF salvo**: o CPF digitado é gravado na ficha e a compra
+  segue normalmente.
+
+<Callout type="warning" title="Email diferente cria cliente novo, mesmo com o mesmo CPF">
+  A busca é pelo email, e só por ele. Se a pessoa assinou com o email pessoal e
+  volta com o do trabalho, a plataforma cria um **segundo cliente** para o mesmo
+  CPF, e as duas fichas seguem separadas.
+
+Vale conhecer esse caso porque ele chega como “meu histórico sumiu”. Se acontecer
+com frequência, oriente sua equipe a perguntar pelo email antigo antes de mandar
+a pessoa refazer o cadastro. Veja [Clientes e
+leads](/docs/operacao/clientes-e-leads).
+
+</Callout>
+
+<Callout type="tip" title="A senha vem depois, por email">
+  Como não há senha no checkout, quem assina pela primeira vez recebe o email de
+  boas-vindas com o link para criar a dela e entrar na área do assinante.
+</Callout>
 
 ## Links com dados preenchidos
 

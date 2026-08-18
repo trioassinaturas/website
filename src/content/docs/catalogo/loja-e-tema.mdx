@@ -1,20 +1,21 @@
 ---
 title: Loja e tema do site
-description: Como editar a página de vendas do clube, quais seções existem no tema e quando usar um HTML personalizado.
+description: Como editar a página de vendas do clube com rascunho e publicação, quais temas e seções existem, e quando usar um HTML personalizado.
 order: 30
 navTitle: Loja e tema
 keywords:
   - landing page
   - página de vendas
   - tema
+  - rascunho
+  - publicar
   - CMS
   - HTML
   - arquivos estáticos
 ---
 
 A loja é a página pública do clube: onde a pessoa entende a proposta, vê os
-planos e clica para assinar. Ela é editada em **Configurações → Tema do
-Website**.
+planos e clica para assinar. Ela é editada em **Website → Tema do Website**.
 
 <Callout type="info" title="Tela restrita a Administrador e Proprietário">
   O editor de tema reescreve a página que o público vê, então quem é Membro não
@@ -22,12 +23,61 @@ Website**.
   acessos](/docs/primeiros-passos/equipe-e-acessos).
 </Callout>
 
-Há dois caminhos, e você escolhe um deles.
+Há dois caminhos, e você escolhe um deles: um tema pronto, ou um HTML seu.
+
+## Você sempre edita um rascunho
+
+Esta é a mudança mais importante desta tela, e ela muda o jeito de trabalhar.
+Antes, tudo que você salvava ia direto ao ar. Hoje **nada vai ao ar sem você
+publicar**.
+
+Abrir o editor já cria um rascunho, uma cópia do que está publicado. Todo o
+resto do trabalho acontece nessa cópia, e a faixa azul no topo da tela lembra
+disso: “Você está editando um rascunho”, com a data em que ele nasceu.
+
+Três botões, e o que cada um faz:
+
+| Botão               | O que faz                                              |
+| ------------------- | ------------------------------------------------------ |
+| **Salvar Rascunho** | guarda o trabalho. O site público continua como estava |
+| **Pré-visualizar**  | abre o rascunho renderizado, em outra aba              |
+| **Publicar**        | aplica o rascunho ao site público                      |
+| **Descartar**       | joga o rascunho fora e mantém o que está no ar         |
+
+<Callout type="tip" title="Dá para trabalhar em várias sessões">
+  O rascunho não expira e não precisa ser terminado de uma vez. Você pode montar
+  a página nova ao longo da semana, salvando quantas vezes quiser, e publicar só
+  quando estiver pronta. Era exatamente isso que não dava para fazer antes.
+</Callout>
+
+<Callout type="info" title="Depois de publicar, um rascunho novo é criado">
+  Publicar (ou descartar) devolve você ao editor, e a plataforma abre na hora um
+  rascunho novo a partir do estado recém-publicado. Ou seja: você nunca edita a
+  página ao vivo, mesmo logo depois de publicar. A data de “rascunho criado em”
+  reinicia nesse momento.
+</Callout>
+
+### O link de pré-visualização
+
+**Pré-visualizar** abre o rascunho no endereço público do clube, não no painel.
+O link carrega um código de acesso próprio, então **quem receber o link consegue
+abrir sem ter conta na plataforma**. É o jeito de mostrar a página nova para um
+sócio, um cliente ou o designer antes de publicar.
+
+<Callout type="warning" title="O link de prévia morre quando você publica">
+  O código está preso ao rascunho atual. Ao publicar ou descartar, todo link de
+  prévia que você compartilhou para de funcionar, e um novo precisa ser copiado
+  da tela. É o comportamento certo (ninguém fica com uma prévia velha
+  circulando), mas atrapalha se você mandou o link e publicou antes de a pessoa
+  abrir.
+</Callout>
 
 ## Caminho 1: o tema pronto
 
-O tema disponível hoje se chama **Café**. Você não mexe em código: monta a página
-ligando e preenchendo seções.
+São seis temas, cada um com tipografia, cores e textos de seção próprios:
+**Café**, **Livros**, **Vinhos**, **Vinil**, **Arte** e **Retrô**. Você não mexe
+em código: escolhe o tema no alto da tela e monta a página ligando e preenchendo
+seções.
 
 | Seção                    | Para que serve                                                      | Pode repetir |
 | ------------------------ | ------------------------------------------------------------------- | ------------ |
@@ -38,25 +88,64 @@ ligando e preenchendo seções.
 | **Produtos/Checkout**    | a vitrine dos planos                                                | fixa         |
 | **Rodapé**               | o pé da página                                                      | fixa         |
 
-As duas últimas são automáticas: a plataforma as monta a partir dos seus planos
-e dos dados da empresa, e você não as edita.
+As duas últimas são automáticas: a plataforma as monta a partir dos seus planos e
+dos dados da empresa, e você não edita o conteúdo delas.
+
+<Callout type="warning" title="Produtos/Checkout desligada esconde os planos">
+  Você não edita essa seção, mas **precisa mantê-la ligada**. Uma seção
+  desligada não é renderizada, e sem ela a página fica sem os cartões de plano e
+  sem os botões de assinar. É a causa mais provável de uma loja bonita que não
+  vende.
+</Callout>
+
+<Callout type="warning" title="Desligar uma seção apaga o conteúdo dela">
+  O interruptor não é “esconder”: ao salvar, o conteúdo das seções desligadas é
+  descartado. Se você quer só tirar do ar temporariamente uma lista de
+  depoimentos que deu trabalho, guarde o texto em outro lugar antes.
+</Callout>
 
 ### Regras de imagem
 
-As seções com imagem validam dimensões, e o motivo é evitar banner esticado ou
-ícone borrado:
+As imagens são **opcionais em todas as seções**. Antes havia seções que não
+salvavam sem foto; hoje, quando você não sobe imagem, cada tema tem um bloco de
+cor ou um recorte próprio no lugar, e a página continua correta.
 
-- **Banner**: entre 1200×600 e 3840×2160 px.
-- **Sobre a empresa**: quadrada, entre 64×64 e 200×200 px.
+Quando você sobe uma imagem, ela é validada:
 
-Sempre preencha o texto alternativo da imagem. É o que leitores de tela
-descrevem e o que o Google lê.
+| Seção               | Dimensões                                |
+| ------------------- | ---------------------------------------- |
+| **Banner**          | entre 1200×600 e 3840×2160 px            |
+| **Depoimentos**     | entre 64×64 e 200×200 px                 |
+| **Sobre a empresa** | entre 64×64 e 200×200 px, e **quadrada** |
 
-<Callout type="warning" title="O que você salva vai direto ao ar">
-  Toda alteração no tema é aplicada imediatamente na página pública. O hábito
-  que salva: edite uma seção por vez e abra a loja em outra aba para conferir.
-  Evite reescrever a página inteira em horário de movimento.
+Todas aceitam JPEG, PNG ou WebP, até 10 MB. Sempre preencha o texto alternativo:
+é o que leitores de tela descrevem e o que o Google lê.
+
+<Callout type="tip" title="Erro ao salvar o tema? Suspeite da imagem">
+  Esta tela mostra uma mensagem genérica (“Erro ao atualizar website, favor
+  contatar suporte”) mesmo quando a causa é específica, como uma imagem grande
+  demais ou fora das dimensões. Se o salvamento falhou logo depois de você subir
+  uma foto, é quase sempre ela. Confira o tamanho e as dimensões acima antes de
+  abrir chamado.
 </Callout>
+
+<Callout type="info" title="Imagem salva se troca, não se remove">
+  Não existe hoje um botão para deixar uma seção sem imagem depois que ela já
+  foi salva com uma. Dá para trocar por outra, e dá para apagar a seção inteira
+  e criar de novo sem foto. O “×” sobre a miniatura só cancela um arquivo que
+  você acabou de escolher e ainda não salvou.
+</Callout>
+
+### O tema também colore o checkout
+
+Cada tema tem uma paleta, e o [checkout](/docs/vendas/checkout) usa a cor do tema
+que estiver **publicado**: cobre no Café, azul no Livros, bordô no Vinhos,
+laranja no Vinil, índigo no Arte, vermelho no Retrô. Assim a pessoa não sente que
+mudou de site na hora de pagar.
+
+Como vale o tema publicado, e não o rascunho, a cor do checkout só muda quando
+você clica em Publicar. Clubes com HTML personalizado ficam com a paleta padrão
+da plataforma.
 
 ## Caminho 2: HTML personalizado
 
@@ -64,10 +153,13 @@ Se você quer controle total, ou já tem uma página feita por alguém, dá para
 um arquivo **HTML** (até 20 MB) como tema. Nesse modo a plataforma serve o seu
 HTML como página inicial do clube.
 
+O upload também respeita o fluxo de rascunho: o arquivo fica no rascunho até você
+publicar.
+
 <Callout type="info" title="Um ou outro, nunca os dois">
   A plataforma não deixa ter um tema selecionado e um HTML personalizado ao
-  mesmo tempo. Ao subir o HTML você abandona as seções do tema Café, e para
-  voltar basta remover o arquivo.
+  mesmo tempo. Ao subir o HTML você abandona as seções do tema, e para voltar
+  basta marcar **Remover tema HTML personalizado** e publicar.
 </Callout>
 
 Duas coisas continuam funcionando no modo HTML, e vale saber:
@@ -75,16 +167,41 @@ Duas coisas continuam funcionando no modo HTML, e vale saber:
 - Os **códigos de rastreamento** (Meta Pixel, Google Tag Manager) são injetados
   automaticamente. Você não precisa colar os scripts no seu HTML.
 - Você pode hospedar os arquivos que a página precisa (CSS, imagens, um quiz em
-  HTML) em **Arquivos Estáticos**, no painel. Cada arquivo ganha um endereço
-  público em `/static/(chave)`, que você referencia no seu HTML.
+  HTML) em **Arquivos Estáticos**, no painel.
 
 ## Arquivos estáticos
 
-A tela de **Arquivos Estáticos** aceita HTML, CSS, JSON, PDF e imagens de até
-20 MB, mostra o endereço público de cada um e tem um controle de download (se o
-arquivo abre no navegador ou baixa direto).
+A tela fica em **Website → Arquivos Estáticos** e aceita arquivos de até **20
+MB**: HTML, CSS, JavaScript, JSON, XML, texto, CSV, PDF, imagens (JPEG, PNG, GIF,
+WebP, SVG, ícones) e fontes (WOFF, WOFF2, TTF, OTF).
+
+Cada arquivo tem uma **Chave**, que é o que aparece no endereço público
+`/static/(chave)`, e um controle de **Permitir download?** (se o arquivo abre no
+navegador ou baixa direto). A chave aceita letras, números, `_`, `-`, `/` e `.`,
+sem espaços nem acentos, e pode ter “pastas”: `css/custom.css` funciona.
 
 É o lugar certo para páginas de campanha, um regulamento em PDF ou o quiz que
 alimenta a captação de leads. Veja
 [Formulários e emails](/docs/recursos/formularios-e-emails) para conectar um quiz
 externo à plataforma.
+
+<Callout type="tip" title="A chave sem extensão vira página">
+  Um arquivo com a chave `promo.html` também responde em `/static/promo`. É o
+  que usar para divulgar um endereço mais limpo numa campanha.
+</Callout>
+
+<Callout type="warning" title="Arquivo estático não se apaga pelo painel">
+  Não existe ação de excluir nesta tela: dá para editar um arquivo e trocar o
+  conteúdo dele, mas não para removê-lo. Se você precisa tirar algo do ar, o
+  caminho é substituir o conteúdo por uma versão vazia ou por um
+  redirecionamento e, se for mesmo necessário apagar, falar com o suporte.
+</Callout>
+
+<Callout
+  type="info"
+  title="Diferente do resto do painel, aqui não há restrição de função"
+>
+  Arquivos Estáticos fica visível para quem é Membro, ao contrário do editor de
+  tema. Como o conteúdo é servido no seu domínio, vale combinar com o time quem
+  publica o quê.
+</Callout>

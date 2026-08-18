@@ -1,0 +1,122 @@
+---
+title: Pagamentos de checkout
+description: A tela que mostra todo pagamento iniciado no checkout, inclusive os que falharam antes de virar assinatura, e como ler um pagamento que não provisionou.
+order: 40
+navTitle: Pagamentos de checkout
+keywords:
+  - pagamento
+  - checkout
+  - assinatura
+  - provisionamento
+  - reembolso
+  - PIX
+---
+
+Quando alguém assina, o dinheiro é cobrado **antes** de a assinatura existir. Esse
+primeiro pagamento tem uma tela só para ele: **Financeiro → Pagamentos de
+checkout**.
+
+## Por que ele não é uma cobrança
+
+Uma [cobrança](/docs/cobrancas/pagamentos-e-retentativas) pertence a uma
+assinatura e entra na máquina de retentativas: falhou, tenta de novo daqui a dois
+dias, até cinco vezes. Um pagamento de checkout não pode funcionar assim. Quem
+está na tela do checkout ou paga agora, ou não assina. Insistir dias depois no
+cartão de alguém que desistiu não faz sentido, e criar a assinatura antes de o
+dinheiro entrar cria assinante fantasma.
+
+Por isso a ordem é: **cobra primeiro, cria a assinatura depois**.
+
+<Steps>
+
+1. A pessoa preenche o checkout. Enquanto o pagamento não é confirmado, ela é um
+   [lead](/docs/operacao/clientes-e-leads), não um cliente.
+
+2. A plataforma registra o **pagamento de checkout** e tenta cobrar.
+
+3. Se o pagamento **falha**, nada mais acontece. Não existe cliente, assinatura,
+   cobrança nem pedido: só o registro da tentativa, nesta tela.
+
+4. Se o pagamento **dá certo**, a plataforma provisiona: promove o lead a
+   cliente, cria a assinatura, registra este pagamento como a primeira cobrança
+   dela (já como Sucesso), gera o pedido e envia o email de boas-vindas.
+
+</Steps>
+
+<Callout type="tip" title="É aqui que se vê a venda que não aconteceu">
+  A tela de Cobranças só conhece quem virou assinante. A de Pagamentos de
+  checkout mostra também **quem tentou pagar e não conseguiu**, com o motivo que
+  o provedor devolveu. Cruzada com os [leads](/docs/operacao/clientes-e-leads)
+  parados na etapa de pagamento, é o melhor material que você tem para entender
+  perda no fim do funil.
+</Callout>
+
+## As situações
+
+| Situação                 | Significa                                              |
+| ------------------------ | ------------------------------------------------------ |
+| **Pendente**             | criado, ainda sem resultado do provedor                |
+| **Aguardando pagamento** | é um PIX, e o QR code ainda não foi pago               |
+| **Sucesso**              | o dinheiro entrou                                      |
+| **Falha**                | recusado, expirado ou reembolsado antes de provisionar |
+
+## A tela
+
+A lista tem **Comprador** (com link para o cliente ou para o lead), **Plano**,
+**Valor**, **Status**, **Assinatura** e **Criado em**, com busca e filtros por
+situação e por período.
+
+Abrindo um pagamento, além desses dados você vê:
+
+- O **motivo da recusa** devolvido pelo provedor, em vermelho abaixo do status.
+- O **método** usado e o identificador da transação no provedor, que é o que o
+  suporte do provedor pede quando você abre um chamado.
+- A **assinatura** gerada, ou **Nenhuma assinatura criada**, com a data de
+  provisionamento quando houver.
+- A **composição do valor**, separando assinatura, frete e desconto, com o cupom
+  aplicado.
+
+<Callout type="info" title="Esta tela é somente leitura">
+  Não há como criar, editar ou apagar um pagamento de checkout pelo painel. Eles
+  são o registro do que o provedor de pagamento respondeu, e reescrevê-los à mão
+  tornaria a conciliação impossível.
+</Callout>
+
+## Pago, mas sem assinatura
+
+O caso que mais exige atenção é o pagamento em **Sucesso** com **Nenhuma
+assinatura criada**. Significa que o dinheiro entrou e o provisionamento não
+completou, quase sempre por falta de kit para o período contratado.
+
+A plataforma tenta se recuperar sozinha: a cada hora, uma rotina reprocessa os
+pagamentos pagos que ficaram sem assinatura. Na maioria dos casos o problema se
+resolve assim que a causa some (por exemplo, quando você cria o kit que faltava).
+
+<Callout type="warning" title="Se persistir, é atendimento">
+  Um pagamento que continua sem assinatura depois de algumas horas é alguém que
+  pagou e não recebeu nada. Confira se os kits do período existem (veja [Kits e
+  produtos](/docs/catalogo/kits-e-produtos)) e, se estiver tudo certo, fale com
+  o suporte com o identificador do pagamento em mãos. Vale também avisar a
+  pessoa: para ela, a compra simplesmente não terminou.
+</Callout>
+
+## PIX no checkout
+
+Quando o clube aceita PIX, o checkout leva a uma página com o QR code, que fica
+esperando o pagamento. O código vale **30 minutos**.
+
+Enquanto isso, o pagamento fica em **Aguardando pagamento** e nada é
+provisionado. Se o prazo passar sem pagamento, ele vira **Falha**, e a própria
+página oferece gerar um código novo.
+
+## Reembolsos
+
+Reembolso feito no painel do provedor chega aqui sozinho, e o efeito depende do
+momento:
+
+- **Já tinha provisionado**: a primeira cobrança da assinatura ganha o selo
+  **Reembolsada**, com a data. A assinatura continua existindo, e cancelá-la, se
+  for o caso, é uma decisão sua.
+- **Ainda não tinha provisionado**: o pagamento passa a **Falha**, e a assinatura
+  nunca chega a ser criada. É o comportamento que evita despachar uma caixa para
+  quem já teve o dinheiro de volta.
