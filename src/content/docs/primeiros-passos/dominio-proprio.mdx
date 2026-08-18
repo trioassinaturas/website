@@ -13,19 +13,27 @@ keywords:
 
 Por padrão o seu clube vive em um subdomínio da Trio. Quando você quer o
 endereço próprio (`clube.com.br` em vez de `clube.trioassinaturas.com.br`), são
-dois passos: informar o domínio no painel e criar cinco registros no seu
+dois passos: pedir o domínio à equipe Trio e criar cinco registros no seu
 provedor de DNS.
 
-<Callout type="info" title="As duas telas exigem Administrador ou Proprietário">
-  Tanto Configurações da Empresa quanto Gerenciamento DNS ficam fora do menu de
-  quem é Membro. Veja [Equipe e
-  acessos](/docs/primeiros-passos/equipe-e-acessos).
+<Callout type="info" title="O domínio não é editável pelo painel">
+  O campo **Domínio do Cliente** já existiu em Configurações da Empresa e foi
+  removido de lá. Trocar o domínio envolve preparar os hostnames e os
+  certificados na borda antes de o DNS apontar para cá, e uma edição solta no
+  painel deixava o clube fora do ar nesse intervalo. Hoje quem faz essa mudança
+  é o suporte.
+
+O **Gerenciamento DNS** continua no painel, e é lá que você acompanha o
+resultado. A tela exige função de Administrador ou Proprietário. Veja [Equipe e
+acessos](/docs/primeiros-passos/equipe-e-acessos).
+
 </Callout>
 
 <Steps>
 
-1. Em **Configurações da Empresa → Informações Básicas**, preencha o campo
-   **Domínio do Cliente** com o seu domínio e salve.
+1. Peça o domínio ao suporte, informando qual endereço você quer usar. A Trio
+   registra o domínio na sua conta e prepara os hostnames na borda, o que
+   inclui emitir o certificado HTTPS.
 
 2. Abra **Configurações → Gerenciamento DNS**. A tela passa a listar os
    registros exatos que você precisa criar, já com os valores do seu clube.
@@ -43,18 +51,27 @@ provedor de DNS.
 Todos são do tipo **CNAME**. Substitua `seu-clube` pelo subdomínio do seu clube,
 que a tela mostra preenchido.
 
-| Registro          | Nome              | Aponta para                                   | Para quê               |
-| ----------------- | ----------------- | --------------------------------------------- | ---------------------- |
-| Website           | `@`               | `seu-clube.trioassinaturas.com.br`            | a loja                 |
-| Dashboard         | `dashboard`       | `dashboard.seu-clube.trioassinaturas.com.br`  | o painel da sua equipe |
-| Checkout          | `checkout`        | `checkout.seu-clube.trioassinaturas.com.br`   | o checkout             |
-| Área do Assinante | `assinantes`      | `assinantes.seu-clube.trioassinaturas.com.br` | o portal do assinante  |
-| Validação HTTPS   | `_acme-challenge` | o valor mostrado na tela                      | emitir o certificado   |
+| Registro          | Nome         | Aponta para                                   | Para quê               |
+| ----------------- | ------------ | --------------------------------------------- | ---------------------- |
+| Website           | `@`          | `seu-clube.trioassinaturas.com.br`            | a loja                 |
+| Website (www)     | `www`        | `seu-clube.trioassinaturas.com.br`            | o `www` da loja        |
+| Dashboard         | `dashboard`  | `dashboard.seu-clube.trioassinaturas.com.br`  | o painel da sua equipe |
+| Checkout          | `checkout`   | `checkout.seu-clube.trioassinaturas.com.br`   | o checkout             |
+| Área do Assinante | `assinantes` | `assinantes.seu-clube.trioassinaturas.com.br` | o portal do assinante  |
 
-<Callout type="warning" title="Não invente o valor do _acme-challenge">
-  Ele é específico do seu domínio e serve para provar que o domínio é seu, para
-  então emitir o certificado HTTPS. Copie exatamente o que a tela do
-  Gerenciamento DNS mostra. Sem esse registro, o site fica sem HTTPS.
+<Callout type="info" title="O www redireciona para o endereço principal">
+  O registro `www` existe para o caso de alguém digitar o endereço com ele. A
+  plataforma responde com um redirecionamento permanente para o endereço sem
+  `www`, então o clube tem um endereço só, e não duas versões concorrentes do
+  mesmo site. Crie o registro mesmo que você não pretenda divulgar o `www`: sem
+  ele, quem digitar assim vê um erro.
+</Callout>
+
+<Callout type="tip" title="Não existe mais registro de validação HTTPS">
+  Versões anteriores desta página pediam um quinto registro chamado
+  `_acme-challenge`. Ele não é mais necessário: a validação do certificado
+  passou a ser feita por HTTP, durante a preparação que a Trio faz no passo 1.
+  Se esse registro ainda existir no seu DNS, pode apagá-lo.
 </Callout>
 
 ## Acompanhando a verificação

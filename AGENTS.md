@@ -23,6 +23,20 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 ## The `/docs` section
 
+**The reader is the merchant, not the subscriber.** `/docs` is written for the
+person running a subscription club from the dashboard: the operator, their
+support staff, their admins. It is not a help center for the people who
+subscribe to that club. Address the merchant as "você", and refer to their
+customers in the third person ("o assinante", "o cliente").
+
+This decides how a feature gets described. A change to the subscriber area is
+documented as _what your subscribers can now resolve without calling you_, and a
+change to the checkout as _what your buyers now go through_, never as a set of
+instructions aimed at those people. When a page has to spell out an end-user
+flow, frame it as something the merchant needs to know in order to support,
+configure, or anticipate it. The practical test: if a sentence only makes sense
+when read by someone who subscribes to the club, it is on the wrong site.
+
 Content lives in `src/content/docs/<secao>/<pagina>.mdx`. The directory **is** the
 sidebar group and the first URL segment, so moving a file between directories
 changes its URL. Group labels and their display order are defined once, in

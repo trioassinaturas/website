@@ -56,12 +56,13 @@ Para referência, as rotinas automáticas da plataforma:
 
 Os horários são de Brasília.
 
-| Rotina                                                  | Frequência                       |
-| ------------------------------------------------------- | -------------------------------- |
-| Processar as cobranças do dia                           | uma vez por dia, às 3h           |
-| Retentar tentativas de cobrança que falharam            | a cada 6 horas                   |
-| Criar pedidos de cobranças pagas que ficaram sem pedido | a cada 15 minutos                |
-| Atualizar os números do Analytics                       | a cada 15 minutos, das 8h às 18h |
+| Rotina                                                              | Frequência                       |
+| ------------------------------------------------------------------- | -------------------------------- |
+| Processar as cobranças do dia                                       | uma vez por dia, às 3h           |
+| Retentar tentativas de cobrança que falharam                        | a cada 6 horas                   |
+| Conferir PIX aguardando pagamento e destravar assinaturas pendentes | a cada hora                      |
+| Criar pedidos de cobranças pagas que ficaram sem pedido             | a cada 15 minutos                |
+| Atualizar os números do Analytics                                   | a cada 15 minutos, das 8h às 18h |
 
 Sobre cobranças e retentativas, veja
 [Pagamentos e retentativas](/docs/cobrancas/pagamentos-e-retentativas).
