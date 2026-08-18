@@ -1,6 +1,6 @@
 ---
 title: Pagamentos e retentativas
-description: O que acontece quando o cartão recusa, quantas tentativas a plataforma faz e quando uma assinatura é cancelada por falha de pagamento.
+description: Os métodos de pagamento aceitos, o que acontece quando o cartão recusa, quantas tentativas a plataforma faz e quando uma assinatura é cancelada por falha de pagamento.
 order: 30
 navTitle: Pagamentos e retentativas
 keywords:
@@ -10,28 +10,67 @@ keywords:
   - churn involuntário
   - cartão recusado
   - cartão de crédito
+  - PIX
+  - reembolso
 ---
 
 Falha de pagamento não é exceção em assinatura: é rotina. Cartão vence, limite
 estoura, banco bloqueia. Esta página é sobre o que a plataforma faz sozinha nesses
 casos, e onde você entra.
 
+## Provedor e métodos de pagamento
+
+Cada clube usa **um** provedor de pagamento, definido junto com a equipe Trio na
+integração. O que cada um aceita hoje:
+
+| Provedor   | Métodos aceitos         |
+| ---------- | ----------------------- |
+| **Stripe** | cartão de crédito       |
+| **Asaas**  | cartão de crédito e PIX |
+
+O bloco **Configuração de Pagamento**, em Configurações da Empresa, mostra qual
+provedor está conectado e quais métodos estão habilitados. Ele é somente leitura:
+trocar de provedor ou habilitar um método passa pelo suporte.
+
+<Callout type="info" title="Boleto não está disponível">
+  O boleto aparece no vocabulário da plataforma, mas nenhum provedor em operação
+  o oferece hoje. Parcelamento no cartão também não: os provedores ativos
+  trabalham com uma parcela só.
+</Callout>
+
 ## Cobranças e tentativas
 
-Uma **cobrança** é o valor devido em um ciclo. Uma **tentativa** é cada
-investida no cartão. Uma cobrança pode ter várias tentativas.
+Uma **cobrança** é o valor devido em um ciclo. Uma **tentativa** é cada investida
+no meio de pagamento. Uma cobrança pode ter várias tentativas.
 
-A tela de **Cobranças** mostra valor, situação (Pendente, Sucesso, Falhou),
-provedor, método, o período cobrado e as tentativas com seus erros. A lista se
-atualiza sozinha conforme as cobranças são processadas.
+A tela de **Cobranças** mostra valor, situação, provedor, método, o período
+cobrado e as tentativas com seus erros. A lista se atualiza sozinha conforme as
+cobranças são processadas.
+
+### As situações de uma cobrança
+
+| Situação                 | Significa                                           |
+| ------------------------ | --------------------------------------------------- |
+| **Pendente**             | criada, ainda sem resultado                         |
+| **Aguardando pagamento** | esperando o cliente pagar um PIX que já foi emitido |
+| **Sucesso**              | o dinheiro entrou                                   |
+| **Falha**                | as tentativas terminaram sem sucesso                |
+
+<Callout type="info" title="Reembolso não é uma situação">
+  Uma cobrança reembolsada continua como **Sucesso**, e ganha um selo separado
+  de **Reembolsada** com a data. É o registro honesto: o dinheiro entrou e
+  depois voltou, e as duas coisas aconteceram. Reembolsos feitos no painel do
+  provedor chegam por webhook e aparecem aqui sozinhos.
+</Callout>
 
 ## O calendário automático
 
-| Rotina                              | Quando roda            |
-| ----------------------------------- | ---------------------- |
-| Processar as cobranças do dia       | uma vez por dia, às 3h |
-| Retentar as tentativas que falharam | a cada 6 horas         |
-| Criar pedidos que ficaram pendentes | a cada 15 minutos      |
+| Rotina                               | Quando roda            |
+| ------------------------------------ | ---------------------- |
+| Processar as cobranças do dia        | uma vez por dia, às 3h |
+| Retentar as tentativas que falharam  | a cada 6 horas         |
+| Conferir os PIX aguardando pagamento | a cada hora            |
+| Criar pedidos que ficaram pendentes  | a cada 15 minutos      |
 
 O horário é o de Brasília. As cobranças do dia são processadas de madrugada, de
 propósito: quando a sua equipe entra, o resultado do dia já está na tela.
@@ -42,20 +81,80 @@ São até **5 tentativas automáticas** por cobrança, com **2 dias de intervalo
 entre elas. Ou seja, uma cobrança que falha na primeira investida tem cerca de
 oito dias de tentativas antes de a plataforma desistir dela.
 
-Quando as cinco terminam sem sucesso, o cliente e a sua equipe recebem um email
-avisando que as tentativas se esgotaram.
+A cada tentativa que falha e ainda tem retentativa marcada, o assinante recebe um
+email dizendo em que tentativa está e quando será a próxima. Na quinta, o email é
+outro: o de tentativas esgotadas. Veja
+[Formulários e emails](/docs/recursos/formularios-e-emails).
+
+<Callout type="warning" title="Sua equipe não recebe email de cobrança falha">
+  O aviso de falha vai para o assinante, não para você. Acompanhar isso é ativo:
+  o indicador de cobranças com falha no
+  [Dashboard](/docs/recursos/dashboard-e-analytics) e esta tela de Cobranças são
+  o lugar de olhar. Vale estar na rotina de alguém do time.
+</Callout>
 
 ## Retentativa manual pelo assinante
 
 Além das automáticas, o assinante pode forçar uma nova tentativa na área dele, em
-**Cobranças**. Essa tentativa é imediata e **não respeita o limite de cinco**:
-serve justamente para o caso de a pessoa ter resolvido o problema (trocou o
-cartão, liberou o limite) e não querer esperar o próximo ciclo.
+**Cobranças**. Essa tentativa é imediata e **não consome o orçamento de cinco**:
+ela existe justamente para o caso de a pessoa ter resolvido o problema (trocou o
+cartão, liberou o limite) e não querer esperar dois dias.
+
+A retentativa manual funciona inclusive com a cobrança ainda em andamento, sem
+precisar esperar as automáticas acabarem. Duas situações em que o botão não
+aparece:
+
+- **Já existe uma tentativa em curso.** Esperar alguns segundos resolve.
+- **É uma cobrança em PIX com QR code ainda válido.** Uma nova tentativa criaria
+  um segundo código cobrável, e o risco de a pessoa pagar duas vezes é real. O
+  caminho ali é pagar o código que já existe, ou esperar ele expirar e gerar
+  outro.
 
 <Callout type="tip" title="O roteiro de atendimento para cartão recusado">
   Peça para o assinante atualizar o cartão na área dele e, em seguida, usar a
   retentativa manual na cobrança que falhou. Isso resolve o caso na hora, sem
   precisar de ninguém do seu time no painel.
+</Callout>
+
+<Callout type="info" title="Não existe botão de retentar no painel">
+  A retentativa é uma ação do assinante, não sua. Na ficha da cobrança o painel
+  mostra quantas **tentativas automáticas restantes** existem e marca com um
+  selo as tentativas que o cliente disparou, mas não há como forçar uma cobrança
+  pelo painel. Quando precisar disso, o caminho é pedir para a pessoa fazer, ou
+  usar o [acesso como assinante](/docs/operacao/clientes-e-leads).
+</Callout>
+
+## Cobranças em PIX
+
+Em clubes que usam PIX, o funcionamento muda conforme o ciclo:
+
+<Steps>
+
+1. **Na assinatura**, o cliente paga um QR code que serve para duas coisas ao
+   mesmo tempo: quitar o primeiro ciclo e autorizar as cobranças seguintes por
+   **PIX Automático**.
+
+2. **Nas renovações**, com essa autorização ativa, o valor é debitado sozinho.
+   Não há QR code e não há email: para o assinante é tão silencioso quanto um
+   cartão.
+
+3. **Quando não há autorização ativa**, a renovação emite um QR code e a cobrança
+   fica em **Aguardando pagamento**. O assinante recebe o código por email.
+
+</Steps>
+
+O QR code de cada cobrança vale **30 minutos**. Passado esse prazo sem pagamento,
+a plataforma trata a cobrança como falha e o assinante recebe o aviso de
+tentativas esgotadas, mesmo que a escada de cinco tentativas não tenha sido
+percorrida.
+
+<Callout type="info" title="A conferência horária evita cobrar quem já pagou">
+  Uma rotina roda a cada hora atrás de PIX que ficaram em Aguardando pagamento.
+  Antes de dar qualquer um por perdido, ela **pergunta ao provedor** se aquele
+  pagamento foi feito, e conclui como sucesso se foi. Ela também espera três
+  horas depois do vencimento do código antes de agir, para dar tempo de a
+  confirmação chegar. É a rede de segurança para quando um aviso do provedor se
+  perde no caminho.
 </Callout>
 
 ## Cancelamento por falha repetida
@@ -65,8 +164,14 @@ assinatura automaticamente. Esse cancelamento é registrado como churn
 involuntário, para você conseguir separar quem foi embora por escolha de quem foi
 embora por problema de pagamento.
 
+Um ciclo só conta como falho depois de esgotar as cinco tentativas dele. No pior
+caso, então, são **três ciclos de cinco tentativas** antes do cancelamento: bem
+mais de um mês entre a primeira recusa e a saída.
+
 O contador de ciclos falhos volta a zero assim que uma cobrança tem sucesso, e
-ele aparece na ficha da assinatura.
+ele aparece na ficha da assinatura. Nos dois primeiros ciclos falhos a plataforma
+registra um evento de **Alerta de churn**; no terceiro, um de **Churn
+involuntário**.
 
 <Callout type="warning" title="Vale agir antes do terceiro ciclo">
   Entre o primeiro ciclo falho e o cancelamento passam-se semanas, e nesse
@@ -82,14 +187,10 @@ fez, com tipo de evento, nível (informação, alerta, erro) e data. É onde olh
 quando um caso específico não fecha e você precisa reconstruir o que aconteceu,
 na ordem.
 
-## Método de pagamento
-
-As assinaturas são cobradas em **cartão de crédito**. O método habilitado no seu
-clube aparece em **Configurações da Empresa → Configuração de Pagamento**, e é
-definido junto com a equipe Trio.
-
 Sobre como o valor de cada cobrança é formado, veja
-[Clubes e planos](/docs/catalogo/clubes-e-planos).
+[Clubes e planos](/docs/catalogo/clubes-e-planos). Sobre os pagamentos feitos no
+checkout, que ainda não são cobranças de assinatura, veja
+[Pagamentos de checkout](/docs/cobrancas/pagamentos-de-checkout).
 
 ## Trocar o cartão
 

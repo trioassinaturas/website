@@ -106,47 +106,73 @@ foi respondido.
 
 A plataforma envia sozinha, em cada momento da vida da assinatura:
 
-| Quando                              | Email                                     |
-| ----------------------------------- | ----------------------------------------- |
-| Primeira assinatura                 | boas-vindas                               |
-| Assinatura criada                   | confirmação da nova assinatura            |
-| Cobrança paga                       | confirmação de pagamento                  |
-| **Cada tentativa automática falha** | aviso da falha, com o número da tentativa |
-| Tentativas esgotadas                | aviso de que a plataforma parou de tentar |
-| **Cobrança em PIX à espera**        | o QR code para pagar aquele ciclo         |
-| Cartão pediu autenticação           | link para autorizar o pagamento           |
-| Pedido despachado                   | aviso de envio                            |
-| Rastreio adicionado depois          | aviso com o código                        |
-| Assinatura cancelada                | confirmação do cancelamento               |
-| Assinatura encerrada há um tempo    | convite para reativar                     |
-| Endereço alterado pela sua equipe   | aviso da alteração                        |
-| Email alterado                      | confirmação da troca                      |
-| Senha                               | redefinição de senha                      |
+| Quando                               | Email                                      |
+| ------------------------------------ | ------------------------------------------ |
+| Primeira assinatura                  | boas-vindas, com o link para criar a senha |
+| Cada tentativa automática que falha  | aviso da falha, com o número da tentativa  |
+| Tentativas esgotadas                 | aviso de que a plataforma parou de tentar  |
+| Cobrança em PIX à espera             | o QR code para pagar aquele ciclo          |
+| Cartão pediu autenticação            | link para autorizar o pagamento            |
+| Pedido despachado                    | aviso de envio                             |
+| Rastreio adicionado depois           | aviso com o código                         |
+| Assinatura cancelada                 | confirmação do cancelamento                |
+| Reativação oferecida pela sua equipe | convite para reativar                      |
+| Endereço alterado pela sua equipe    | aviso da alteração                         |
+| Email alterado                       | confirmação da troca                       |
+| Senha                                | redefinição de senha                       |
 
-<Callout type="info" title="O aviso de falha virou um por tentativa">
-  Antes saía um email quando a cobrança falhava. Hoje sai um a **cada tentativa
-  automática que falha**, e ele diz em que tentativa está (“2 de 5”) e quando
-  será a próxima, com link direto para aquela cobrança na área do assinante.
+<Callout type="warning" title="Não existe email de pagamento confirmado">
+  A plataforma **não** avisa o assinante quando a cobrança dá certo, e também
+  não manda um email de “assinatura criada” separado do de boas-vindas. Quem
+  assina recebe o email de boas-vindas; quem renova todo mês não recebe nada
+  enquanto tudo funciona.
 
-Isso muda o volume de email que o seu assinante recebe num cartão problemático:
-até cinco avisos ao longo de oito dias, mais o aviso final de tentativas
-esgotadas. Vale considerar isso ao desenhar a régua de contato da sua equipe,
-para não falar com a pessoa no mesmo dia em que a plataforma já falou.
+Isso é intencional na prática (recibo mensal automático incomoda mais do que
+ajuda), mas costuma surpreender quem vem de outra plataforma. Se um assinante
+perguntar “paguei?”, o caminho é a área dele, em **Cobranças**.
 
 </Callout>
+
+<Callout type="info" title="O aviso de falha é um por tentativa">
+  Sai um email a **cada tentativa automática que falha**, dizendo em que
+  tentativa está (“2 de 5”) e quando será a próxima, com link direto para aquela
+  cobrança na área do assinante. Na quinta e última, o email é outro: o de
+  tentativas esgotadas.
+
+Num cartão problemático isso dá até cinco emails ao longo de cerca de oito dias.
+Vale considerar ao desenhar a régua de contato da sua equipe, para não falar com
+a pessoa no mesmo dia em que a plataforma já falou. Veja [Pagamentos e
+retentativas](/docs/cobrancas/pagamentos-e-retentativas).
+
+</Callout>
+
+Retentativas que o próprio assinante dispara não geram email: ele está na tela,
+vendo o resultado.
 
 ## Emails para a sua equipe
 
 | Quando                       | Email                        |
 | ---------------------------- | ---------------------------- |
-| Alguém assina                | aviso de nova assinatura     |
-| Uma cobrança falha           | aviso de falha               |
 | Kits criados automaticamente | aviso para preencher os kits |
+| Novo usuário do painel       | redefinição de senha         |
 
-Sobre o último, veja [Kits e produtos](/docs/catalogo/kits-e-produtos).
+Sobre o primeiro, veja [Kits e produtos](/docs/catalogo/kits-e-produtos).
+
+<Callout type="warning" title="Sua equipe não é avisada de vendas nem de falhas">
+  Não existe hoje email para a sua equipe quando alguém assina, nem quando uma
+  cobrança falha. Esses avisos já existiram e não estão mais em uso.
+
+Na prática isso significa que **ninguém do seu time é notificado por email de um
+cartão recusado**. Acompanhar isso é ativo: o indicador de cobranças com falha
+no [Dashboard](/docs/recursos/dashboard-e-analytics) e a tela de
+[Cobranças](/docs/cobrancas/pagamentos-e-retentativas) são o lugar de olhar, e
+vale ter isso na rotina de alguém.
+
+</Callout>
 
 <Callout type="tip" title="O email avisa, o contato humano recupera">
   Os emails automáticos cobrem o aviso, mas em caso de cartão recusado um
   contato direto por WhatsApp costuma recuperar bem mais assinantes do que o
-  quarto email da sequência. Use o aviso como gatilho para essa conversa.
+  quarto email da sequência. Como a sua equipe não recebe aviso de falha, esse
+  gatilho tem que sair de alguém olhando a tela de Cobranças.
 </Callout>

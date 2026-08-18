@@ -63,6 +63,10 @@ Cada clube na Trio tem quatro endereços, todos no seu domínio.
     Em `dashboard.seudominio.com.br`, é o ambiente da sua equipe: catálogo,
     assinaturas, cobranças, pedidos, clientes e configurações.
 
+    O menu lateral tem **dois níveis**. No primeiro ficam as telas do dia a dia
+    (Dashboard, Analytics, Assinaturas, Pedidos) e cinco grupos; clicar num
+    grupo abre o segundo nível, e a seta no topo volta.
+
   </Fragment>
 </Tabs>
 
@@ -107,9 +111,12 @@ O caminho completo, uma vez:
 
 1. Alguém chega na sua loja e clica para assinar.
 
-2. No checkout, escolhe um plano, informa os dados e o endereço, e paga. A
-   plataforma cria o **cliente** e a **assinatura**, e registra a primeira
-   **cobrança** como paga.
+2. No checkout, escolhe um plano, informa os dados e o endereço, e paga. **O
+   pagamento vem antes de tudo**: só depois de o dinheiro entrar é que a
+   plataforma cria o **cliente** e a **assinatura** e registra esse pagamento
+   como a primeira **cobrança**, já paga. Se o pagamento falha, nada é criado, e
+   a tentativa fica registrada em [Pagamentos de
+   checkout](/docs/cobrancas/pagamentos-de-checkout).
 
 3. Da cobrança paga nasce um **pedido**, já com o kit do período e o endereço de
    entrega. Ele aparece no painel esperando envio.
@@ -124,6 +131,32 @@ O caminho completo, uma vez:
    dele; o cancelamento é feito pela sua equipe, no painel.
 
 </Steps>
+
+## O menu do painel
+
+O menu lateral foi dividido em dois níveis, para caber sem virar uma lista
+infinita. Vale conhecer os grupos, porque o resto da documentação diz onde
+clicar usando estes nomes.
+
+No primeiro nível ficam quatro telas soltas, as mais usadas, e cinco grupos:
+
+| Grupo             | O que tem dentro                                                                |
+| ----------------- | ------------------------------------------------------------------------------- |
+| **Clientes**      | Clientes, Leads, Programa de Indicação                                          |
+| **Financeiro**    | Cobranças, Pagamentos de checkout, Estratégias de Cobrança, Eventos de Cobrança |
+| **Catálogo**      | Produtos, Clubes, Cupons, Tabelas de Frete                                      |
+| **Website**       | Tema do Website, Formulários, Arquivos Estáticos, Gerenciamento DNS             |
+| **Configurações** | Configurações da Empresa, Usuários, Integrações, Webhooks                       |
+
+<Callout type="tip" title="Clicar no grupo já abre a primeira tela dele">
+  O nome do grupo não é só um acordeão: clicar nele abre o segundo nível **e**
+  leva à primeira tela do grupo. Para só espiar o que tem dentro sem sair da
+  página atual, use a seta de voltar depois.
+</Callout>
+
+Itens que a sua função não permite abrir não aparecem, e um grupo cujos itens
+estão todos ocultos some do menu. Veja
+[Equipe e acessos](/docs/primeiros-passos/equipe-e-acessos).
 
 ## Por onde começar
 
