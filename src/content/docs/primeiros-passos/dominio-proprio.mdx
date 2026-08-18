@@ -21,16 +21,15 @@ provedor de DNS.
   preparar os certificados antes de o DNS apontar para cá, e sem isso o clube
   ficaria fora do ar nesse intervalo.
 
-O **Gerenciamento DNS** fica no painel, e é lá que você acompanha o
-resultado. A tela exige função de Administrador ou Proprietário. Veja [Equipe e
-acessos](/docs/primeiros-passos/equipe-e-acessos).
-
+  O **Gerenciamento DNS** fica no painel, e é lá que você acompanha o
+  resultado. A tela exige função de Administrador ou Proprietário. Veja [Equipe e
+  acessos](/docs/primeiros-passos/equipe-e-acessos).
 </Callout>
 
 <Steps>
 
 1. Peça o domínio ao suporte, informando qual endereço você quer usar. A Trio
-   registra o domínio na sua conta e prepara os hostnames na borda, o que
+   registra o domínio na sua conta e prepara os hostnames, o que
    inclui emitir o certificado HTTPS.
 
 2. Abra **Website → Gerenciamento DNS**. A tela passa a listar os
@@ -43,6 +42,11 @@ acessos](/docs/primeiros-passos/equipe-e-acessos).
    mostrar seu estado individual.
 
 </Steps>
+
+<Callout type="info" title="O time de suporte pode ajudar">
+  Se você não tiver familiaridade com DNS, o time de suporte pode ajudar a criar
+  os registros. Basta pedir um chamado no painel e nos explicar o que você precisa.
+</Callout>
 
 ## Os registros
 
@@ -65,12 +69,6 @@ que a tela mostra preenchido.
   ele, quem digitar assim vê um erro.
 </Callout>
 
-<Callout type="tip" title="Não é preciso registro de validação do certificado">
-  Nenhum dos cinco registros é um `_acme-challenge`: a validação do certificado
-  fica com a Trio, na preparação do passo 1, e não passa pelo seu DNS. Se um
-  registro com esse nome existir no seu provedor, pode apagá-lo.
-</Callout>
-
 ## Acompanhando a verificação
 
 A tela mostra um **Status Geral** e o estado de cada registro:
@@ -82,7 +80,7 @@ A tela mostra um **Status Geral** e o estado de cada registro:
 - **Erro**: a consulta em si falhou. Tente atualizar de novo em alguns minutos.
 
 Há também **Última verificação**, para você saber se está olhando um resultado
-fresco ou de dez minutos atrás.
+recente ou de dez minutos atrás.
 
 <Callout type="tip" title="Propagação leva tempo">
   Registro recém-criado costuma aparecer em minutos, mas pode levar horas

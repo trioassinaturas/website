@@ -22,8 +22,7 @@ que ela foi criada. Quem assinou dia 8 tem aniversário no dia 8.
 
 <Callout type="info" title="Por que o dia máximo é 28">
   Dias 29, 30 e 31 são convertidos para 28. Se não fosse assim, quem assinasse
-  dia 31 não teria data de cobrança em fevereiro, abril, junho e mais quatro
-  meses do ano. O 28 é o último dia que existe em todos os meses.
+  dia 31 não teria data de cobrança em todos os meses.
 </Callout>
 
 ## As três estratégias
@@ -36,7 +35,6 @@ que ela foi criada. Quem assinou dia 8 tem aniversário no dia 8.
   ]}
 >
   <Fragment slot="mesmo-dia">
-
     Cobra na data de aniversário de cada assinatura. Quem assinou dia 8 é cobrado
     todo dia 8; quem assinou dia 22, todo dia 22.
 
@@ -45,10 +43,8 @@ que ela foi criada. Quem assinou dia 8 tem aniversário no dia 8.
 
     **O custo:** sua receita entra pingada ao longo do mês, e a operação de envio
     também se espalha.
-
   </Fragment>
   <Fragment slot="corte">
-
     Cobra na data de aniversário, **desde que ela não passe do dia de corte**. Se
     passar, a cobrança é puxada para o dia de corte.
 
@@ -58,10 +54,8 @@ que ela foi criada. Quem assinou dia 8 tem aniversário no dia 8.
     **Quando usar:** quando você quer concentrar as cobranças na primeira parte do
     mês sem tirar de todos a data própria. Ajuda a fechar o lote de envio numa
     janela previsível.
-
   </Fragment>
   <Fragment slot="fixo">
-
     Cobra todo mundo no mesmo dia do mês, independentemente de quando cada um
     assinou.
 
@@ -70,7 +64,6 @@ que ela foi criada. Quem assinou dia 8 tem aniversário no dia 8.
 
     **O custo:** quem assina no dia 12 com dia fixo 5 tem um primeiro intervalo
     curto até a segunda cobrança. Vale explicar isso na página de vendas.
-
   </Fragment>
 </Tabs>
 
@@ -82,13 +75,11 @@ mesma razão do dia de aniversário.
 A conta é sempre em duas etapas:
 
 <Steps>
-
 1. Avança a data pelo intervalo da frequência de cobrança: um mês para cobrança
    mensal, seis meses para semestral, doze para anual.
 
 2. Ajusta o dia conforme a estratégia: aniversário, aniversário limitado pelo
    corte, ou o dia fixo. Se o mês não tiver aquele dia, usa o último dia do mês.
-
 </Steps>
 
 ## Definindo a estratégia
