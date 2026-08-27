@@ -21,6 +21,18 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Git
+
+There is one branch, `main`, and it is the one that deploys. Commit straight to
+it: no feature branches, no PRs. The pre-commit hook in `.githooks` runs lint,
+`prettier --check` and `astro check`, so a commit that goes through is a commit
+that passes CI.
+
+Always push after committing. The production build runs from `origin/main`, so a
+commit sitting locally has not shipped anything and the fix is not live. Treat
+`git push origin main` as the last step of the task, not as a separate thing to
+ask permission for.
+
 ## Blog covers
 
 Every cover is authored at **1200x630**, the same frame as the OG image. That is
