@@ -42,6 +42,10 @@
   --radius: 1rem;
   --radius-lg: 1.5rem;
   --section-pad: clamp(4rem, 3rem + 5vw, 7.5rem);
+
+  /* Blog covers are authored at 1200x630. Every slot that shows one uses this
+   * ratio, so `object-fit: cover` never has anything to crop. */
+  --cover-ratio: 1200 / 630;
 }
 
 /* ===== Reset ===== */

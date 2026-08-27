@@ -21,6 +21,17 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Blog covers
+
+Every cover is authored at **1200x630**, the same frame as the OG image. That is
+not a suggestion: the card and the post page reserve a `--cover-ratio` box and
+`object-fit: cover` crops anything else to fit, so `getPosts()` throws on a cover
+with another shape and the build fails.
+
+The featured card puts the cover in a panel next to the text instead of
+stretching it, so the whole artwork stays visible however long the title is.
+Cover art can therefore use the full frame, edge to edge, with no safe margin.
+
 ## The `/docs` section
 
 **The reader is the merchant, not the subscriber.** `/docs` is written for the
