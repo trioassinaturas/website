@@ -74,8 +74,8 @@ names from the database, internal timestamps, jobs, rendering, API details.
 does not. The test is whether a detail changes what the merchant should do; if it
 does not, cut it.
 
-**No em dashes (—), anywhere in `/docs`** — body copy and frontmatter alike.
-Rephrase the sentence: a colon, a comma, parentheses, or a full stop always
+**No em dashes (—), anywhere in `/docs`**: body copy and frontmatter alike.
+Rephrase the sentence. A colon, a comma, parentheses, or a full stop always
 reads better in Portuguese than the dash. A hyphen is fine only where it is a
 real hyphen (compound words), never as a dash substitute.
 
