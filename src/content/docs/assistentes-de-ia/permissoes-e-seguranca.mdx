@@ -1,0 +1,61 @@
+---
+title: Permissões e segurança
+description: O que um assistente conectado pode e não pode fazer, como as permissões são concedidas e como revogar um acesso.
+order: 40
+keywords:
+  - permissões
+  - segurança
+  - revogar
+  - autorização
+  - aplicativos autorizados
+---
+
+Um assistente conectado nunca tem mais acesso do que a pessoa que o autorizou —
+e normalmente tem menos, porque você escolhe o que conceder.
+
+## Como a autorização funciona
+
+Quando um assistente se conecta pela primeira vez, ele abre a página de login
+do Trio. Você informa o seu email e confirma a identidade no painel da sua
+empresa — a senha só é digitada no seu próprio painel, nunca na página do
+assistente. Em seguida, a tela de autorização mostra:
+
+- **Quem está pedindo acesso**: o nome e o domínio do assistente.
+- **De quais dados**: o seu email e o nome da sua empresa, para não haver
+  dúvida sobre qual conta está sendo conectada.
+- **O que ele poderá fazer**: uma lista de permissões, cada uma com botões de
+  **Leitura** e **Escrita** que você liga e desliga antes de autorizar.
+
+Um assistente autorizado só para leitura consulta os dados, mas não muda nada.
+
+## O que nunca é permitido
+
+Independentemente das permissões concedidas, assistentes conectados **não**:
+
+- criam nem excluem registros — só consultam e atualizam campos permitidos;
+- enviam ou baixam arquivos e fotos;
+- veem dados de cartão ou credenciais de pagamento;
+- executam ações operacionais como reembolsar, cancelar assinatura ou
+  reenviar um webhook. Essas ações continuam exclusivas do painel.
+
+## Cada pessoa autoriza o próprio acesso
+
+A autorização é da conta de usuário, não da empresa. Se três pessoas da equipe
+usam o Claude, cada uma conecta com o próprio email e concede as próprias
+permissões. Quando um usuário é desativado no painel, todos os acessos de
+assistentes dele param de funcionar na hora.
+
+## Revogando um acesso
+
+Em **Configurações → Aplicativos autorizados**, você vê todos os assistentes
+que autorizou, com as permissões concedidas a cada um. Clique em **Revogar
+acesso** para desconectar um assistente — ele volta a funcionar apenas se for
+autorizado de novo, do zero.
+
+<Callout type="tip">
+
+Autorizou por engano, ou testou um assistente que não vai mais usar? Revogar é
+imediato e não afeta nada no seu clube — apenas encerra o acesso daquele
+assistente.
+
+</Callout>

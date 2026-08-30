@@ -1,0 +1,58 @@
+---
+title: Assistentes de IA no seu clube
+description: Conecte assistentes como Claude e ChatGPT aos dados do seu clube e converse com suas assinaturas, pedidos e cobranças — com as permissões que você escolher.
+order: 10
+navTitle: Visão geral
+keywords:
+  - mcp
+  - inteligência artificial
+  - claude
+  - chatgpt
+  - agente
+  - conector
+---
+
+O Trio se conecta a assistentes de IA pelo protocolo MCP, um padrão aberto que
+permite a ferramentas como Claude e ChatGPT consultarem os dados do seu clube
+com a sua autorização. Depois de conectar, você conversa com o assistente sobre
+a sua operação como conversaria com alguém da equipe que conhece o painel de
+cor:
+
+- "Quantas assinaturas foram canceladas este mês, e de quais planos?"
+- "Liste os pedidos atrasados e o telefone de cada assinante."
+- "Quais cobranças falharam esta semana? Agrupe por motivo."
+- "Atualize a descrição do kit de setembro para incluir o novo produto."
+
+O assistente responde com os dados reais do seu clube, na hora, e — se você
+permitir — também atualiza cadastros como produtos, cupons e kits.
+
+## O endereço do servidor
+
+Todo assistente é configurado com o mesmo endereço:
+
+```
+https://mcp.trioassinaturas.com.br/mcp
+```
+
+O endereço é único para toda a plataforma: o assistente só acessa os dados da
+**sua** empresa porque é você quem autoriza, com o seu usuário do painel. Esse
+endereço, junto com as instruções de cada assistente, também está no seu
+painel, em **Configurações → Assistentes de IA**.
+
+## Quais assistentes funcionam
+
+| Assistente                                                            | Como conecta                                                     |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Claude (site, aplicativo e celular)                                   | [Conectar o Claude](/docs/assistentes-de-ia/conectar-o-claude)   |
+| ChatGPT                                                               | [Outros assistentes](/docs/assistentes-de-ia/outros-assistentes) |
+| Ferramentas de programação (VS Code, Claude Code, Cursor, Gemini CLI) | [Outros assistentes](/docs/assistentes-de-ia/outros-assistentes) |
+
+<Callout type="info" title="O que o assistente nunca faz">
+
+Assistentes conectados consultam e atualizam cadastros, mas não criam nem
+excluem registros, não enviam arquivos e não tocam em dados de pagamento.
+Ações como reembolsar uma cobrança ou cancelar uma assinatura continuam
+disponíveis apenas no painel. Veja
+[Permissões e segurança](/docs/assistentes-de-ia/permissoes-e-seguranca).
+
+</Callout>

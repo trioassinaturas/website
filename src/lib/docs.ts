@@ -13,6 +13,7 @@ const SECTIONS = {
   cobrancas: "Assinaturas e cobranças",
   operacao: "Operação",
   recursos: "Recursos",
+  "assistentes-de-ia": "Assistentes de IA",
 } as const
 
 export type Section = keyof typeof SECTIONS

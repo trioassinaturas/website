@@ -1,0 +1,36 @@
+# Everyone is welcome, AI crawlers and assistants included.
+# A map of the site for language models lives at /llms.txt.
+
+User-agent: *
+Allow: /
+
+# Explicit welcome for the major AI crawlers and assistant fetchers, so a
+# future stricter default never locks them out by accident.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://trioassinaturas.com.br/sitemap-index.xml
