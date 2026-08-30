@@ -1,6 +1,7 @@
-import { CONTACT, SITE, SOCIAL } from "../config"
+import { COMPANY, CONTACT, SITE, SOCIAL } from "../config"
 import { authorUrl, postUrl, type Author, type Post } from "./blog"
 import { docUrl, type Doc } from "./docs"
+import { FEATURES } from "./features"
 
 /**
  * JSON-LD entities describing a page. Emitted verbatim into a single
@@ -28,6 +29,8 @@ export function organization(site: URL): JsonLd {
     "@type": "Organization",
     "@id": abs(site, ORGANIZATION),
     name: SITE.name,
+    legalName: COMPANY.legalName,
+    taxID: COMPANY.cnpj,
     url: site.href,
     logo: abs(site, "/images/logo-completo.jpg"),
     description: SITE.description,
@@ -36,9 +39,40 @@ export function organization(site: URL): JsonLd {
     sameAs: [...SOCIAL],
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Porto Alegre",
-      addressRegion: "RS",
-      addressCountry: "BR",
+      addressLocality: COMPANY.city,
+      addressRegion: COMPANY.state,
+      addressCountry: COMPANY.country,
+    },
+  }
+}
+
+/**
+ * The product, which is not the same thing as the company that sells it. This
+ * is what answers "o que é a Trio Assinaturas" with software a merchant runs,
+ * rather than with a company profile.
+ *
+ * No price: it is quoted per club, and the FAQ says so in words. An `Offer`
+ * naming a number we do not publish would be the kind of structured data that
+ * contradicts the page.
+ */
+export function softwareApplication(site: URL): JsonLd {
+  return {
+    "@type": "SoftwareApplication",
+    "@id": abs(site, "/#software"),
+    name: SITE.name,
+    url: site.href,
+    description: SITE.description,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    inLanguage: "pt-BR",
+    provider: { "@id": abs(site, ORGANIZATION) },
+    areaServed: { "@type": "Country", name: "Brasil" },
+    featureList: FEATURES.map((feature) => feature.title),
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "BRL",
+      availability: "https://schema.org/InStock",
+      url: abs(site, "/perguntas-frequentes"),
     },
   }
 }
@@ -91,7 +125,7 @@ export function blogPosting({
       jobTitle: author.data.role,
       description: author.data.bio,
       url: abs(site, authorUrl(author.id)),
-      ...(author.data.url && { sameAs: [author.data.url] }),
+      ...(author.data.sameAs.length > 0 && { sameAs: author.data.sameAs }),
     },
     publisher: organization(site),
     ...(tags.length > 0 && { keywords: tags }),
@@ -148,7 +182,7 @@ export function aboutPage(site: URL, founders: Author[]): JsonLd {
         jobTitle: founder.data.role,
         description: founder.data.bio,
         url: abs(site, authorUrl(founder.id)),
-        ...(founder.data.url && { sameAs: [founder.data.url] }),
+        ...(founder.data.sameAs.length > 0 && { sameAs: founder.data.sameAs }),
       })),
     },
   }
@@ -201,7 +235,7 @@ export function collectionPage({
  * answer engine weighs when deciding whether writing is worth citing.
  */
 export function profilePage(site: URL, author: Author): JsonLd {
-  const { name, role, bio, url: profile } = author.data
+  const { name, role, bio, sameAs } = author.data
   const url = abs(site, authorUrl(author.id))
 
   return {
@@ -217,7 +251,7 @@ export function profilePage(site: URL, author: Author): JsonLd {
       description: bio,
       url,
       worksFor: { "@id": abs(site, ORGANIZATION) },
-      ...(profile && { sameAs: [profile] }),
+      ...(sameAs.length > 0 && { sameAs }),
     },
   }
 }

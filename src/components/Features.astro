@@ -1,57 +1,10 @@
 ---
 import { whatsappLink } from "../config"
+import { FEATURES } from "../lib/features"
 
 const whatsapp = whatsappLink(
   "Olá! Preciso de uma funcionalidade específica para meu clube.",
 )
-
-const features = [
-  {
-    icon: "box",
-    title: "Planos flexíveis",
-    text: "Crie planos com frequência e preços personalizados, do jeito que o seu clube funciona.",
-  },
-  {
-    icon: "users",
-    title: "Gestão de assinantes",
-    text: "Visualize e edite os dados das assinaturas em poucos cliques, sem planilhas paralelas.",
-  },
-  {
-    icon: "card",
-    title: "Pagamentos inteligentes",
-    text: "Acompanhe e exporte pagamentos efetuados e com falha, com retentativas automáticas inteligentes de cobrança.",
-  },
-  {
-    icon: "truck",
-    title: "Envios sob controle",
-    text: "Gere relatórios de envio confiáveis para a sua operação logística rodar sem sustos.",
-  },
-  {
-    icon: "storefront",
-    title: "Página de vendas + CMS",
-    text: "Página otimizada para SEO e mobile, com CMS para você editar tudo sem depender de ninguém.",
-  },
-  {
-    icon: "tag",
-    title: "Checkout e cupons",
-    text: "Checkout simples e efetivo, com cupons de desconto personalizados para suas campanhas.",
-  },
-  {
-    icon: "user-circle",
-    title: "Área do assinante",
-    text: "Seus assinantes gerenciam dados da assinatura e pedidos sozinhos, sem abrir chamado.",
-  },
-  {
-    icon: "mail",
-    title: "Emails transacionais",
-    text: "Comunicação personalizada e automática em cada etapa da vida da assinatura.",
-  },
-  {
-    icon: "gift",
-    title: "Member get member",
-    text: "Programa de indicação nativo: seus assinantes indicam amigos e ganham recompensas, e o clube cresce sozinho.",
-  },
-]
 
 const icons: Record<string, string> = {
   box: '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5l8 4.5 8-4.5"/><path d="M12 12v9"/>',
@@ -83,7 +36,7 @@ const icons: Record<string, string> = {
 
     <div class="features-grid">
       {
-        features.map((feature, i) => (
+        FEATURES.map((feature, i) => (
           <article
             class="feature-card reveal"
             style={`--reveal-delay: ${(i % 3) * 0.08}s`}

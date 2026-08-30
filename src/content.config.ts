@@ -15,8 +15,15 @@ const authors = defineCollection({
       accent: z.enum(["coral", "blue"]),
       /** Path relative to src/content/authors.yaml */
       avatar: image(),
-      /** External profile: LinkedIn, personal site, ... */
+      /** External profile linked from the page: LinkedIn, personal site, ... */
       url: z.url().optional(),
+      /**
+       * Canonical URLs of the same person elsewhere, published as `sameAs`.
+       * Kept apart from `url` because that one is a link a reader clicks and
+       * may carry tracking, while these are identity claims: a tracked or
+       * redirecting variant is a weaker match for the profile it points at.
+       */
+      sameAs: z.array(z.url()).default([]),
     }),
 })
 

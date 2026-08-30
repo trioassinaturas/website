@@ -6,12 +6,12 @@ import Platform from "../components/Platform.astro"
 import Clients from "../components/Clients.astro"
 import Story from "../components/Story.astro"
 import CTA from "../components/CTA.astro"
-import { organization, website } from "../lib/schema"
+import { organization, softwareApplication, website } from "../lib/schema"
 
 const site = Astro.site!
 ---
 
-<Layout schema={[organization(site), website(site)]}>
+<Layout schema={[organization(site), website(site), softwareApplication(site)]}>
   <Hero />
   <Features />
   <Platform />

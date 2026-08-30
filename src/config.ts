@@ -8,6 +8,19 @@ export const SITE = {
 /** Public profiles, published as the organization's `sameAs` in JSON-LD. */
 export const SOCIAL = ["https://www.instagram.com/trio.assinaturas/"] as const
 
+/**
+ * The registered company behind the brand. Published in JSON-LD, where it is
+ * what ties this site to a specific company rather than to a name someone
+ * else could also use. Both fields are public record.
+ */
+export const COMPANY = {
+  legalName: "TRIO TECNOLOGIA LTDA - ME",
+  cnpj: "60.175.299/0001-47",
+  city: "Porto Alegre",
+  state: "RS",
+  country: "BR",
+} as const
+
 export const CONTACT = {
   email: "contato@trioassinaturas.com.br",
   whatsappNumber: "5551991955735",

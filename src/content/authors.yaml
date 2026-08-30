@@ -6,6 +6,8 @@ tomas-susin:
   bio: Founder da TAG Livros, um dos maiores clubes de assinatura do Brasil, e do Tinta Club del Libro, um clube com milhares de assinantes na Colômbia, Chile, Peru e México. São mais de 13 anos criando, escalando e operando clubes na prática, das primeiras caixinhas aos milhares de envios por mês. Na Trio, cuida para que a plataforma resolva os problemas reais de quem vive de recorrência.
   avatar: ../assets/founders/tomas.jpg
   url: https://www.linkedin.com/in/tom%C3%A1s-susin-dos-santos-22750650/
+  sameAs:
+    - https://www.linkedin.com/in/tom%C3%A1s-susin-dos-santos-22750650/
 
 rafael-audibert:
   order: 2
@@ -15,3 +17,6 @@ rafael-audibert:
   bio: "Desenvolvedor de software com experiência não apenas na prática após trabalhar na TAG Livros mas também em produtos de alta escala usados por milhares de empresas no mundo todo. Na Trio, lidera a tecnologia: uma plataforma confiável, rápida e simples de usar, para que a recorrência do seu clube rode no piloto automático."
   avatar: ../assets/founders/rafael.jpg
   url: https://www.rafaaudibert.dev/?utm_source=trioassinaturas
+  sameAs:
+    - https://www.rafaaudibert.dev/
+    - https://www.linkedin.com/in/rbaudibert/
