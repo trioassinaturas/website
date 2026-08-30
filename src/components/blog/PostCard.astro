@@ -2,14 +2,13 @@
 import { Image } from "astro:assets"
 import AuthorChip from "./AuthorChip.astro"
 import {
-  formatDate,
-  isoDate,
   postUrl,
   readingMinutes,
   vtName,
   type Author,
   type Post,
 } from "../../lib/blog"
+import { formatDate, isoDate } from "../../lib/dates"
 
 interface Props {
   post: Post

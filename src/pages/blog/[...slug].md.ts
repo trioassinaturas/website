@@ -1,5 +1,6 @@
 import type { APIRoute, GetStaticPaths } from "astro"
-import { formatDate, getAuthorMap, getPosts, postUrl } from "../../lib/blog"
+import { getAuthorMap, getPosts, postUrl } from "../../lib/blog"
+import { formatDate } from "../../lib/dates"
 
 /**
  * Every post is also published as plain markdown at `<url>.md`, for AI

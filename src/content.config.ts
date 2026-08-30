@@ -47,6 +47,13 @@ const docs = defineCollection({
     description: z.string(),
     /** Position inside the section. Sparse numbering (10, 20, 30) eases inserts. */
     order: z.number().int(),
+    /**
+     * When the page last said something new. Shown on the page and published as
+     * `dateModified`, which is how a search or answer engine tells a current
+     * page from an abandoned one. Required so it cannot silently go missing;
+     * bump it whenever the content changes, not for a typo.
+     */
+    updatedDate: z.coerce.date(),
     /** Shorter label for the sidebar, when the page title is too long. */
     navTitle: z.string().optional(),
     /** Extra search terms, indexed without appearing in the copy. */

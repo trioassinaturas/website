@@ -50,16 +50,6 @@ export async function getAuthorMap(): Promise<Map<string, Author>> {
 export const postUrl = (post: Post) => `/blog/${post.id}`
 export const authorUrl = (id: string) => `/blog/author/${id}`
 
-const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-})
-
-export const formatDate = (date: Date) => dateFormatter.format(date)
-export const isoDate = (date: Date) => date.toISOString().slice(0, 10)
-
 /** Estimate at 200 words per minute, floored at 1 minute. */
 export function readingMinutes(body = ""): number {
   const words = body.trim().split(/\s+/).filter(Boolean).length

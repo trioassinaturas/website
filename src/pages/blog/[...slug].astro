@@ -7,16 +7,15 @@ import AuthorChip from "../../components/blog/AuthorChip.astro"
 import Callout from "../../components/mdx/Callout.astro"
 import {
   authorUrl,
-  formatDate,
   getAuthorMap,
   getPosts,
-  isoDate,
   postUrl,
   readingMinutes,
   vtName,
   type Author,
   type Post,
 } from "../../lib/blog"
+import { formatDate, isoDate } from "../../lib/dates"
 import { blogPosting, breadcrumbs } from "../../lib/schema"
 import "../../styles/prose.css"
 

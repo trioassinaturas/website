@@ -110,7 +110,7 @@ export interface TechArticleInput {
  * instructions for operating the product, not editorial writing.
  */
 export function techArticle({ site, doc, section }: TechArticleInput): JsonLd {
-  const { title, description, keywords } = doc.data
+  const { title, description, keywords, updatedDate } = doc.data
   const url = abs(site, docUrl(doc))
 
   return {
@@ -121,6 +121,7 @@ export function techArticle({ site, doc, section }: TechArticleInput): JsonLd {
     url,
     mainEntityOfPage: url,
     inLanguage: "pt-BR",
+    dateModified: isoDay(updatedDate),
     articleSection: section,
     publisher: organization(site),
     ...(keywords.length > 0 && { keywords }),

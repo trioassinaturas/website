@@ -91,9 +91,16 @@ Frontmatter contract (schema in `src/content.config.ts`):
 | ----------------------- | -------- | -------------------------------------------------------------------------- |
 | `title` / `description` | yes      | Rendered in the page header and used for `<title>`/meta                    |
 | `order`                 | yes      | Position inside the section. Numbered 10, 20, 30 so inserts don't renumber |
+| `updatedDate`           | yes      | `YYYY-MM-DD`. Shown on the page and published as `dateModified`            |
 | `navTitle`              | no       | Shorter sidebar label when the title is long                               |
 | `keywords`              | no       | Indexed for search without appearing on the page                           |
 | `draft`                 | no       | Visible in `astro dev`, excluded from the build                            |
+
+**Bump `updatedDate` when you change what a page says**, not when you fix a
+typo. It is what tells a reader and an answer engine that the page still
+describes the product: a date that never moves reads as abandoned, and one that
+moves on every commit stops meaning anything. New pages carry the date they
+were written.
 
 `Callout`, `Steps` and `Tabs` are passed to every MDX page via the `components`
 prop in `src/pages/docs/[...slug].astro`, so **do not import them** in the MDX.

@@ -13,6 +13,7 @@ import {
   type DocsNav,
   type DocsPager as Pager,
 } from "../lib/docs"
+import { formatDate, isoDate } from "../lib/dates"
 import { breadcrumbs, techArticle } from "../lib/schema"
 import "../styles/prose.css"
 import "../styles/docs.css"
@@ -25,7 +26,7 @@ interface Props {
 }
 
 const { doc, headings, nav, pager } = Astro.props
-const { title, description, keywords } = doc.data
+const { title, description, keywords, updatedDate } = doc.data
 const label = sectionLabel(docSection(doc))
 const markdownUrl = `${docUrl(doc)}.md`
 
@@ -68,6 +69,11 @@ const schema = [
             <a href={markdownUrl}>Ver esta página em markdown</a>, pronta para
             colar em um assistente de IA.
           </p>
+          <p class="docs-article-updated" data-pagefind-ignore>
+            Atualizada em <time datetime={isoDate(updatedDate)}>
+              {formatDate(updatedDate)}
+            </time>
+          </p>
         </header>
 
         <div class="prose docs-article-body">
@@ -90,6 +96,12 @@ const schema = [
 </Layout>
 
 <style>
+  .docs-article-updated {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+
   .docs-sidebar-column {
     position: sticky;
     top: 5.5rem;
