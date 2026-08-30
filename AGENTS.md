@@ -74,6 +74,21 @@ names from the database, internal timestamps, jobs, rendering, API details.
 does not. The test is whether a detail changes what the merchant should do; if it
 does not, cut it.
 
+**Answer first, then explain.** Assume every paragraph will be read alone,
+because increasingly it is: a page reaches someone as one lifted paragraph in an
+assistant's answer, with no title above it and no section before it. So the
+first sentence of the page says what the thing _is_ or _does_ ("A tabela de
+frete diz quanto custa entregar em cada faixa de CEP"), never what it is not,
+what changed, or what you are about to explain. The first sentence under a
+heading does the same for that section, and it names its subject instead of
+pointing back at one: "O cupom expira na data de validade", not "Ela expira
+nessa data". No heading sits directly on top of a table, a list or a `Callout`
+with nothing in between: say what the reader is looking at before showing it.
+
+This is also why headings are written as the thing the reader wants ("O formato
+do CSV"), not as clever labels. Turning every heading into a literal question is
+not the goal and usually reads worse in Portuguese.
+
 **No em dashes (—), anywhere in `/docs`**: body copy and frontmatter alike.
 Rephrase the sentence. A colon, a comma, parentheses, or a full stop always
 reads better in Portuguese than the dash. A hyphen is fine only where it is a
@@ -136,6 +151,15 @@ in sync:
   `<link rel="alternate" type="text/markdown">` through the `markdownUrl` prop
   on `src/layouts/Layout.astro`. A new content collection that renders pages
   should ship the same pair: a `.md` twin endpoint and the `markdownUrl` prop.
+- **JSON-LD**: every page states what it is in structured data. The entities are
+  built in `src/lib/schema.ts` and passed to the `schema` prop on
+  `src/layouts/Layout.astro`, which emits them as one `@graph`. A new page type
+  needs its own entity there; a new page of an existing type needs nothing.
+  Build the entity from data the page already renders, and never describe in
+  JSON-LD something the reader cannot see: structured data that promises more
+  than the page delivers is what gets a site dropped rather than cited. The FAQ
+  at `src/pages/perguntas-frequentes.astro` shows the shape, with one array
+  feeding both the markup and the `FAQPage` entity.
 - **`public/robots.txt`** welcomes all crawlers, AI bots explicitly included.
   Keep it that way unless told otherwise.
 
