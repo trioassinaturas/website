@@ -7,6 +7,7 @@ import DocsPager from "../components/docs/DocsPager.astro"
 import DocsSearch from "../components/docs/DocsSearch.astro"
 import {
   docSection,
+  docUrl,
   sectionLabel,
   type Doc,
   type DocsNav,
@@ -25,11 +26,13 @@ interface Props {
 const { doc, headings, nav, pager } = Astro.props
 const { title, description, keywords } = doc.data
 const label = sectionLabel(docSection(doc))
+const markdownUrl = `${docUrl(doc)}.md`
 ---
 
 <Layout
   title={`${title} | Documentação Trio Assinaturas`}
   description={description}
+  markdownUrl={markdownUrl}
 >
   <div class="container docs-shell">
     <div class="docs-sidebar-column">
@@ -49,6 +52,10 @@ const label = sectionLabel(docSection(doc))
           <p class="section-eyebrow">{label}</p>
           <h1 class="docs-article-title" data-pagefind-meta="title">{title}</h1>
           <p class="docs-article-description">{description}</p>
+          <p class="docs-article-markdown" data-pagefind-ignore>
+            <a href={markdownUrl}>Ver esta página em markdown</a>, pronta para
+            colar em um assistente de IA.
+          </p>
         </header>
 
         <div class="prose docs-article-body">

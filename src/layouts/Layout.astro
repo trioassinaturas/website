@@ -14,6 +14,8 @@ interface Props {
   /** Social preview image. Accepts a site-relative path or a built asset URL. */
   image?: string
   ogType?: "website" | "article"
+  /** Plain-markdown twin of this page, advertised as an alternate for agents. */
+  markdownUrl?: string
 }
 
 const {
@@ -21,6 +23,7 @@ const {
   description = SITE.description,
   image = "/images/logo-completo.jpg",
   ogType = "website",
+  markdownUrl,
 } = Astro.props
 
 const canonical = new URL(Astro.url.pathname, Astro.site)
@@ -44,6 +47,15 @@ const ogImage = new URL(image, Astro.site)
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#fffbfa" />
     <link rel="canonical" href={canonical} />
+    {
+      markdownUrl && (
+        <link
+          rel="alternate"
+          type="text/markdown"
+          href={new URL(markdownUrl, Astro.site)}
+        />
+      )
+    }
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
