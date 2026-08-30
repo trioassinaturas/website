@@ -1,4 +1,4 @@
-import { CONTACT, SITE } from "../config"
+import { CONTACT, SITE, SOCIAL } from "../config"
 import { authorUrl, postUrl, type Author, type Post } from "./blog"
 import { docUrl, type Doc } from "./docs"
 
@@ -33,6 +33,7 @@ export function organization(site: URL): JsonLd {
     description: SITE.description,
     email: CONTACT.email,
     telephone: CONTACT.whatsappDisplay,
+    sameAs: [...SOCIAL],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Porto Alegre",
@@ -217,6 +218,34 @@ export function profilePage(site: URL, author: Author): JsonLd {
       worksFor: { "@id": abs(site, ORGANIZATION) },
       ...(profile && { sameAs: [profile] }),
     },
+  }
+}
+
+export interface Faq {
+  question: string
+  /** Plain text, rendered verbatim on the page so the two never diverge. */
+  answer: string
+}
+
+/**
+ * A page of questions and answers. The answers here have to be the same text
+ * the reader sees: structured data that promises more than the page shows is
+ * what gets a site dropped from answers rather than cited.
+ */
+export function faqPage(site: URL, path: string, faqs: Faq[]): JsonLd {
+  const url = abs(site, path)
+
+  return {
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    url,
+    inLanguage: "pt-BR",
+    publisher: organization(site),
+    mainEntity: faqs.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
   }
 }
 

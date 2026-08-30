@@ -5,6 +5,9 @@ export const SITE = {
     "Gerencie planos personalizados, assinantes, pagamentos e envios, tudo em um só lugar. A plataforma feita para clubes de assinatura no Brasil.",
 } as const
 
+/** Public profiles, published as the organization's `sameAs` in JSON-LD. */
+export const SOCIAL = ["https://www.instagram.com/trio.assinaturas/"] as const
+
 export const CONTACT = {
   email: "contato@trioassinaturas.com.br",
   whatsappNumber: "5551991955735",

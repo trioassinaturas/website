@@ -1,0 +1,182 @@
+---
+import Layout from "../layouts/Layout.astro"
+import CTA from "../components/CTA.astro"
+import { breadcrumbs, faqPage, type Faq } from "../lib/schema"
+import { CONTACT, whatsappLink } from "../config"
+
+/**
+ * Single source of truth for the page and for its FAQPage structured data.
+ * Answers are plain text and get rendered verbatim, so what an answer engine
+ * reads in the JSON-LD is exactly what a reader sees.
+ *
+ * Each answer stands on its own: no "como vimos acima", no dependency on the
+ * question before it, because these get lifted one at a time.
+ */
+const faqs: Faq[] = [
+  {
+    question: "O que é a Trio Assinaturas?",
+    answer:
+      "A Trio é uma plataforma brasileira para criar e operar clubes de assinatura. Ela cobre o caminho inteiro: montar o catálogo de planos e kits, vender pelo checkout, cobrar todo mês de forma recorrente, organizar os envios e dar ao assinante uma área onde ele resolve as próprias pendências.",
+  },
+  {
+    question: "Quanto custa a Trio Assinaturas?",
+    answer:
+      "O valor depende do tamanho e do formato do seu clube, então trabalhamos com proposta sob consulta em vez de um preço de tabela. Fale com a gente pelo WhatsApp ou por e-mail contando quantos assinantes você tem hoje, ou quantos pretende ter, e devolvemos uma proposta.",
+  },
+  {
+    question: "Preciso de CNPJ para criar um clube de assinatura na Trio?",
+    answer:
+      "Não. Não existe exigência de CNPJ, de faturamento mínimo ou de número mínimo de assinantes para começar a usar a Trio. Você pode montar o clube, configurar os planos e abrir o checkout independentemente do estágio em que o seu negócio está.",
+  },
+  {
+    question: "Preciso saber programar para usar a Trio?",
+    answer:
+      "Não. A plataforma foi feita para ser operada por pessoas que não são técnicas: tudo é configurado por telas do painel, sem código. Se quiser publicar a loja no seu próprio domínio, esse é o único passo que envolve DNS, e o time de suporte ajuda a fazer a configuração.",
+  },
+  {
+    question: "Quais formas de pagamento o assinante pode usar?",
+    answer:
+      "O assinante pode pagar com cartão de crédito ou Pix. A cobrança recorrente roda automaticamente a cada ciclo do plano, e quando um pagamento falha a plataforma faz novas tentativas antes de a assinatura ser interrompida, o que evita perder assinante por um cartão sem limite no dia errado.",
+  },
+  {
+    question: "Quais provedores de pagamento a Trio integra?",
+    answer:
+      "Hoje a Trio opera com Stripe e Asaas, definidos junto com você durante a integração. Se o seu clube já trabalha com outro provedor, fale com a gente: implementar novas integrações de pagamento é parte do que fazemos, e avaliamos cada pedido.",
+  },
+  {
+    question: "Dá para migrar de outra plataforma para a Trio?",
+    answer:
+      "Dá. Clubes que já rodam em outra plataforma conseguem migrar para a Trio, incluindo a base de assinantes e as assinaturas que já estão ativas. A migração é acompanhada pelo nosso time, então vale começar a conversa contando qual plataforma você usa hoje.",
+  },
+  {
+    question:
+      "O assinante consegue resolver as coisas sem falar com o suporte?",
+    answer:
+      "Consegue, e isso reduz o volume que chega até você. Na área do assinante ele acompanha os pedidos e o rastreio, atualiza o cartão, gerencia os endereços salvos e trata a própria assinatura. Cada pendência resolvida ali é um atendimento que a sua equipe não precisa fazer.",
+  },
+]
+
+const whatsapp = whatsappLink(
+  "Olá! Tenho algumas dúvidas sobre a Trio Assinaturas.",
+)
+
+const description =
+  "Respostas diretas sobre a Trio Assinaturas: preço, formas de pagamento, provedores, migração de outra plataforma e o que é preciso para abrir um clube de assinatura."
+
+const site = Astro.site!
+const schema = [
+  faqPage(site, "/perguntas-frequentes", faqs),
+  breadcrumbs(site, [
+    { name: "Início", path: "/" },
+    { name: "Perguntas frequentes" },
+  ]),
+]
+---
+
+<Layout
+  title="Perguntas frequentes | Trio Assinaturas"
+  description={description}
+  schema={schema}
+>
+  <section class="section faq-hero">
+    <div class="container">
+      <p class="section-eyebrow">Perguntas frequentes</p>
+      <h1 class="section-title">
+        As dúvidas que a gente <span>mais escuta</span>
+      </h1>
+      <p class="section-lead">
+        Se a sua pergunta não estiver aqui, é só chamar no WhatsApp ou mandar um
+        e-mail. A gente responde de verdade, sem robô no meio.
+      </p>
+    </div>
+  </section>
+
+  <section class="section faq-list">
+    <div class="container">
+      <dl class="faq-items">
+        {
+          faqs.map((faq, i) => (
+            <div class="faq-item reveal" style={`--reveal-delay: ${i * 0.05}s`}>
+              <dt class="faq-question">{faq.question}</dt>
+              <dd class="faq-answer">{faq.answer}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <p class="faq-contact">
+        Ainda com dúvida?{" "}
+        <a
+          href={whatsapp}
+          target="_blank"
+          rel="noopener"
+          data-ph-capture-attribute-cta="contact"
+          data-ph-capture-attribute-cta-section="faq"
+          data-ph-capture-attribute-cta-channel="whatsapp"
+        >
+          Fale com a gente no WhatsApp
+        </a>{" "}
+        ou escreva para{" "}
+        <a
+          href={`mailto:${CONTACT.email}`}
+          data-ph-capture-attribute-cta="contact"
+          data-ph-capture-attribute-cta-section="faq"
+          data-ph-capture-attribute-cta-channel="email"
+        >
+          {CONTACT.email}
+        </a>.
+      </p>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>
+
+<style>
+  .faq-hero {
+    padding-bottom: 0;
+  }
+
+  .faq-hero :global(.section-title span) {
+    color: var(--coral);
+  }
+
+  .faq-items {
+    display: grid;
+    gap: 1.5rem;
+    margin: 0;
+    max-width: 52rem;
+  }
+
+  .faq-item {
+    padding: 1.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1.25rem;
+  }
+
+  .faq-question {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 1rem + 0.4vw, 1.35rem);
+    font-weight: 700;
+    color: var(--blue-deep);
+    line-height: 1.3;
+  }
+
+  .faq-answer {
+    margin: 0.75rem 0 0;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .faq-contact {
+    margin-top: 2.5rem;
+    max-width: 52rem;
+    color: var(--ink-soft);
+  }
+
+  .faq-contact a {
+    color: var(--blue);
+    font-weight: 600;
+  }
+</style>

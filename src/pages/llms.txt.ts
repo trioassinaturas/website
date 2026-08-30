@@ -46,6 +46,7 @@ export const GET: APIRoute = async ({ site }) => {
     "## Site",
     "",
     `- [Página inicial](${base}/): o que é o Trio e para quem ele é`,
+    `- [Perguntas frequentes](${base}/perguntas-frequentes): preço, formas de pagamento, provedores, migração e requisitos para abrir um clube`,
     `- [Blog](${base}/blog): novidades e guias sobre clubes de assinatura`,
     `- [Sobre](${base}/sobre): quem faz o Trio`,
     "",
