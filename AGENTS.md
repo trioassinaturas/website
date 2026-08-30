@@ -74,6 +74,11 @@ names from the database, internal timestamps, jobs, rendering, API details.
 does not. The test is whether a detail changes what the merchant should do; if it
 does not, cut it.
 
+**No em dashes (—), anywhere in `/docs`** — body copy and frontmatter alike.
+Rephrase the sentence: a colon, a comma, parentheses, or a full stop always
+reads better in Portuguese than the dash. A hyphen is fine only where it is a
+real hyphen (compound words), never as a dash substitute.
+
 Content lives in `src/content/docs/<secao>/<pagina>.mdx`. The directory **is** the
 sidebar group and the first URL segment, so moving a file between directories
 changes its URL. Group labels and their display order are defined once, in

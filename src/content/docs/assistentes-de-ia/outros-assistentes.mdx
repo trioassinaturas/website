@@ -1,6 +1,6 @@
 ---
 title: Conectar outros assistentes
-description: Como conectar o ChatGPT e as ferramentas de programação da sua equipe — VS Code, Cursor e Gemini CLI — ao servidor MCP do Trio.
+description: Como conectar o ChatGPT e as ferramentas de programação da sua equipe (VS Code, Cursor e Gemini CLI) ao servidor MCP do Trio.
 order: 30
 keywords:
   - chatgpt
@@ -18,7 +18,7 @@ conectar ao Trio pelo mesmo endereço:
 https://mcp.trioassinaturas.com.br/mcp
 ```
 
-Em todos os casos o acesso é autorizado com o seu usuário do Trio — nenhuma
+Em todos os casos o acesso é autorizado com o seu usuário do Trio: nenhuma
 chave ou senha é copiada para o assistente.
 
 ## ChatGPT
@@ -49,8 +49,8 @@ suporte a MCP conectam com uma configuração curta.
   <Fragment slot="vscode">
 
     Abra a paleta de comandos (Ctrl+Shift+P), execute **MCP: Add Server**,
-    escolha o tipo **HTTP** e cole o endereço do servidor — ou adicione ao
-    arquivo `.vscode/mcp.json`:
+    escolha o tipo **HTTP** e cole o endereço do servidor. Se preferir, adicione
+    direto ao arquivo `.vscode/mcp.json`:
 
     ```json
     {
@@ -97,8 +97,8 @@ suporte a MCP conectam com uma configuração curta.
 <Callout type="warning" title="Nem todo assistente conecta">
 
 O Trio usa o método de identificação mais recente do protocolo MCP. Alguns
-assistentes ainda não o adotaram — o Codex CLI da OpenAI, por exemplo — e não
-conseguem concluir a autorização. Se um assistente parar na etapa de login, a
+assistentes ainda não o adotaram, como o Codex CLI da OpenAI, e não conseguem
+concluir a autorização. Se um assistente parar na etapa de login, a
 causa provável é essa, e a solução é aguardar uma atualização dele.
 
 </Callout>
