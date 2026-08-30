@@ -17,6 +17,7 @@ import {
   type Author,
   type Post,
 } from "../../lib/blog"
+import { blogPosting, breadcrumbs } from "../../lib/schema"
 import "../../styles/prose.css"
 
 export async function getStaticPaths() {
@@ -50,6 +51,16 @@ const { Content } = await render(post)
 
 // Components available to every MDX post without an explicit import.
 const mdxComponents = { Callout }
+
+const site = Astro.site!
+const schema = [
+  blogPosting({ site, post, author, coverSrc: cover?.src }),
+  breadcrumbs(site, [
+    { name: "Início", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: title },
+  ]),
+]
 ---
 
 <Layout
@@ -58,6 +69,7 @@ const mdxComponents = { Callout }
   image={cover?.src}
   ogType="article"
   markdownUrl={`${postUrl(post)}.md`}
+  schema={schema}
 >
   <article class="post">
     <header class="post-header container">

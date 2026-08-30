@@ -2,7 +2,8 @@
 import Layout from "../../layouts/Layout.astro"
 import PostCard from "../../components/blog/PostCard.astro"
 import EmptyState from "../../components/blog/EmptyState.astro"
-import { getAuthorMap, getPosts } from "../../lib/blog"
+import { getAuthorMap, getPosts, postUrl } from "../../lib/blog"
+import { breadcrumbs, collectionPage } from "../../lib/schema"
 import { CONTACT, whatsappLink } from "../../config"
 
 const posts = await getPosts()
@@ -11,11 +12,30 @@ const authors = await getAuthorMap()
 const whatsapp = whatsappLink(
   "Olá! Quero acompanhar os conteúdos da Trio Assinaturas.",
 )
+
+const description =
+  "Conteúdos sobre recorrência, operação e crescimento de clubes de assinatura, escritos por quem vive esse mercado todos os dias."
+
+const site = Astro.site!
+const schema = [
+  collectionPage({
+    site,
+    path: "/blog",
+    name: "Blog Trio Assinaturas",
+    description,
+    items: posts.map((post) => ({
+      name: post.data.title,
+      path: postUrl(post),
+    })),
+  }),
+  breadcrumbs(site, [{ name: "Início", path: "/" }, { name: "Blog" }]),
+]
 ---
 
 <Layout
   title="Blog | Trio Assinaturas"
-  description="Conteúdos sobre recorrência, operação e crescimento de clubes de assinatura, escritos por quem vive esse mercado todos os dias."
+  description={description}
+  schema={schema}
 >
   <section class="section blog-hero">
     <div class="container">

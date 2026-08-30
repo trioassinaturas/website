@@ -3,6 +3,7 @@ import { Image } from "astro:assets"
 import { getCollection } from "astro:content"
 import Layout from "../layouts/Layout.astro"
 import Cubo from "../assets/cubo.svg"
+import { aboutPage, breadcrumbs } from "../lib/schema"
 import { CONTACT, whatsappLink } from "../config"
 
 const whatsapp = whatsappLink(
@@ -13,9 +14,16 @@ const whatsapp = whatsappLink(
 const founders = (await getCollection("authors")).sort(
   (a, b) => a.data.order - b.data.order,
 )
+
+const site = Astro.site!
+const schema = [
+  aboutPage(site, founders),
+  breadcrumbs(site, [{ name: "Início", path: "/" }, { name: "Sobre nós" }]),
+]
 ---
 
 <Layout
+  schema={schema}
   title="Sobre nós | Trio Assinaturas"
   description="Conheça os fundadores da Trio: Tomas Susin (founder da TAG Livros) e Rafael Audibert. Uma plataforma feita por quem vive clubes de assinatura há mais de 13 anos."
 >

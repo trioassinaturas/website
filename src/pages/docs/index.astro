@@ -3,16 +3,33 @@ import Layout from "../../layouts/Layout.astro"
 import CTA from "../../components/CTA.astro"
 import DocsSearch from "../../components/docs/DocsSearch.astro"
 import { getDocsNav } from "../../lib/docs"
+import { breadcrumbs, collectionPage } from "../../lib/schema"
 import "../../styles/docs.css"
 
 const nav = await getDocsNav()
 const pageCount = nav.flat.length
 const first = nav.flat[0]
+
+const description =
+  "Como configurar e operar o seu clube de assinatura na Trio: planos, kits, cobranças recorrentes, envios e área do assinante."
+
+const site = Astro.site!
+const schema = [
+  collectionPage({
+    site,
+    path: "/docs",
+    name: "Documentação Trio Assinaturas",
+    description,
+    items: nav.flat.map((item) => ({ name: item.title, path: item.url })),
+  }),
+  breadcrumbs(site, [{ name: "Início", path: "/" }, { name: "Documentação" }]),
+]
 ---
 
 <Layout
   title="Documentação | Trio Assinaturas"
-  description="Como configurar e operar o seu clube de assinatura na Trio: planos, kits, cobranças recorrentes, envios e área do assinante."
+  description={description}
+  schema={schema}
 >
   <section class="section docs-index">
     <div class="container">

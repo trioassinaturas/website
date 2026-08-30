@@ -13,6 +13,7 @@ import {
   type DocsNav,
   type DocsPager as Pager,
 } from "../lib/docs"
+import { breadcrumbs, techArticle } from "../lib/schema"
 import "../styles/prose.css"
 import "../styles/docs.css"
 
@@ -27,12 +28,23 @@ const { doc, headings, nav, pager } = Astro.props
 const { title, description, keywords } = doc.data
 const label = sectionLabel(docSection(doc))
 const markdownUrl = `${docUrl(doc)}.md`
+
+const site = Astro.site!
+const schema = [
+  techArticle({ site, doc, section: label }),
+  breadcrumbs(site, [
+    { name: "Início", path: "/" },
+    { name: "Documentação", path: "/docs" },
+    { name: title },
+  ]),
+]
 ---
 
 <Layout
   title={`${title} | Documentação Trio Assinaturas`}
   description={description}
   markdownUrl={markdownUrl}
+  schema={schema}
 >
   <div class="container docs-shell">
     <div class="docs-sidebar-column">

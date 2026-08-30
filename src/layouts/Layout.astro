@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar.astro"
 import Footer from "../components/Footer.astro"
 import PostHog from "../components/PostHog.astro"
 import { SITE } from "../config"
+import { jsonLd, type JsonLd } from "../lib/schema"
 
 interface Props {
   title?: string
@@ -16,6 +17,8 @@ interface Props {
   ogType?: "website" | "article"
   /** Plain-markdown twin of this page, advertised as an alternate for agents. */
   markdownUrl?: string
+  /** Structured data describing this page, emitted as one JSON-LD graph. */
+  schema?: JsonLd[]
 }
 
 const {
@@ -24,6 +27,7 @@ const {
   image = "/images/logo-completo.jpg",
   ogType = "website",
   markdownUrl,
+  schema,
 } = Astro.props
 
 const canonical = new URL(Astro.url.pathname, Astro.site)
@@ -63,6 +67,15 @@ const ogImage = new URL(image, Astro.site)
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    {
+      schema && schema.length > 0 && (
+        <script
+          is:inline
+          type="application/ld+json"
+          set:html={jsonLd(schema)}
+        />
+      )
+    }
     <PostHog />
   </head>
   <body>
