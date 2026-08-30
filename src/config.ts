@@ -5,8 +5,18 @@ export const SITE = {
     "Gerencie planos personalizados, assinantes, pagamentos e envios, tudo em um só lugar. A plataforma feita para clubes de assinatura no Brasil.",
 } as const
 
-/** Public profiles, published as the organization's `sameAs` in JSON-LD. */
-export const SOCIAL = ["https://www.instagram.com/trio.assinaturas/"] as const
+/**
+ * Public profiles. Linked from the footer and published as the organization's
+ * `sameAs` in JSON-LD: the claim carries more weight when the site actually
+ * links to the profile it names, so both come from this one list.
+ */
+export const SOCIAL = [
+  { label: "Instagram", url: "https://www.instagram.com/trio.assinaturas/" },
+  {
+    label: "LinkedIn",
+    url: "https://www.linkedin.com/company/trioassinaturas",
+  },
+] as const
 
 /**
  * The registered company behind the brand. Published in JSON-LD, where it is

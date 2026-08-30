@@ -1,6 +1,6 @@
 ---
 import Logo from "./Logo.astro"
-import { CONTACT, whatsappLink } from "../config"
+import { CONTACT, SOCIAL, whatsappLink } from "../config"
 
 const year = new Date().getFullYear()
 ---
@@ -56,6 +56,22 @@ const year = new Date().getFullYear()
               WhatsApp: {CONTACT.whatsappDisplay}
             </a>
           </li>
+          {
+            SOCIAL.map((profile) => (
+              <li>
+                <a
+                  href={profile.url}
+                  target="_blank"
+                  rel="noopener"
+                  data-ph-capture-attribute-cta="social"
+                  data-ph-capture-attribute-cta-section="footer"
+                  data-ph-capture-attribute-cta-channel={profile.label.toLowerCase()}
+                >
+                  {profile.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>

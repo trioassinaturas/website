@@ -36,7 +36,7 @@ export function organization(site: URL): JsonLd {
     description: SITE.description,
     email: CONTACT.email,
     telephone: CONTACT.whatsappDisplay,
-    sameAs: [...SOCIAL],
+    sameAs: SOCIAL.map((profile) => profile.url),
     address: {
       "@type": "PostalAddress",
       addressLocality: COMPANY.city,
