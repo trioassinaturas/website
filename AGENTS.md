@@ -112,6 +112,26 @@ HTML. It **does not exist under `astro dev`** and the search box says so; use
 `data-pagefind-body` in `src/layouts/DocsLayout.astro`, so adding that attribute
 anywhere else widens what search returns.
 
+## The site as AI agents see it
+
+The site is also published for machines, and new work has to keep that surface
+in sync:
+
+- **`/llms.txt`** (`src/pages/llms.txt.ts`) is the site map for AI assistants.
+  Docs pages appear in it automatically (it is generated from the docs
+  collection), so adding a `/docs` page needs nothing. Everything else is
+  hand-written in that file: when you add a top-level page, a new content type,
+  or change a key fact it states (the MCP endpoint, the site blurb, the pages
+  under "Site"), update it in the same change.
+- **Markdown twins**: every docs page and blog post is also built as plain
+  markdown at `<url>.md` (`src/pages/docs/[...slug].md.ts` and
+  `src/pages/blog/[...slug].md.ts`), advertised via
+  `<link rel="alternate" type="text/markdown">` through the `markdownUrl` prop
+  on `src/layouts/Layout.astro`. A new content collection that renders pages
+  should ship the same pair: a `.md` twin endpoint and the `markdownUrl` prop.
+- **`public/robots.txt`** welcomes all crawlers, AI bots explicitly included.
+  Keep it that way unless told otherwise.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build
