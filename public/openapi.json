@@ -1,0 +1,25 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Trio Assinaturas",
+    "version": "1.0.0",
+    "summary": "Não existe API REST pública. A integração para máquinas é o servidor MCP.",
+    "description": "A Trio Assinaturas não publica uma API REST, e por isso este documento não declara nenhum endpoint. A forma de agentes e assistentes de IA agirem sobre os dados de um clube (assinantes, assinaturas, cobranças) é o servidor MCP (Model Context Protocol) em https://mcp.trioassinaturas.com.br/mcp, com autorização OAuth usando o usuário do painel do clube. Guia de conexão: https://trioassinaturas.com.br/docs/assistentes-de-ia/visao-geral. Para entender como a plataforma funciona, use a documentação em https://trioassinaturas.com.br/docs, mapeada em https://trioassinaturas.com.br/llms.txt, onde cada página existe também em markdown puro no mesmo endereço com o sufixo .md.",
+    "contact": {
+      "name": "Trio Assinaturas",
+      "email": "contato@trioassinaturas.com.br",
+      "url": "https://trioassinaturas.com.br/contato"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://mcp.trioassinaturas.com.br/mcp",
+      "description": "Servidor MCP (Model Context Protocol), não REST. Conecte um cliente MCP com transporte Streamable HTTP e autorização OAuth."
+    }
+  ],
+  "externalDocs": {
+    "description": "Guia de integração via MCP",
+    "url": "https://trioassinaturas.com.br/docs/assistentes-de-ia/visao-geral"
+  },
+  "paths": {}
+}

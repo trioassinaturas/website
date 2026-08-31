@@ -149,8 +149,12 @@ in sync:
   markdown at `<url>.md` (`src/pages/docs/[...slug].md.ts` and
   `src/pages/blog/[...slug].md.ts`), advertised via
   `<link rel="alternate" type="text/markdown">` through the `markdownUrl` prop
-  on `src/layouts/Layout.astro`. A new content collection that renders pages
-  should ship the same pair: a `.md` twin endpoint and the `markdownUrl` prop.
+  on `src/layouts/Layout.astro`. The same pages also answer
+  `Accept: text/markdown` with the twin (plus `Vary: Accept`), via the
+  Cloudflare Pages Functions in `functions/`, which deploy automatically with
+  the site. A new content collection that renders pages should ship the same
+  set: a `.md` twin endpoint, the `markdownUrl` prop, and its route re-exported
+  in `functions/`.
 - **JSON-LD**: every page states what it is in structured data. The entities are
   built in `src/lib/schema.ts` and passed to the `schema` prop on
   `src/layouts/Layout.astro`, which emits them as one `@graph`. A new page type
@@ -162,6 +166,10 @@ in sync:
   feeding both the markup and the `FAQPage` entity.
 - **`public/robots.txt`** welcomes all crawlers, AI bots explicitly included.
   Keep it that way unless told otherwise.
+- **`public/openapi.json`** declares no endpoints on purpose: it exists to tell
+  agents probing for a REST API that there isn't one and that the MCP server is
+  the integration surface. If the MCP endpoint or the docs URLs it names ever
+  change, update it together with `llms.txt`.
 
 ## Documentation
 
