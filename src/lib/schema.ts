@@ -36,6 +36,14 @@ export function organization(site: URL): JsonLd {
     description: SITE.description,
     email: CONTACT.email,
     telephone: CONTACT.whatsappDisplay,
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: CONTACT.email,
+      telephone: CONTACT.whatsappDisplay,
+      availableLanguage: "pt-BR",
+      url: abs(site, "/contato"),
+    },
     sameAs: SOCIAL.map((profile) => profile.url),
     address: {
       "@type": "PostalAddress",
@@ -185,6 +193,56 @@ export function aboutPage(site: URL, founders: Author[]): JsonLd {
         ...(founder.data.sameAs.length > 0 && { sameAs: founder.data.sameAs }),
       })),
     },
+  }
+}
+
+/**
+ * The contact page, where reaching the company is the subject. The channels it
+ * names are the same ones the page renders, all sourced from `CONTACT`.
+ */
+export function contactPage(site: URL): JsonLd {
+  const url = abs(site, "/contato")
+
+  return {
+    "@type": "ContactPage",
+    "@id": `${url}#page`,
+    url,
+    inLanguage: "pt-BR",
+    isPartOf: { "@id": abs(site, WEBSITE) },
+    mainEntity: organization(site),
+  }
+}
+
+export interface WebPageInput {
+  site: URL
+  /** Site-relative path of the page being described. */
+  path: string
+  name: string
+  description: string
+  /** The revision date the page itself shows. */
+  dateModified?: Date
+}
+
+/** A standalone page with no more specific type, such as `/privacidade`. */
+export function webPage({
+  site,
+  path,
+  name,
+  description,
+  dateModified,
+}: WebPageInput): JsonLd {
+  const url = abs(site, path)
+
+  return {
+    "@type": "WebPage",
+    "@id": `${url}#page`,
+    name,
+    description,
+    url,
+    inLanguage: "pt-BR",
+    isPartOf: { "@id": abs(site, WEBSITE) },
+    publisher: organization(site),
+    ...(dateModified && { dateModified: isoDay(dateModified) }),
   }
 }
 

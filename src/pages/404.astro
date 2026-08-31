@@ -1,0 +1,86 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+/**
+ * Built as `dist/404.html`, which the host serves with a real HTTP 404 status
+ * for unknown paths. Its existence is load-bearing: without it the host falls
+ * back to the app shell with a 200 (a soft-404), and crawlers conclude that
+ * every path on the site exists.
+ */
+
+const starts = [
+  { label: "Página inicial", path: "/" },
+  { label: "Documentação", path: "/docs" },
+  { label: "Blog", path: "/blog" },
+  { label: "Perguntas frequentes", path: "/perguntas-frequentes" },
+]
+---
+
+<Layout
+  title="Página não encontrada | Trio Assinaturas"
+  description="Esta página não existe. Encontre o que procura pela documentação, pelo blog ou pela página inicial da Trio Assinaturas."
+>
+  <section class="section">
+    <div class="container not-found">
+      <p class="section-eyebrow">Erro 404</p>
+      <h1>Esta página não existe</h1>
+      <p class="section-lead">
+        O endereço pode ter mudado ou nunca ter existido. Estes são bons pontos
+        de partida:
+      </p>
+      <ul class="not-found-links">
+        {
+          starts.map(({ label, path }) => (
+            <li>
+              <a href={path}>{label}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="not-found-agents">
+        O mapa completo do site está em <a href="/llms.txt">/llms.txt</a> e em
+        <a href="/sitemap-index.xml">/sitemap-index.xml</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .not-found h1 {
+    font-size: var(--text-hero);
+    color: var(--blue-deep);
+    margin-top: 0.75rem;
+  }
+
+  .not-found-links {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .not-found-links a {
+    display: inline-block;
+    padding: 0.6rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    color: var(--blue-deep);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .not-found-links a:hover,
+  .not-found-links a:focus-visible {
+    border-color: var(--coral);
+    color: var(--coral);
+  }
+
+  .not-found-agents {
+    margin-top: 2.5rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+</style>

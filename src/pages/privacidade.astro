@@ -1,0 +1,215 @@
+---
+import Layout from "../layouts/Layout.astro"
+import { breadcrumbs, webPage } from "../lib/schema"
+import { COMPANY, CONTACT } from "../config"
+
+const updatedDate = new Date("2026-08-31")
+const updatedDisplay = new Intl.DateTimeFormat("pt-BR", {
+  dateStyle: "long",
+  timeZone: "UTC",
+}).format(updatedDate)
+
+const description =
+  "Como a Trio Assinaturas coleta, usa e protege dados pessoais no site e na plataforma, e como exercer seus direitos previstos na LGPD."
+
+const site = Astro.site!
+const schema = [
+  webPage({
+    site,
+    path: "/privacidade",
+    name: "Política de privacidade",
+    description,
+    dateModified: updatedDate,
+  }),
+  breadcrumbs(site, [
+    { name: "Início", path: "/" },
+    { name: "Política de privacidade" },
+  ]),
+]
+---
+
+<Layout
+  schema={schema}
+  title="Política de privacidade | Trio Assinaturas"
+  description={description}
+>
+  <section class="section">
+    <div class="container privacy">
+      <p class="section-eyebrow">Privacidade</p>
+      <h1>Política de privacidade</h1>
+      <p class="privacy-updated">Última atualização: {updatedDisplay}</p>
+
+      <p class="section-lead">
+        Esta política explica como a Trio Assinaturas trata dados pessoais, em
+        conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, a
+        LGPD). Ela vale para este site e para a plataforma que os clubes de
+        assinatura usam para operar.
+      </p>
+
+      <h2>Quem somos</h2>
+      <p>
+        A Trio Assinaturas é operada por {COMPANY.legalName}, CNPJ
+        {COMPANY.cnpj}, com sede em {COMPANY.city}, {COMPANY.state}, Brasil.
+        Para os dados descritos nesta política, somos o que a LGPD chama de
+        controladora, exceto onde indicado o contrário na seção sobre os dados
+        dos assinantes dos clubes.
+      </p>
+
+      <h2>Dados dos assinantes dos clubes</h2>
+      <p>
+        A plataforma processa dados dos assinantes de cada clube (como nome,
+        contato, endereço de entrega e histórico de assinatura) em nome do clube
+        que a contrata. Nesses dados, o clube é a controladora e a Trio atua
+        como operadora: tratamos os dados conforme as instruções e as
+        finalidades definidas pelo clube. Se você assina um clube que usa a
+        Trio, o clube é o seu ponto de contato para pedidos sobre seus dados, e
+        nós damos a ele os meios para atendê-los.
+      </p>
+
+      <h2>Quais dados coletamos</h2>
+      <p>Coletamos dados em três situações:</p>
+      <ul>
+        <li>
+          <strong>Navegação neste site.</strong> Dados de uso coletados por ferramenta
+          de análise (páginas visitadas, origem do acesso, tipo de dispositivo e navegador),
+          usados para entender como o site é usado e melhorá-lo.
+        </li>
+        <li>
+          <strong>Contato com a gente.</strong> Quando você escreve por email ou WhatsApp,
+          guardamos o conteúdo da conversa e os dados que você informar, para responder
+          e dar continuidade ao atendimento.
+        </li>
+        <li>
+          <strong>Conta na plataforma.</strong> Quando um clube cria uma conta, coletamos
+          os dados de cadastro da empresa e dos usuários do painel (nome, email, telefone),
+          necessários para prestar o serviço.
+        </li>
+      </ul>
+
+      <h2>Para que usamos os dados</h2>
+      <p>
+        Usamos os dados para prestar e melhorar o serviço, atender solicitações
+        de contato, cumprir obrigações legais e proteger nossos direitos. As
+        bases legais que sustentam esse tratamento são as previstas no artigo 7º
+        da LGPD, principalmente a execução de contrato, o cumprimento de
+        obrigação legal, o legítimo interesse e, quando aplicável, o
+        consentimento. Não vendemos dados pessoais.
+      </p>
+
+      <h2>Análise de uso e cookies</h2>
+      <p>
+        Este site usa o PostHog para análise de uso, servido por um endereço
+        próprio do nosso domínio. Esses dados de uso podem ser armazenados em
+        servidores nos Estados Unidos, uma transferência internacional realizada
+        com as salvaguardas previstas na LGPD. O site não usa cookies de
+        publicidade.
+      </p>
+
+      <h2>Com quem compartilhamos</h2>
+      <p>
+        Compartilhamos dados apenas com fornecedores necessários para operar o
+        serviço, como provedores de infraestrutura e hospedagem (por exemplo, a
+        Cloudflare), a ferramenta de análise citada acima e, no caso da
+        plataforma, os provedores de pagamento e de envio contratados por cada
+        clube. Também podemos compartilhar dados quando exigido por lei ou por
+        autoridade competente.
+      </p>
+
+      <h2>Por quanto tempo guardamos</h2>
+      <p>
+        Mantemos os dados pelo tempo necessário às finalidades desta política:
+        enquanto a conta ou a relação de atendimento estiver ativa e, depois
+        disso, pelos prazos exigidos por obrigações legais, fiscais e de defesa
+        em processos. Passados esses prazos, os dados são excluídos ou
+        anonimizados.
+      </p>
+
+      <h2>Como protegemos</h2>
+      <p>
+        Adotamos medidas técnicas e administrativas para proteger os dados
+        pessoais contra acessos não autorizados e situações acidentais ou
+        ilícitas de destruição, perda ou alteração, como exige o artigo 46 da
+        LGPD. O acesso aos dados é restrito a quem precisa deles para prestar o
+        serviço.
+      </p>
+
+      <h2>Seus direitos</h2>
+      <p>
+        A LGPD garante a você, como titular, os direitos do artigo 18: saber se
+        tratamos seus dados, acessá-los, corrigi-los, pedir anonimização,
+        bloqueio ou eliminação, pedir portabilidade, saber com quem
+        compartilhamos e revogar um consentimento dado. Para exercer qualquer um
+        deles, escreva para
+        <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>. Respondemos nos
+        prazos da lei e podemos pedir uma confirmação de identidade antes de
+        atender.
+      </p>
+
+      <h2>Canal de privacidade</h2>
+      <p>
+        O canal para qualquer assunto de privacidade e proteção de dados,
+        incluindo o contato com a pessoa responsável pelo tema na Trio, é o
+        email <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>. Os demais
+        canais de atendimento estão na página de
+        <a href="/contato">contato</a>.
+      </p>
+
+      <h2>Mudanças nesta política</h2>
+      <p>
+        Esta política pode ser atualizada para refletir mudanças no serviço ou
+        na legislação. A data no topo da página indica a versão vigente, e
+        mudanças relevantes são comunicadas aos clubes pelos canais de
+        atendimento.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .privacy {
+    max-width: 46rem;
+  }
+
+  .privacy h1 {
+    font-size: var(--text-hero);
+    color: var(--blue-deep);
+    margin-top: 0.75rem;
+  }
+
+  .privacy-updated {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .privacy .section-lead {
+    margin-top: 1.5rem;
+  }
+
+  .privacy h2 {
+    margin-top: 2.5rem;
+    font-size: var(--text-xl);
+    color: var(--blue-deep);
+  }
+
+  .privacy p {
+    margin-top: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .privacy ul {
+    margin: 0.85rem 0 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.6rem;
+    color: var(--ink-soft);
+  }
+
+  .privacy strong {
+    color: var(--ink);
+  }
+
+  .privacy a {
+    color: var(--blue);
+  }
+</style>

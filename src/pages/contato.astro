@@ -1,0 +1,183 @@
+---
+import Layout from "../layouts/Layout.astro"
+import { breadcrumbs, contactPage } from "../lib/schema"
+import { COMPANY, CONTACT, SOCIAL, whatsappLink } from "../config"
+
+const whatsapp = whatsappLink("Olá! Quero falar com a Trio Assinaturas.")
+
+const site = Astro.site!
+const schema = [
+  contactPage(site),
+  breadcrumbs(site, [{ name: "Início", path: "/" }, { name: "Contato" }]),
+]
+---
+
+<Layout
+  schema={schema}
+  title="Contato | Trio Assinaturas"
+  description="Fale com a Trio Assinaturas por email ou WhatsApp: dúvidas sobre a plataforma, demonstrações, suporte e assuntos de privacidade."
+>
+  <section class="section">
+    <div class="container contact">
+      <p class="section-eyebrow">Contato</p>
+      <h1>Fale com a gente</h1>
+      <p class="section-lead">
+        Você fala direto com quem constrói o produto: dúvidas sobre a
+        plataforma, pedido de demonstração, suporte ao seu clube ou qualquer
+        outro assunto. Escolha o canal que preferir.
+      </p>
+
+      <div class="contact-grid">
+        <article class="contact-card">
+          <h2>Email</h2>
+          <p>
+            Para qualquer assunto, incluindo parcerias e imprensa. Também é o
+            canal para solicitações sobre dados pessoais, descritas na
+            <a href="/privacidade">política de privacidade</a>.
+          </p>
+          <a
+            class="btn btn-secondary"
+            href={`mailto:${CONTACT.email}`}
+            data-ph-capture-attribute-cta="contact"
+            data-ph-capture-attribute-cta-section="contact-page"
+            data-ph-capture-attribute-cta-channel="email"
+          >
+            {CONTACT.email}
+          </a>
+        </article>
+
+        <article class="contact-card">
+          <h2>WhatsApp</h2>
+          <p>
+            O caminho mais rápido para conversar sobre o seu clube de assinatura
+            ou pedir uma demonstração da plataforma.
+          </p>
+          <a
+            class="btn btn-primary"
+            href={whatsapp}
+            target="_blank"
+            rel="noopener"
+            data-ph-capture-attribute-cta="contact"
+            data-ph-capture-attribute-cta-section="contact-page"
+            data-ph-capture-attribute-cta-channel="whatsapp"
+          >
+            {CONTACT.whatsappDisplay}
+          </a>
+        </article>
+
+        <article class="contact-card">
+          <h2>Redes sociais</h2>
+          <p>
+            Acompanhe novidades da plataforma e bastidores dos clubes que
+            atendemos.
+          </p>
+          <ul class="contact-social">
+            {
+              SOCIAL.map((profile) => (
+                <li>
+                  <a
+                    href={profile.url}
+                    target="_blank"
+                    rel="noopener"
+                    data-ph-capture-attribute-cta="social"
+                    data-ph-capture-attribute-cta-section="contact-page"
+                    data-ph-capture-attribute-cta-channel={profile.label.toLowerCase()}
+                  >
+                    {profile.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </article>
+      </div>
+
+      <div class="contact-legal">
+        <h2>Dados da empresa</h2>
+        <p>
+          A Trio Assinaturas é operada por {COMPANY.legalName}, CNPJ
+          {COMPANY.cnpj}, com sede em {COMPANY.city}, {COMPANY.state}, Brasil.
+          Quer saber quem está por trás do produto? Conheça os fundadores na
+          página <a href="/sobre">Sobre nós</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact h1 {
+    font-size: var(--text-hero);
+    color: var(--blue-deep);
+    margin-top: 0.75rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .contact-card h2 {
+    font-size: 1.35rem;
+    color: var(--blue-deep);
+  }
+
+  .contact-card p {
+    color: var(--ink-soft);
+    flex-grow: 1;
+  }
+
+  .contact-social {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .contact-social a {
+    font-weight: 700;
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .contact-social a:hover,
+  .contact-social a:focus-visible {
+    color: var(--coral);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .contact-legal {
+    margin-top: 3rem;
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    background: var(--blue-soft);
+    border-radius: var(--radius-lg);
+  }
+
+  .contact-legal h2 {
+    font-size: var(--text-xl);
+    color: var(--blue-deep);
+  }
+
+  .contact-legal p {
+    margin-top: 0.75rem;
+    color: var(--ink-soft);
+    max-width: 70ch;
+  }
+</style>
