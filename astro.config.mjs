@@ -8,10 +8,6 @@ import pagefind from "./src/integrations/pagefind"
 // https://astro.build/config
 export default defineConfig({
   site: "https://trioassinaturas.com.br",
-  redirects: {
-    // Shareable shortcut, also where MCP directory listings point
-    "/mcp": "/docs/assistentes-de-ia/visao-geral",
-  },
   integrations: [mdx(), sitemap(), pagefind()],
   markdown: {
     shikiConfig: {
