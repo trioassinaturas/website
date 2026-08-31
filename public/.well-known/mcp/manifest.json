@@ -1,0 +1,12 @@
+{
+  "name": "Trio Assinaturas",
+  "description": "Servidor MCP para agir sobre os dados de um clube de assinatura na Trio: assinantes, assinaturas, cobranças, produtos, cupons, pedidos e envios. Autorização OAuth com o usuário do painel do clube, com escopos por recurso.",
+  "endpoint": "https://mcp.trioassinaturas.com.br/mcp",
+  "transport": "streamable-http",
+  "authorization": {
+    "type": "oauth2",
+    "resource_metadata": "https://mcp.trioassinaturas.com.br/.well-known/oauth-protected-resource/mcp",
+    "authorization_server_metadata": "https://mcp.trioassinaturas.com.br/.well-known/oauth-authorization-server"
+  },
+  "documentation": "https://trioassinaturas.com.br/docs/assistentes-de-ia/visao-geral"
+}

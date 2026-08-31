@@ -8,3 +8,6 @@
 /about/ /sobre 301
 /mcp /docs/assistentes-de-ia/visao-geral 301
 /mcp/ /docs/assistentes-de-ia/visao-geral 301
+/.well-known/oauth-protected-resource https://mcp.trioassinaturas.com.br/.well-known/oauth-protected-resource/mcp 302
+/.well-known/oauth-protected-resource/mcp https://mcp.trioassinaturas.com.br/.well-known/oauth-protected-resource/mcp 302
+/.well-known/oauth-authorization-server https://mcp.trioassinaturas.com.br/.well-known/oauth-authorization-server 302

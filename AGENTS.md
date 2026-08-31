@@ -170,6 +170,11 @@ in sync:
   agents probing for a REST API that there isn't one and that the MCP server is
   the integration surface. If the MCP endpoint or the docs URLs it names ever
   change, update it together with `llms.txt`.
+- **`public/.well-known/mcp/manifest.json`** describes the MCP server for
+  agents probing this domain, and `public/_redirects` forwards the OAuth
+  `.well-known` paths to the real metadata on `mcp.trioassinaturas.com.br`,
+  where it is served by the MCP server itself (the source of truth for
+  endpoints and scopes). Anything naming that domain changes together.
 
 ## Documentation
 
