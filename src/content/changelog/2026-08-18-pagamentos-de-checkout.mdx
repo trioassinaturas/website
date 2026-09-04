@@ -1,0 +1,16 @@
+---
+title: O checkout cobra primeiro e cria a assinatura depois
+date: 2026-08-18
+docs:
+  - label: Pagamentos de checkout
+    href: /docs/cobrancas/pagamentos-de-checkout
+---
+
+Uma assinatura só passa a existir quando o primeiro pagamento é confirmado. Um
+cartão recusado no checkout não cria mais cliente, assinatura, cobrança nem
+pedido, e não entra na fila de retentativas: fica registrado como um pagamento
+de checkout que falhou, com o motivo devolvido pelo provedor.
+
+Esses pagamentos ganharam uma tela própria, **Financeiro → Pagamentos de
+checkout**, que mostra também as vendas que não aconteceram. Cruzada com os
+leads parados na etapa de pagamento, é a lista de receita recuperável do clube.

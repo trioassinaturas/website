@@ -62,6 +62,19 @@ const schema = [
         )
       }
 
+      <p class="docs-index-start">
+        Quer saber o que mudou recentemente? Veja as{" "}
+        <a
+          href="/novidades"
+          data-ph-capture-attribute-cta="docs-changelog"
+          data-ph-capture-attribute-cta-section="docs-index"
+          data-ph-capture-attribute-cta-channel="internal"
+        >
+          novidades da plataforma
+        </a>
+        .
+      </p>
+
       <div class="docs-index-grid">
         {
           nav.groups.map((group, i) => (
@@ -103,5 +116,9 @@ const schema = [
   .docs-index-start {
     margin-top: 1.5rem;
     color: var(--ink-soft);
+  }
+
+  .docs-index-start + .docs-index-start {
+    margin-top: 0.5rem;
   }
 </style>

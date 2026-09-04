@@ -70,4 +70,22 @@ const docs = defineCollection({
   }),
 })
 
-export const collections = { authors, blog, docs }
+const changelog = defineCollection({
+  // One file per launch, named `YYYY-MM-DD-slug.mdx`. The slug is the entry's
+  // anchor on /novidades; ordering and month grouping live in
+  // `src/lib/changelog.ts`.
+  loader: glob({ pattern: "**/*.mdx", base: "./src/content/changelog" }),
+  schema: z.object({
+    title: z.string(),
+    /** The day the change went live for merchants, not the day it was written up. */
+    date: z.coerce.date(),
+    /** Where to read how to use it, normally `/docs` pages. */
+    docs: z
+      .array(z.object({ label: z.string(), href: z.string() }))
+      .default([]),
+    /** Drafts show up in `astro dev`, never in the published site. */
+    draft: z.boolean().default(false),
+  }),
+})
+
+export const collections = { authors, blog, docs, changelog }

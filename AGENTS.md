@@ -142,6 +142,27 @@ HTML. It **does not exist under `astro dev`** and the search box says so; use
 `data-pagefind-body` in `src/layouts/DocsLayout.astro`, so adding that attribute
 anywhere else widens what search returns.
 
+## The changelog
+
+`/novidades` lists what shipped, newest first, for the merchant. It is the one
+place where "what changed" belongs: `/docs` keeps describing the platform as it
+is today, and an entry links to the docs page that describes the feature instead
+of repeating it.
+
+One entry per launch, in `src/content/changelog/<YYYY-MM-DD>-<slug>.mdx`. The
+date is the day the change went live in the app (the merge to `main` in the app
+repo), not the day the entry was written. The slug is the anchor on the page
+(`/novidades#<slug>`), so keep it stable and unique. Frontmatter: `title`,
+`date`, optional `docs` (a list of `{ label, href }`) and `draft`. The body is
+one or two short paragraphs in Portuguese, written as what the merchant can do
+now, under the same rules as `/docs`: the reader is not technical, no em dashes.
+Internal work (performance, dependencies, refactors, security probes) gets no
+entry.
+
+The page also ships as `/novidades.md` (`src/pages/novidades.md.ts`), is listed
+under "Site" in `llms.txt`, and is linked from the footer and from the docs
+sidebar and index, never from the navbar. `/changelog` redirects to it.
+
 ## The site as AI agents see it
 
 The site is also published for machines, and new work has to keep that surface
@@ -155,7 +176,8 @@ in sync:
   under "Site"), update it in the same change.
 - **Markdown twins**: every docs page and blog post is also built as plain
   markdown at `<url>.md` (`src/pages/docs/[...slug].md.ts` and
-  `src/pages/blog/[...slug].md.ts`), advertised via
+  `src/pages/blog/[...slug].md.ts`), as is the changelog
+  (`src/pages/novidades.md.ts`), advertised via
   `<link rel="alternate" type="text/markdown">` through the `markdownUrl` prop
   on `src/layouts/Layout.astro`. The same pages also answer
   `Accept: text/markdown` with the twin (plus `Vary: Accept`), via the

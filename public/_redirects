@@ -6,6 +6,8 @@
 /faq/ /perguntas-frequentes 301
 /about /sobre 301
 /about/ /sobre 301
+/changelog /novidades 301
+/changelog/ /novidades 301
 /mcp /docs/assistentes-de-ia/visao-geral 301
 /mcp/ /docs/assistentes-de-ia/visao-geral 301
 /.well-known/oauth-protected-resource https://mcp.trioassinaturas.com.br/.well-known/oauth-protected-resource/mcp 302

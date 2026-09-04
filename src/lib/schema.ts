@@ -254,15 +254,21 @@ export interface CollectionPageInput {
   description: string
   /** The entries the page lists, in the order they appear. */
   items: { name: string; path: string }[]
+  /** When the list last gained an entry, if the page shows dates. */
+  dateModified?: Date
 }
 
-/** An index that exists to list other pages: `/blog` and `/docs`. */
+/**
+ * An index that exists to list other pages (`/blog`, `/docs`) or sections of
+ * itself (`/novidades`, whose items are anchors).
+ */
 export function collectionPage({
   site,
   path,
   name,
   description,
   items,
+  dateModified,
 }: CollectionPageInput): JsonLd {
   const url = abs(site, path)
 
@@ -275,6 +281,7 @@ export function collectionPage({
     inLanguage: "pt-BR",
     isPartOf: { "@id": abs(site, WEBSITE) },
     publisher: organization(site),
+    ...(dateModified && { dateModified: isoDay(dateModified) }),
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: items.length,

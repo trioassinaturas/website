@@ -553,3 +553,23 @@
     transform: none;
   }
 }
+
+/* ===== Sidebar footer ===== */
+/* The link to the changelog, below the groups. */
+.docs-sidebar-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+
+.docs-sidebar-footer a {
+  color: var(--ink-soft);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.docs-sidebar-footer a:hover,
+.docs-sidebar-footer a:focus-visible {
+  color: var(--coral);
+}

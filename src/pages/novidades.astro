@@ -1,0 +1,323 @@
+---
+import { render } from "astro:content"
+import Layout from "../layouts/Layout.astro"
+import CTA from "../components/CTA.astro"
+import Callout from "../components/mdx/Callout.astro"
+import {
+  CHANGELOG_PATH,
+  entryAnchor,
+  entryUrl,
+  getEntries,
+  groupByMonth,
+} from "../lib/changelog"
+import { formatDate, isoDate } from "../lib/dates"
+import { breadcrumbs, collectionPage } from "../lib/schema"
+import "../styles/prose.css"
+
+const entries = await getEntries()
+const groups = groupByMonth(entries)
+
+// Every entry renders on this one page, so the bodies are rendered up front.
+const rendered = new Map(
+  await Promise.all(
+    entries.map(
+      async (entry) => [entry.id, (await render(entry)).Content] as const,
+    ),
+  ),
+)
+
+// Components available to every MDX entry without an explicit import.
+const mdxComponents = { Callout }
+
+const latest = entries[0]?.data.date
+const markdownUrl = `${CHANGELOG_PATH}.md`
+
+const description =
+  "O que foi lançado na plataforma Trio Assinaturas, do mais recente para o mais antigo, com a data de cada recurso e o link para a documentação que o descreve."
+
+const site = Astro.site!
+const schema = [
+  collectionPage({
+    site,
+    path: CHANGELOG_PATH,
+    name: "Novidades da Trio Assinaturas",
+    description,
+    dateModified: latest,
+    items: entries.map((entry) => ({
+      name: entry.data.title,
+      path: entryUrl(entry),
+    })),
+  }),
+  breadcrumbs(site, [{ name: "Início", path: "/" }, { name: "Novidades" }]),
+]
+---
+
+<Layout
+  title="Novidades | Trio Assinaturas"
+  description={description}
+  markdownUrl={markdownUrl}
+  schema={schema}
+>
+  <section class="section changelog-hero">
+    <div class="container">
+      <p class="section-eyebrow">Novidades</p>
+      <h1 class="section-title changelog-title">
+        O que mudou na <span>plataforma</span>
+      </h1>
+      <p class="section-lead">
+        Cada lançamento com a data em que entrou no ar e o link para a página da
+        documentação que explica como usar. Do mais recente para o mais antigo.
+      </p>
+      <p class="changelog-markdown">
+        <a href={markdownUrl}>Ver esta página em markdown</a>, pronta para colar
+        em um assistente de IA.
+      </p>
+    </div>
+  </section>
+
+  <section class="section changelog-list">
+    <div class="container changelog-shell">
+      <nav class="changelog-months" aria-label="Meses">
+        <p class="changelog-months-label">Por mês</p>
+        <ul>
+          {
+            groups.map((group) => (
+              <li>
+                <a
+                  href={`#mes-${group.key}`}
+                  data-ph-capture-attribute-cta="changelog-month"
+                  data-ph-capture-attribute-cta-section="changelog"
+                  data-ph-capture-attribute-cta-channel="internal"
+                >
+                  {group.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="changelog-timeline">
+        {
+          groups.map((group) => (
+            <section
+              class="changelog-month"
+              id={`mes-${group.key}`}
+              aria-labelledby={`mes-${group.key}-titulo`}
+            >
+              <h2 class="changelog-month-label" id={`mes-${group.key}-titulo`}>
+                {group.label}
+              </h2>
+
+              {group.entries.map((entry) => {
+                const Content = rendered.get(entry.id)!
+                const anchor = entryAnchor(entry)
+                const { title, date, docs } = entry.data
+
+                return (
+                  <article class="changelog-entry" id={anchor}>
+                    <p class="changelog-entry-date">
+                      <time datetime={isoDate(date)}>{formatDate(date)}</time>
+                    </p>
+                    <h3 class="changelog-entry-title">
+                      <a href={`#${anchor}`}>{title}</a>
+                    </h3>
+                    <div class="prose changelog-entry-body">
+                      <Content components={mdxComponents} />
+                    </div>
+                    {docs.length > 0 && (
+                      <p class="changelog-entry-docs">
+                        Saiba mais:{" "}
+                        {docs.map((doc, i) => (
+                          <Fragment>
+                            {i > 0 && ", "}
+                            <a
+                              href={doc.href}
+                              data-ph-capture-attribute-cta="changelog-docs"
+                              data-ph-capture-attribute-cta-section="changelog"
+                              data-ph-capture-attribute-cta-channel="internal"
+                            >
+                              {doc.label}
+                            </a>
+                          </Fragment>
+                        ))}
+                      </p>
+                    )}
+                  </article>
+                )
+              })}
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Layout>
+
+<style>
+  .changelog-hero {
+    padding-bottom: 0;
+  }
+
+  .changelog-title span {
+    color: var(--coral);
+  }
+
+  .changelog-markdown {
+    margin-top: 1rem;
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+
+  /* The CTA section below brings its own top padding. */
+  .changelog-list {
+    padding-block: 3.5rem 0;
+  }
+
+  .changelog-shell {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ===== Month rail ===== */
+  .changelog-months {
+    position: sticky;
+    /* Clears the sticky navbar, matching `scroll-padding-top` in global.css. */
+    top: 5.5rem;
+    font-size: 0.9rem;
+  }
+
+  .changelog-months-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.75rem;
+  }
+
+  .changelog-months ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .changelog-months a {
+    display: block;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.5rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 600;
+    transition:
+      background 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .changelog-months a:hover,
+  .changelog-months a:focus-visible {
+    background: var(--blue-soft);
+    color: var(--blue);
+  }
+
+  /* ===== Timeline ===== */
+  .changelog-timeline {
+    max-width: 46rem;
+  }
+
+  .changelog-month + .changelog-month {
+    margin-top: 3.5rem;
+  }
+
+  .changelog-month-label {
+    font-size: var(--text-lg);
+    color: var(--blue-deep);
+    scroll-margin-top: 6rem;
+  }
+
+  .changelog-entry {
+    position: relative;
+    margin-top: 2rem;
+    padding-left: 1.75rem;
+    border-left: 2px solid var(--border);
+    scroll-margin-top: 6rem;
+  }
+
+  /* The dot on the timeline. */
+  .changelog-entry::before {
+    content: "";
+    position: absolute;
+    left: -0.4375rem;
+    top: 0.3rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 0 4px var(--cream);
+  }
+
+  .changelog-entry:target {
+    border-left-color: var(--coral);
+  }
+
+  .changelog-entry-date {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+
+  .changelog-entry-title {
+    margin-top: 0.35rem;
+    font-size: var(--text-lg);
+    color: var(--blue-deep);
+  }
+
+  .changelog-entry-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .changelog-entry-title a:hover,
+  .changelog-entry-title a:focus-visible {
+    color: var(--coral);
+  }
+
+  .changelog-entry-body {
+    margin-top: 1rem;
+    font-size: var(--text-base);
+  }
+
+  .changelog-entry-docs {
+    margin-top: 1rem;
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+
+  .changelog-entry-docs a {
+    font-weight: 700;
+  }
+
+  @media (max-width: 51rem) {
+    .changelog-shell {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .changelog-months {
+      position: static;
+    }
+
+    .changelog-months ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.5rem;
+    }
+  }
+</style>

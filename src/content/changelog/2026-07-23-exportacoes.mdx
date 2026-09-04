@@ -1,0 +1,20 @@
+---
+title: Exportações prontas para etiqueta e para planilha
+date: 2026-07-23
+docs:
+  - label: Pedidos e envios
+    href: /docs/operacao/pedidos-e-envios
+  - label: Formulários e emails
+    href: /docs/recursos/formularios-e-emails
+---
+
+A exportação de pedidos passou a trazer o endereço quebrado em partes (CEP,
+rua, número, complemento, cidade, estado e país), no formato que sistemas de
+etiqueta e transportadoras esperam, e a coluna **Cardinalidade**, que diz qual
+entrega aquele pedido é dentro da assinatura. O número da rua passou a ser
+guardado em campo próprio no checkout.
+
+A exportação de respostas de formulário ficou com um único conjunto de colunas
+de identificação, mais uma coluna dizendo se a resposta veio de um cliente ou de
+um lead. Códigos só com dígitos, como CPF e CEP, saem como texto no XLSX, sem
+virar notação científica.
