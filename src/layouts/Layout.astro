@@ -8,6 +8,7 @@ import Footer from "../components/Footer.astro"
 import PostHog from "../components/PostHog.astro"
 import { SITE } from "../config"
 import { jsonLd, type JsonLd } from "../lib/schema"
+import type { Feed } from "../lib/feeds"
 
 interface Props {
   title?: string
@@ -17,6 +18,8 @@ interface Props {
   ogType?: "website" | "article"
   /** Plain-markdown twin of this page, advertised as an alternate for agents. */
   markdownUrl?: string
+  /** RSS feed this page belongs to, advertised for feed readers. */
+  feed?: Feed
   /** Structured data describing this page, emitted as one JSON-LD graph. */
   schema?: JsonLd[]
 }
@@ -27,6 +30,7 @@ const {
   image = "/images/logo-completo.jpg",
   ogType = "website",
   markdownUrl,
+  feed,
   schema,
 } = Astro.props
 
@@ -57,6 +61,16 @@ const ogImage = new URL(image, Astro.site)
           rel="alternate"
           type="text/markdown"
           href={new URL(markdownUrl, Astro.site)}
+        />
+      )
+    }
+    {
+      feed && (
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={feed.title}
+          href={new URL(feed.href, Astro.site)}
         />
       )
     }

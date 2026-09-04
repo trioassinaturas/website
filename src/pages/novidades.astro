@@ -12,6 +12,7 @@ import {
 } from "../lib/changelog"
 import { formatDate, isoDate } from "../lib/dates"
 import { breadcrumbs, collectionPage } from "../lib/schema"
+import { FEEDS } from "../lib/feeds"
 import "../styles/prose.css"
 
 const entries = await getEntries()
@@ -56,6 +57,7 @@ const schema = [
   title="Novidades | Trio Assinaturas"
   description={description}
   markdownUrl={markdownUrl}
+  feed={FEEDS.changelog}
   schema={schema}
 >
   <section class="section changelog-hero">
@@ -69,7 +71,15 @@ const schema = [
         documentação que explica como usar. Do mais recente para o mais antigo.
       </p>
       <p class="changelog-markdown">
-        <a href={markdownUrl}>Ver esta página em markdown</a>, pronta para colar
+        <a
+          href={FEEDS.changelog.href}
+          data-ph-capture-attribute-cta="changelog-rss"
+          data-ph-capture-attribute-cta-section="changelog"
+          data-ph-capture-attribute-cta-channel="rss"
+        >
+          Assinar por RSS
+        </a> para saber de cada lançamento no seu leitor, ou{" "}
+        <a href={markdownUrl}>ver esta página em markdown</a>, pronta para colar
         em um assistente de IA.
       </p>
     </div>

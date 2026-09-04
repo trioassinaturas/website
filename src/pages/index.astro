@@ -7,11 +7,15 @@ import Clients from "../components/Clients.astro"
 import Story from "../components/Story.astro"
 import CTA from "../components/CTA.astro"
 import { organization, softwareApplication, website } from "../lib/schema"
+import { FEEDS } from "../lib/feeds"
 
 const site = Astro.site!
 ---
 
-<Layout schema={[organization(site), website(site), softwareApplication(site)]}>
+<Layout
+  feed={FEEDS.root}
+  schema={[organization(site), website(site), softwareApplication(site)]}
+>
   <Hero />
   <Features />
   <Platform />

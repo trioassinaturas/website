@@ -17,6 +17,7 @@ import {
 } from "../../lib/blog"
 import { formatDate, isoDate } from "../../lib/dates"
 import { blogPosting, breadcrumbs } from "../../lib/schema"
+import { FEEDS } from "../../lib/feeds"
 import "../../styles/prose.css"
 
 export async function getStaticPaths() {
@@ -68,6 +69,7 @@ const schema = [
   image={cover?.src}
   ogType="article"
   markdownUrl={`${postUrl(post)}.md`}
+  feed={FEEDS.blog}
   schema={schema}
 >
   <article class="post">

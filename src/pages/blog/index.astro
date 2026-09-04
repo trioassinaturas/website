@@ -4,6 +4,7 @@ import PostCard from "../../components/blog/PostCard.astro"
 import EmptyState from "../../components/blog/EmptyState.astro"
 import { getAuthorMap, getPosts, postUrl } from "../../lib/blog"
 import { breadcrumbs, collectionPage } from "../../lib/schema"
+import { FEEDS } from "../../lib/feeds"
 import { CONTACT, whatsappLink } from "../../config"
 
 const posts = await getPosts()
@@ -35,6 +36,7 @@ const schema = [
 <Layout
   title="Blog | Trio Assinaturas"
   description={description}
+  feed={FEEDS.blog}
   schema={schema}
 >
   <section class="section blog-hero">
@@ -46,6 +48,16 @@ const schema = [
       <p class="section-lead">
         Recorrência, operação, logística e retenção. O que a gente aprendeu em
         mais de 13 anos operando clubes, sem enrolação e sem teoria de manual.
+      </p>
+      <p class="blog-feed">
+        <a
+          href={FEEDS.blog.href}
+          data-ph-capture-attribute-cta="blog-rss"
+          data-ph-capture-attribute-cta-section="blog-index"
+          data-ph-capture-attribute-cta-channel="rss"
+        >
+          Assinar por RSS
+        </a> para receber cada post novo no seu leitor.
       </p>
     </div>
   </section>
@@ -126,6 +138,12 @@ const schema = [
 
   .blog-title span {
     color: var(--coral);
+  }
+
+  .blog-feed {
+    margin-top: 1rem;
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
   }
 
   /* Named container that PostCard queries to lay the featured card out. */

@@ -159,9 +159,10 @@ now, under the same rules as `/docs`: the reader is not technical, no em dashes.
 Internal work (performance, dependencies, refactors, security probes) gets no
 entry.
 
-The page also ships as `/novidades.md` (`src/pages/novidades.md.ts`), is listed
-under "Site" in `llms.txt`, and is linked from the footer and from the docs
-sidebar and index, never from the navbar. `/changelog` redirects to it.
+The page also ships as `/novidades.md` (`src/pages/novidades.md.ts`) and as an
+RSS feed at `/novidades/rss.xml`, is listed under "Site" in `llms.txt`, and is
+linked from the footer and from the docs sidebar and index, never from the
+navbar. `/changelog` redirects to it.
 
 ## The site as AI agents see it
 
@@ -194,6 +195,13 @@ in sync:
   than the page delivers is what gets a site dropped rather than cited. The FAQ
   at `src/pages/perguntas-frequentes.astro` shows the shape, with one array
   feeding both the markup and the `FAQPage` entity.
+- **RSS feeds**: the blog (`/blog/rss.xml`, also served at the root `/rss.xml`)
+  and the changelog (`/novidades/rss.xml`) each have a feed, declared once in `src/lib/feeds.ts`
+  and advertised with `<link rel="alternate" type="application/rss+xml">`
+  through the `feed` prop on `src/layouts/Layout.astro`, on the index and on
+  every page of that stream; the home page advertises the root `/rss.xml`. Blog items carry the description and link; the
+  changelog items carry the whole entry, since a changelog is read in the
+  reader. A new dated stream ships a feed the same way.
 - **`public/robots.txt`** welcomes all crawlers, AI bots explicitly included.
   Keep it that way unless told otherwise.
 - **`public/openapi.json`** declares no endpoints on purpose: it exists to tell
