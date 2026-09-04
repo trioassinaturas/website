@@ -12,37 +12,37 @@ export const FEATURES = [
   {
     icon: "users",
     title: "Gestão de assinantes",
-    text: "Visualize e edite os dados das assinaturas em poucos cliques, sem planilhas paralelas.",
+    text: "Pause, retome e cancele assinaturas, troque endereços e exporte tudo em poucos cliques, sem planilhas paralelas.",
   },
   {
     icon: "card",
-    title: "Pagamentos inteligentes",
-    text: "Acompanhe e exporte pagamentos efetuados e com falha, com retentativas automáticas inteligentes de cobrança.",
+    title: "Cartão de crédito e PIX",
+    text: "Cobrança recorrente nos dois, com retentativas automáticas quando o pagamento falha e reembolsos direto do painel.",
   },
   {
     icon: "truck",
     title: "Envios sob controle",
-    text: "Gere relatórios de envio confiáveis para a sua operação logística rodar sem sustos.",
+    text: "Pedidos gerados a cada cobrança paga, ações em lote e exportação com o endereço pronto para a etiqueta.",
   },
   {
     icon: "storefront",
     title: "Página de vendas + CMS",
-    text: "Página otimizada para SEO e mobile, com CMS para você editar tudo sem depender de ninguém.",
+    text: "Seis temas prontos ou o seu próprio HTML, com rascunho e prévia antes de publicar. Otimizada para SEO e mobile.",
   },
   {
     icon: "tag",
     title: "Checkout e cupons",
-    text: "Checkout simples e efetivo, com cupons de desconto personalizados para suas campanhas.",
+    text: "Checkout de uma página, em cartão ou PIX, com frete calculado pelo CEP e cupons de desconto para as suas campanhas.",
   },
   {
     icon: "user-circle",
     title: "Área do assinante",
-    text: "Seus assinantes gerenciam dados da assinatura e pedidos sozinhos, sem abrir chamado.",
+    text: "Seus assinantes trocam endereço e cartão, acompanham pedidos e resolvem cobranças sozinhos, sem abrir chamado.",
   },
   {
     icon: "mail",
     title: "Emails transacionais",
-    text: "Comunicação personalizada e automática em cada etapa da vida da assinatura.",
+    text: "Comunicação automática em cada etapa da vida da assinatura, enviada do seu próprio domínio.",
   },
   {
     icon: "gift",
