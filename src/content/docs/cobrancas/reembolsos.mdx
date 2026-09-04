@@ -1,0 +1,133 @@
+---
+title: Reembolsos
+description: Como devolver ao assinante parte ou todo o valor de uma cobrança pelo painel, o que acontece com o pedido e a assinatura, e como acompanhar os reembolsos.
+order: 50
+updatedDate: 2026-09-04
+navTitle: Reembolsos
+keywords:
+  - reembolso
+  - estorno
+  - devolução
+  - reembolso parcial
+---
+
+Um reembolso devolve ao assinante parte ou todo o valor de uma cobrança paga,
+direto do painel, sem entrar no painel do provedor de pagamento. Ele é emitido a
+partir da ficha da cobrança, e todos os reembolsos, inclusive os feitos fora da
+plataforma, aparecem em **Financeiro → Reembolsos**.
+
+<Callout
+  type="info"
+  title="Emitir reembolso exige Administrador ou Proprietário"
+>
+  Quem é Membro vê a lista de reembolsos e a seção de reembolsos na ficha da
+  cobrança, mas não emite. Veja [Equipe e
+  acessos](/docs/primeiros-passos/equipe-e-acessos).
+</Callout>
+
+## Emitindo um reembolso
+
+<Steps>
+
+1. Abra a cobrança em **Financeiro → Cobranças**. A seção **Reembolsos** da
+   ficha mostra quanto já foi reembolsado e quanto ainda está disponível.
+
+2. Clique em **Emitir reembolso**.
+
+3. Informe o **valor em centavos**: 1000 é R$ 10,00. Um valor menor que o
+   disponível gera um reembolso parcial, e a tela mostra o valor em reais
+   conforme você digita.
+
+4. Marque, se quiser, **Cancelar o pedido associado** e **Cancelar a
+   assinatura**. Cada opção só aparece quando faz sentido: a primeira quando o
+   pedido daquela cobrança ainda está pendente de envio, a segunda quando a
+   assinatura ainda não está cancelada.
+
+5. Confirme. A ação não pode ser desfeita.
+
+</Steps>
+
+Em cartão, o resultado é imediato e a tela confirma o valor devolvido. Em PIX,
+o reembolso fica **Pendente** até o provedor confirmar, o que costuma levar
+instantes, e enquanto houver um reembolso pendente não dá para emitir outro na
+mesma cobrança.
+
+Se o provedor recusar, o reembolso fica como **Falhou**, com a mensagem
+devolvida por ele, e nada mais muda: nem pedido, nem assinatura. Você pode
+tentar de novo.
+
+## Reembolso parcial
+
+A mesma cobrança aceita vários reembolsos parciais, até completar o valor pago.
+O **disponível** é o valor da cobrança menos o que já foi reembolsado e menos o
+que está pendente. Quando o disponível chega a zero, a ficha diz que a cobrança
+já foi totalmente reembolsada e o botão desaparece.
+
+## O que acontece com o pedido e a assinatura
+
+Nada, a menos que você peça. Reembolsar por si só não cancela o pedido nem a
+assinatura, porque cada caso é diferente: a caixa com defeito que você devolve
+o dinheiro e envia de novo não é o mesmo caso de quem se arrependeu da compra.
+
+- **Cancelar o pedido associado** marca como Cancelado o pedido daquela
+  cobrança, e a caixa não sai. A opção só aparece enquanto o pedido está
+  pendente de envio: se já foi despachado, ele está a caminho e o reembolso não
+  o alcança.
+- **Cancelar a assinatura** encerra a assinatura na hora, do mesmo jeito que o
+  botão de cancelar na ficha dela. Veja [Assinaturas](/docs/cobrancas/assinaturas).
+
+## O que o assinante recebe
+
+Quando o reembolso é concluído, o assinante recebe o email “Reembolso
+processado”, com o valor reembolsado, o valor original da cobrança, a data e o
+plano. Em reembolso parcial, o email diz que foi parcial. Ele avisa que o valor
+pode levar alguns dias úteis para aparecer na fatura ou na conta, o que evita
+uma parte das perguntas ao seu atendimento.
+
+## A cobrança continua como Sucesso
+
+Reembolso não é uma situação da cobrança: o dinheiro entrou, e depois foi
+devolvido. A cobrança segue como **Sucesso** e ganha o selo **Reembolsada**, com
+a data, na lista e na ficha. Veja [Pagamentos e
+retentativas](/docs/cobrancas/pagamentos-e-retentativas).
+
+## Reembolsos feitos no painel do provedor
+
+Um reembolso feito direto no Stripe ou no Asaas chega à plataforma sozinho e
+entra na lista com a origem **Painel do provedor**. Ele também conta no valor
+disponível da cobrança, então não há risco de devolver o mesmo dinheiro duas
+vezes por caminhos diferentes.
+
+Um reembolso feito no provedor sobre um pagamento de checkout que ainda não
+tinha virado assinatura impede a assinatura de ser criada. Veja [Pagamentos de
+checkout](/docs/cobrancas/pagamentos-de-checkout).
+
+## Quando não dá para reembolsar pelo painel
+
+A ficha da cobrança explica o motivo no lugar do botão:
+
+- **Cobrança legada**: cobranças processadas pelo sistema antigo, antes do
+  motor de cobrança atual, não têm como ser reembolsadas pela plataforma. Use o
+  painel do provedor; o reembolso aparece aqui depois.
+- **Provedor sem suporte**: o provedor daquela cobrança não permite reembolso
+  pela plataforma.
+- **Reembolso em andamento**: espere o pendente concluir.
+- **Nada disponível**: a cobrança já foi totalmente reembolsada.
+
+## A lista de Reembolsos
+
+**Financeiro → Reembolsos** mostra cada reembolso com valor (e, nos parciais, o
+total da cobrança), status (**Pendente**, **Concluído** ou **Falhou**), origem
+(**Plataforma**, **Painel do provedor** ou **Registro histórico**, para os
+anteriores a esta tela), provedor, quem iniciou e a data. Há busca por nome do
+cliente, filtros por status e período, e exportação em CSV e XLSX.
+
+A lista é só para acompanhar: um reembolso novo é sempre emitido a partir da
+cobrança.
+
+## Eventos de cobrança
+
+Cada reembolso deixa rastro no histórico de [Eventos de
+Cobrança](/docs/cobrancas/pagamentos-e-retentativas): **Reembolso iniciado**
+quando fica pendente, **Cobrança reembolsada** quando conclui e **Reembolso
+falhou** quando o provedor recusa.

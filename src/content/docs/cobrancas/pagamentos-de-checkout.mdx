@@ -2,7 +2,7 @@
 title: Pagamentos de checkout
 description: A tela que mostra todo pagamento iniciado no checkout, inclusive os que falharam antes de virar assinatura, e como ler um pagamento que não provisionou.
 order: 40
-updatedDate: 2026-08-30
+updatedDate: 2026-09-04
 navTitle: Pagamentos de checkout
 keywords:
   - pagamento
@@ -108,8 +108,10 @@ página oferece gerar um código novo.
 
 ## Reembolsos
 
-Reembolso feito no painel do provedor chega aqui sozinho, e o efeito depende do
-momento:
+Depois que a assinatura existe, o reembolso é emitido pela ficha da primeira
+cobrança dela, como qualquer outro. Veja [Reembolsos](/docs/cobrancas/reembolsos).
+Um reembolso feito no painel do provedor chega aqui sozinho, e o efeito depende
+do momento:
 
 - **Já tinha provisionado**: a primeira cobrança da assinatura ganha o selo
   **Reembolsada**, com a data. A assinatura continua existindo, e cancelá-la, se
