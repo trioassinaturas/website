@@ -6,6 +6,14 @@ paths and commit messages. Only user-facing content (copy, `alt` text,
 
 Note: `/sobre` predates this convention and is still in Portuguese.
 
+In `.astro` templates, a line break between an inline tag and the text next to
+it renders as **no space**: `</a>` on one line and `para` on the next comes out
+as `RSSpara`. Keep the space on the same line as the tag (`</a> para receber`),
+or end the text line with `{" "}` when the tag opens on the next line
+(`escreva para{" "}`). Prettier's `htmlWhitespaceSensitivity` is pinned to
+`css` in `.prettierrc.json` so it preserves both forms instead of reflowing
+them.
+
 Exception: `/docs` slugs are Portuguese (`/docs/cobrancas/estrategias-de-cobranca`).
 Documentation URLs are user-facing content: they show up in search results and get
 shared. The `docs` collection keys in `src/lib/docs.ts` follow the directory names,

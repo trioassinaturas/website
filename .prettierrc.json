@@ -1,5 +1,6 @@
 {
   "semi": false,
+  "htmlWhitespaceSensitivity": "css",
   "plugins": ["prettier-plugin-astro"],
   "overrides": [
     {
