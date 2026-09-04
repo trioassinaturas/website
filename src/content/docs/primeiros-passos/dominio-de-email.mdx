@@ -1,0 +1,158 @@
+---
+title: Domínio de envio de emails
+description: Como fazer os emails automáticos para os seus assinantes saírem de um endereço do seu domínio, quais registros DNS criar e como acompanhar a verificação.
+order: 40
+updatedDate: 2026-09-04
+navTitle: Domínio de email
+keywords:
+  - email
+  - remetente
+  - DNS
+  - DKIM
+  - SPF
+  - spam
+  - entregabilidade
+---
+
+O domínio de envio de emails define de que endereço saem os emails automáticos
+que a plataforma manda para os seus assinantes: boas-vindas, avisos de
+cobrança, aviso de envio e os demais. Sem ele, os emails saem de um endereço
+genérico da Trio. Com ele verificado, saem de um endereço seu, como
+`contato@clube.suamarca.com.br`.
+
+A tela fica em **Configurações → Domínio de Email**, no painel, e exige função
+de Administrador ou Proprietário. Veja [Equipe e
+acessos](/docs/primeiros-passos/equipe-e-acessos).
+
+## Como os emails saem sem domínio próprio
+
+Enquanto não há domínio verificado, cada email para o assinante sai com o
+**nome do seu clube** como remetente e o endereço
+`noreply@clube.trioassinaturas.com.br`. Se o assinante responder, a resposta
+vai para o email de contato da sua empresa cadastrado na Trio; a própria tela
+mostra qual é.
+
+Isso funciona, e muitos clubes operam assim. O que se ganha com o domínio
+próprio:
+
+- O assinante vê o seu endereço no remetente, e não um da Trio.
+- A reputação de envio passa a ser a do seu domínio, o que ajuda os emails a
+  caírem menos em spam.
+
+<Callout type="info" title="Só os emails para o assinante mudam">
+  Os emails que a plataforma manda para a sua equipe (novo usuário do painel,
+  kits criados automaticamente, o lembrete sobre este mesmo domínio) continuam
+  saindo do endereço da Trio. A lista completa está em [Formulários e
+  emails](/docs/recursos/formularios-e-emails).
+</Callout>
+
+## Cadastrar o domínio
+
+<Steps>
+
+1. Abra **Configurações → Domínio de Email** e preencha o **Domínio**.
+   Recomendamos um subdomínio dedicado a emails, como `clube.suamarca.com.br`
+   ou `mail.suamarca.com.br`, em vez do domínio principal.
+
+2. Escolha o **Remetente**, que é a parte antes do `@`: `contato`, `ola`,
+   `noreply`. O padrão é `contato`. Valem letras minúsculas, números e os
+   sinais `. _ % + -`.
+
+3. Clique em **Cadastrar domínio**. A tela passa a listar os registros DNS que
+   você precisa criar, já com os valores do seu domínio.
+
+4. No painel do seu provedor de DNS (Registro.br, Cloudflare, GoDaddy e afins),
+   crie os registros exatamente como mostrados: tipo, nome, valor e, no
+   registro MX, a prioridade.
+
+5. Aguarde. A verificação é automática e costuma concluir em minutos. Para
+   conferir na hora, clique em **Verificar agora**.
+
+</Steps>
+
+Um subdomínio dedicado mantém a reputação de envio dos emails automáticos
+separada da do seu domínio principal, então um problema de um lado não
+contamina o outro. É também o que evita mexer nos registros de email que o
+domínio principal já usa para a caixa de entrada da sua equipe.
+
+<Callout type="info" title="Um domínio por clube">
+  Cada clube tem um único domínio de envio, e cada domínio serve a um único
+  clube. Endereços da Trio (`trioassinaturas.com.br` e seus subdomínios) não
+  podem ser cadastrados. Para trocar de domínio, remova o atual e cadastre o
+  novo.
+</Callout>
+
+## Os registros
+
+São três registros, e a tela mostra tipo, nome, valor, TTL e prioridade de
+cada um, além do estado individual da verificação.
+
+| Tipo    | Para quê                                                                      |
+| ------- | ----------------------------------------------------------------------------- |
+| **TXT** | a assinatura DKIM, que prova ao provedor do destinatário que o email é seu    |
+| **TXT** | o SPF, que autoriza os servidores da plataforma a enviar em nome do domínio   |
+| **MX**  | o retorno de mensagens que não puderam ser entregues; leva uma **prioridade** |
+
+Copie os valores da tela, sem digitar. Quando o TTL aparecer como **Auto**,
+deixe o padrão do seu provedor.
+
+<Callout type="tip" title="Nome relativo ou nome completo">
+  A tela mostra o nome de cada registro em relação ao domínio cadastrado, no
+  formato `send` ou `resend._domainkey`. Alguns provedores pedem o nome completo
+  (`send.clube.suamarca.com.br`); outros completam sozinhos e, se você colar o
+  nome completo, acabam com um registro duplicado do tipo
+  `send.clube.suamarca.com.br.clube.suamarca.com.br`. Se a verificação não sair
+  de **Pendente**, confira como o seu provedor está gravando o nome.
+</Callout>
+
+## Acompanhando a verificação
+
+A tela mostra um **Status Geral**, o estado de cada registro e a **Última
+verificação**:
+
+- **Não iniciado**: o domínio foi cadastrado e a verificação ainda não
+  começou.
+- **Pendente**: a verificação está em andamento, esperando o DNS propagar.
+- **Verificado**: pronto. Os emails já saem do seu endereço, e a tela passa a
+  dizer exatamente como: “Seus emails são enviados como Nome do Clube
+  &lt;contato@clube.suamarca.com.br&gt;”.
+- **Falha**: algum registro está errado ou não existe. Confira no seu provedor
+  e clique em **Verificar agora**.
+- **Falha temporária**: a consulta não conseguiu concluir. Tente de novo em
+  alguns minutos.
+
+A plataforma continua verificando sozinha por **72 horas** depois do cadastro,
+que é o prazo que uma alteração de DNS pode levar para propagar. Passado esse
+prazo sem sucesso, a tela mostra o aviso “Verificação não concluída em 72
+horas” e para de tentar sozinha. A partir daí, cada clique em **Verificar
+agora** confere os registros de novo por alguns minutos; se estiverem certos,
+a verificação conclui.
+
+<Callout type="tip" title="Propagação leva tempo">
+  “Pendente” logo depois de criar os registros é normal. Espere alguns minutos e
+  clique em Verificar agora antes de mexer em qualquer coisa. Se um registro
+  específico está em **Falha** enquanto os outros verificaram, o problema é
+  aquele registro, quase sempre um valor colado pela metade.
+</Callout>
+
+## O lembrete mensal
+
+Enquanto o clube não tem um domínio verificado, todo dia 1º, às 10h (horário
+de Brasília), a plataforma manda o email “Configure o domínio de envio de
+emails” para os usuários ativos do painel e para o email de contato da empresa.
+Se já existe um domínio cadastrado e pendente, o email diz isso e pede para
+conferir os registros. O lembrete para de chegar quando o domínio verifica.
+
+## Remover o domínio
+
+O botão **Remover**, no topo da tela, desfaz o cadastro. A partir dali os
+emails voltam a sair do endereço da Trio, e você pode cadastrar outro domínio
+quando quiser. Emails já enviados não são afetados.
+
+## Domínio do site e domínio de email são independentes
+
+O domínio de envio de emails não depende do [domínio próprio do
+site](/docs/primeiros-passos/dominio-proprio), e vice-versa. Um clube em
+`seu-clube.trioassinaturas.com.br` pode mandar emails de
+`contato@clube.suamarca.com.br`, e um clube com site em `suamarca.com.br` pode
+seguir com o remetente da Trio. Os registros de um não interferem nos do outro.

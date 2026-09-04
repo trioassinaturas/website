@@ -2,7 +2,7 @@
 title: Pagamentos e retentativas
 description: Os métodos de pagamento aceitos, o que acontece quando o cartão recusa, quantas tentativas a plataforma faz e quando uma assinatura é cancelada por falha de pagamento.
 order: 30
-updatedDate: 2026-08-30
+updatedDate: 2026-09-04
 navTitle: Pagamentos e retentativas
 keywords:
   - cobrança
@@ -61,10 +61,11 @@ Uma cobrança está sempre em uma destas quatro situações:
 
 ## O calendário automático
 
-Quatro rotinas cuidam das cobranças sem ninguém apertar nada:
+Cinco rotinas cuidam das cobranças sem ninguém apertar nada:
 
 | Rotina                               | Quando roda            |
 | ------------------------------------ | ---------------------- |
+| Reativar assinaturas pausadas        | uma vez por dia, às 2h |
 | Processar as cobranças do dia        | uma vez por dia, às 3h |
 | Retentar as tentativas que falharam  | a cada 6 horas         |
 | Conferir os PIX aguardando pagamento | a cada hora            |
@@ -81,6 +82,14 @@ oito dias de tentativas antes de a plataforma desistir dela.
 A cada tentativa que falha e ainda tem retentativa marcada, o assinante recebe um
 email dizendo em que tentativa está e quando será a próxima. Na quinta, o email é
 outro: o de tentativas esgotadas.
+
+<Callout type="info" title="Pausar a assinatura encerra a cobrança em aberto">
+  Se a assinatura é pausada com uma cobrança ainda em tentativas, a plataforma
+  para de tentar e marca a cobrança como **Falha**, com um evento de **Cobrança
+  cancelada** no histórico. A dívida não é retomada quando a pausa termina: a
+  promessa de “sem cobranças enquanto estiver pausada” vale também para o que já
+  estava em curso. Veja [Assinaturas](/docs/cobrancas/assinaturas).
+</Callout>
 
 <Callout type="warning" title="Sua equipe não recebe email de cobrança falha">
   O aviso de falha vai para o assinante, não para você. Acompanhar isso é ativo:
@@ -157,7 +166,8 @@ caso, então, são **três ciclos de cinco tentativas** antes do cancelamento: b
 mais de um mês entre a primeira recusa e a saída.
 
 O contador de ciclos falhos volta a zero assim que uma cobrança tem sucesso, e
-ele aparece na ficha da assinatura. Nos dois primeiros ciclos falhos a plataforma
+também quando uma assinatura volta de uma pausa. Ele aparece na ficha da
+assinatura. Nos dois primeiros ciclos falhos a plataforma
 registra um evento de **Alerta de churn**; no terceiro, um de **Churn
 involuntário**.
 

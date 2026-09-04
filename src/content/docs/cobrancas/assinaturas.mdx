@@ -1,11 +1,13 @@
 ---
 title: Assinaturas
-description: "O ciclo de vida de uma assinatura: cancelar, reativar e trocar endereços."
+description: "O ciclo de vida de uma assinatura: pausar, retomar, cancelar, reativar e trocar endereços."
 order: 10
-updatedDate: 2026-08-30
+updatedDate: 2026-09-04
 navTitle: Assinaturas
 keywords:
   - assinatura
+  - pausar
+  - retomar
   - cancelar
   - reativar
   - endereço
@@ -15,14 +17,105 @@ A assinatura é a relação entre uma pessoa e um plano. A tela fica em
 **Assinaturas**, com filtros por situação, clube, kit atual e faixas de data,
 além de exportação em CSV e XLSX.
 
-## Os dois estados
+## Os três estados
 
-Uma assinatura está sempre em um destes dois estados, sem nada intermediário:
+Uma assinatura está sempre em um destes três estados, sem nada intermediário:
 
-| Estado        | Significa                         |
-| ------------- | --------------------------------- |
-| **Ativa**     | cobrando e entregando normalmente |
-| **Cancelada** | encerrada                         |
+| Estado        | Significa                                                                 |
+| ------------- | ------------------------------------------------------------------------- |
+| **Ativa**     | cobrando e entregando normalmente                                         |
+| **Pausada**   | sem cobranças nem entregas até uma data marcada, quando volta a ser ativa |
+| **Cancelada** | encerrada                                                                 |
+
+A lista de Assinaturas filtra pelos três, e o
+[Dashboard](/docs/recursos/dashboard-e-analytics) mostra quantas estão ativas e
+quantas estão pausadas.
+
+## Pausar
+
+A pausa suspende as cobranças e as entregas de uma assinatura ativa por um
+período definido, de no máximo **90 dias**, e devolve a assinatura ao normal
+sozinha quando o período termina. É a resposta para o assinante que vai viajar,
+está com o armário cheio ou pediu para “dar um tempo” sem cancelar.
+
+A ação fica na ficha da assinatura, em **Gerenciamento da Assinatura**: escolha
+a data em **Reativar em** e clique em **Pausar Assinatura**. A data precisa ser
+de amanhã em diante e no máximo 90 dias à frente; a tela sugere um mês. O
+assinante recebe na hora o email de assinatura pausada, com a data em que ela
+volta.
+
+<Callout type="info" title="Pausar é do painel, não do assinante">
+  A área do assinante mostra a assinatura como **Pausada**, mas não tem botão
+  para pausar, estender nem retomar. Esse pedido chega pelo seu atendimento e é
+  executado no painel, como o cancelamento.
+</Callout>
+
+### O que acontece durante a pausa
+
+- **Nenhuma cobrança nova é gerada** e nenhum pedido é criado. A caixa daquele
+  período não sai.
+- **Uma cobrança em aberto é cancelada, não adiada.** Se havia uma cobrança com
+  tentativas pendentes (cartão recusado, PIX não pago), a plataforma para de
+  tentar e a marca como **Falha**, em vez de guardar a dívida para depois. A
+  promessa ao assinante é “sem cobranças enquanto estiver pausada”, e ela vale
+  também para o que já estava em curso.
+- **Um pagamento que já estava a caminho vale.** Se o assinante paga um PIX
+  emitido antes da pausa, a cobrança é concluída e o pedido dela é criado
+  normalmente.
+- **O contador de ciclos falhos não avança.** Uma assinatura pausada não é
+  cancelada por falha de pagamento.
+- **A pessoa continua assinante daquele clube.** Ela não consegue assinar o
+  mesmo clube de novo enquanto a assinatura pausada existir.
+- **Cancelar Assinatura** continua disponível, para o caso de a pausa virar
+  despedida.
+
+### Estender ou encerrar a pausa antes da hora
+
+Com a assinatura pausada, a ficha diz desde quando e para quando está marcada a
+volta (“Pausada em 10/09. Reativação automática em 10/10.”) e oferece duas
+ações:
+
+- **Estender Pausa**: escolha uma **Nova data de reativação**, posterior à que
+  está marcada. O limite de 90 dias conta a partir do início da pausa, então
+  estender várias vezes não passa desse total, e quando a pausa já está no
+  limite o botão não aparece. O assinante não recebe email da extensão, só o
+  lembrete de reativação, já com a nova data.
+- **Retomar Assinatura**: encerra a pausa agora. O efeito é o mesmo da volta
+  automática, descrita abaixo.
+
+### A volta
+
+Na data marcada, a assinatura volta a ser ativa de madrugada, antes do
+processamento das cobranças do dia, então uma assinatura que volta hoje pode
+ser cobrada hoje. Três dias antes, o assinante recebe o email “Sua assinatura
+será reativada em breve”, que orienta a falar com você caso queira mais tempo.
+Na volta, ele recebe o email de assinatura reativada, com a data da próxima
+cobrança.
+
+O que a volta faz com a assinatura:
+
+- **A próxima cobrança cai na próxima data do calendário da assinatura**, e o
+  dia de aniversário da cobrança é preservado. Uma assinatura mensal cobrada
+  todo dia 15, pausada em 10 de setembro e retomada em 1º de novembro, é
+  cobrada de novo em 15 de novembro. Os períodos pulados não são cobrados nem
+  acumulam.
+- **O kit atual avança** para o kit do período que essa próxima cobrança paga.
+  A primeira caixa depois da pausa é a caixa atual, não a que estava na fila
+  antes.
+- **O contador de ciclos falhos volta a zero.** Uma recusa logo depois da volta
+  começa a escada de tentativas do início, sem herdar falhas de antes da pausa.
+
+Cada passo fica registrado nos eventos de cobrança da ficha: **Assinatura
+pausada**, **Pausa da assinatura estendida**, **Lembrete de reativação
+enviado**, **Assinatura retomada** e, quando uma cobrança em aberto foi
+encerrada pela pausa, **Cobrança cancelada**.
+
+<Callout type="tip" title="Pausa é retenção">
+  Quem pede para cancelar por um motivo passageiro (viagem, mudança, aperto no
+  mês) muitas vezes aceita uma pausa. A assinatura fica de pé, o cartão fica
+  cadastrado e a volta é automática, sem novo checkout. Vale oferecer antes de
+  executar o cancelamento.
+</Callout>
 
 ## Cancelar
 
@@ -53,8 +146,8 @@ Para trazer alguém de volta existe a ação **Reativar Assinatura**:
 </Callout>
 
 A ação só aparece quando a reativação é possível: a assinatura precisa estar
-cancelada, a pessoa não pode ter uma assinatura **ativa** do mesmo clube, e ainda
-precisa existir um plano à venda para aquele clube. Outras assinaturas canceladas
+cancelada, a pessoa não pode ter uma assinatura **ativa ou pausada** do mesmo
+clube, e ainda precisa existir um plano à venda para aquele clube. Outras assinaturas canceladas
 do mesmo clube não atrapalham, então quem já foi e voltou uma vez continua tendo
 caminho de retorno.
 
@@ -67,8 +160,9 @@ caminho de retorno.
 ## Uma assinatura ativa por clube
 
 A mesma pessoa não pode ter duas assinaturas ativas do mesmo clube. Se tentar, o
-checkout avisa: “Você já possui uma assinatura ativa deste plano.” Ter
-assinaturas de clubes diferentes é permitido.
+checkout avisa: “Você já possui uma assinatura ativa deste plano.” Uma
+assinatura pausada conta como ativa para essa regra. Ter assinaturas de clubes
+diferentes é permitido.
 
 ## Trocando endereços
 
@@ -92,5 +186,6 @@ foi feita pela sua equipe, o cliente recebe um email avisando.
 Abrindo uma assinatura você vê o período atual, o dia de aniversário da cobrança,
 a próxima data de cobrança, a estratégia de cobrança em vigor, quantos ciclos
 falharam em sequência, o cupom aplicado, e as listas de cobranças, pedidos e
-eventos de cobrança daquela assinatura. É a tela para onde ir quando um cliente
+eventos de cobrança daquela assinatura. Se estiver pausada, a ficha diz desde
+quando e em que data a volta está marcada. É a tela para onde ir quando um cliente
 pergunta "por que fui cobrado nesse dia?".

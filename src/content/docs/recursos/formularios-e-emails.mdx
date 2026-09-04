@@ -1,8 +1,8 @@
 ---
 title: Formulários e emails
-description: Como funcionam os formulários e quizzes, a API pública de respostas, e a lista completa de emails automáticos.
+description: Como funcionam os formulários e quizzes, a API pública de respostas, a lista completa de emails automáticos e de que endereço eles saem.
 order: 20
-updatedDate: 2026-08-30
+updatedDate: 2026-09-04
 navTitle: Formulários e emails
 keywords:
   - formulário
@@ -104,24 +104,38 @@ foi respondido.
   tema](/docs/catalogo/loja-e-tema).
 </Callout>
 
+## De que endereço os emails saem
+
+Os emails para o assinante saem com o nome do seu clube como remetente. O
+endereço é `noreply@clube.trioassinaturas.com.br` até você cadastrar e
+verificar um domínio próprio de envio, e passa a ser um endereço seu (como
+`contato@clube.suamarca.com.br`) depois disso. Respostas do assinante vão para
+o email de contato da sua empresa nos dois casos. Veja [Domínio de envio de
+emails](/docs/primeiros-passos/dominio-de-email).
+
+Os emails para a sua equipe saem sempre do endereço da Trio.
+
 ## Emails para o assinante
 
 A plataforma envia sozinha, em cada momento da vida da assinatura:
 
-| Quando                               | Email                                      |
-| ------------------------------------ | ------------------------------------------ |
-| Primeira assinatura                  | boas-vindas, com o link para criar a senha |
-| Cada tentativa automática que falha  | aviso da falha, com o número da tentativa  |
-| Tentativas esgotadas                 | aviso de que a plataforma parou de tentar  |
-| Cobrança em PIX à espera             | o QR code para pagar aquele ciclo          |
-| Cartão pediu autenticação            | link para autorizar o pagamento            |
-| Pedido despachado                    | aviso de envio                             |
-| Rastreio adicionado depois           | aviso com o código                         |
-| Assinatura cancelada                 | confirmação do cancelamento                |
-| Reativação oferecida pela sua equipe | convite para reativar                      |
-| Endereço alterado pela sua equipe    | aviso da alteração                         |
-| Email alterado                       | confirmação da troca                       |
-| Senha                                | redefinição de senha                       |
+| Quando                               | Email                                       |
+| ------------------------------------ | ------------------------------------------- |
+| Primeira assinatura                  | boas-vindas, com o link para criar a senha  |
+| Cada tentativa automática que falha  | aviso da falha, com o número da tentativa   |
+| Tentativas esgotadas                 | aviso de que a plataforma parou de tentar   |
+| Cobrança em PIX à espera             | o QR code para pagar aquele ciclo           |
+| Cartão pediu autenticação            | link para autorizar o pagamento             |
+| Pedido despachado                    | aviso de envio                              |
+| Rastreio adicionado depois           | aviso com o código                          |
+| Assinatura pausada pela sua equipe   | confirmação da pausa, com a data da volta   |
+| Três dias antes de a pausa terminar  | lembrete de que a assinatura volta em breve |
+| Assinatura volta da pausa            | aviso da reativação, com a próxima cobrança |
+| Assinatura cancelada                 | confirmação do cancelamento                 |
+| Reativação oferecida pela sua equipe | convite para reativar                       |
+| Endereço alterado pela sua equipe    | aviso da alteração                          |
+| Email alterado                       | confirmação da troca                        |
+| Senha                                | redefinição de senha                        |
 
 <Callout type="warning" title="Não existe email de pagamento confirmado">
   A plataforma **não** avisa o assinante quando a cobrança dá certo, e também
@@ -153,14 +167,16 @@ vendo o resultado.
 
 ## Emails para a sua equipe
 
-Para o seu time a plataforma manda pouca coisa, só dois avisos operacionais:
+Para o seu time a plataforma manda pouca coisa, só três avisos operacionais:
 
-| Quando                       | Email                        |
-| ---------------------------- | ---------------------------- |
-| Kits criados automaticamente | aviso para preencher os kits |
-| Novo usuário do painel       | redefinição de senha         |
+| Quando                                          | Email                        |
+| ----------------------------------------------- | ---------------------------- |
+| Kits criados automaticamente                    | aviso para preencher os kits |
+| Novo usuário do painel                          | redefinição de senha         |
+| Domínio de envio de emails ainda não verificado | lembrete mensal, todo dia 1º |
 
-Sobre o primeiro, veja [Kits e produtos](/docs/catalogo/kits-e-produtos).
+Sobre o primeiro, veja [Kits e produtos](/docs/catalogo/kits-e-produtos). Sobre
+o terceiro, [Domínio de envio de emails](/docs/primeiros-passos/dominio-de-email).
 
 <Callout type="warning" title="Sua equipe não é avisada de vendas nem de falhas">
   Não existe email para a sua equipe quando alguém assina, nem quando uma
