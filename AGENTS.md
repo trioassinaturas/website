@@ -6,6 +6,11 @@ paths and commit messages. Only user-facing content (copy, `alt` text,
 
 Note: `/sobre` predates this convention and is still in Portuguese.
 
+Every link to another site opens in a new tab with `target="_blank"` and
+`rel="noopener nofollow"`. In `.astro` files set both attributes on the anchor;
+in MDX content the `rehype-external-links` plugin in `astro.config.mjs` adds
+them at build time, so a plain markdown link is enough there.
+
 In `.astro` templates, a line break between an inline tag and the text next to
 it renders as **no space**: `</a>` on one line and `para` on the next comes out
 as `RSSpara`. Keep the space on the same line as the tag (`</a> para receber`),
