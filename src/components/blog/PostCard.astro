@@ -98,7 +98,11 @@ const sizes = featured
     </p>
 
     <div class="post-card-meta">
-      <AuthorChip author={author} section="blog-index" />
+      <AuthorChip
+        author={author}
+        section="blog-index"
+        loading={featured ? "eager" : "lazy"}
+      />
       <p class="post-card-dates">
         <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
         <span aria-hidden="true">·</span>

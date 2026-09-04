@@ -7,9 +7,17 @@ interface Props {
   size?: "sm" | "md"
   showRole?: boolean
   section: string
+  /** Pass "eager" when the chip sits above the fold, as in a post's byline. */
+  loading?: "eager" | "lazy"
 }
 
-const { author, size = "sm", showRole = false, section } = Astro.props
+const {
+  author,
+  size = "sm",
+  showRole = false,
+  section,
+  loading = "lazy",
+} = Astro.props
 const px = size === "md" ? 112 : 72
 ---
 
@@ -26,7 +34,7 @@ const px = size === "md" ? 112 : 72
     alt={`Foto de ${author.data.name}`}
     width={px}
     height={px}
-    loading="lazy"
+    loading={loading}
   />
   <span class="author-chip-text">
     <span class="author-chip-name">{author.data.name}</span>
