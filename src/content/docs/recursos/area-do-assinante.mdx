@@ -2,7 +2,7 @@
 title: Área do assinante
 description: O que o seu assinante resolve sozinho, o que ainda passa pelo seu atendimento e como usar o aviso do topo.
 order: 10
-updatedDate: 2026-09-04
+updatedDate: 2026-09-16
 navTitle: Área do assinante
 keywords:
   - assinante
@@ -21,16 +21,16 @@ bem o que existe (e o que não existe) nessa tela.
 O assinante encontra seis itens ao entrar, e cada um resolve um tipo de
 pendência:
 
-| Item            | O que a pessoa faz                                                      |
-| --------------- | ----------------------------------------------------------------------- |
-| **Minha Conta** | um resumo: assinaturas ativas, pedidos e cobranças recentes, atividades |
-| **Perfil**      | dados pessoais, data de nascimento e os endereços salvos                |
-| **Assinaturas** | ver as assinaturas, trocar endereço, atualizar pagamento, reativar      |
-| **Pedidos**     | histórico com situação e link de rastreio nos Correios                  |
-| **Cobranças**   | histórico e retentativa manual de uma cobrança que falhou               |
-| **Formulários** | responder os formulários recomendados                                   |
-| **Indicações**  | o código pessoal e os amigos que assinaram                              |
-| **Sair**        | encerra a sessão                                                        |
+| Item            | O que a pessoa faz                                                                                       |
+| --------------- | -------------------------------------------------------------------------------------------------------- |
+| **Minha Conta** | um resumo: assinaturas ativas, pedidos e cobranças recentes, atividades                                  |
+| **Perfil**      | dados pessoais, data de nascimento e os endereços salvos                                                 |
+| **Assinaturas** | ver as assinaturas, trocar endereço, atualizar pagamento, reativar, e pausar ou cancelar quando liberado |
+| **Pedidos**     | histórico com situação e link de rastreio nos Correios                                                   |
+| **Cobranças**   | histórico e retentativa manual de uma cobrança que falhou                                                |
+| **Formulários** | responder os formulários recomendados                                                                    |
+| **Indicações**  | o código pessoal e os amigos que assinaram                                                               |
+| **Sair**        | encerra a sessão                                                                                         |
 
 O item **Indicações** só aparece quando o
 [programa de indicação](/docs/vendas/programa-de-indicacao) está ativo.
@@ -55,6 +55,8 @@ na área dela:
 - **Reativar uma assinatura** encerrada, indo para um checkout já preenchido.
 - **Responder formulários**, com indicação de progresso ("3 de 5 campos
   preenchidos", Completo ou Incompleto).
+- **Pausar, retomar e cancelar a assinatura**, quando você libera cada uma
+  dessas ações.
 
 <Callout type="info" title="Endereço de cobrança é só pelo suporte">
   O assinante troca o **endereço de entrega** sozinho, mas o de **cobrança** não
@@ -63,13 +65,37 @@ na área dela:
   resolvido no painel, em [Assinaturas](/docs/cobrancas/assinaturas).
 </Callout>
 
-<Callout type="info" title="Pausar e cancelar passam pelo seu atendimento">
-  Tanto a pausa quanto o cancelamento são executados no painel, em
-  [Assinaturas](/docs/cobrancas/assinaturas). O assinante vê a assinatura
-  pausada marcada como **Pausada** na área dele, mas não tem botão para pausar,
-  estender ou retomar. O lado bom é a chance de conversar com quem pensa em
-  sair, e de oferecer a pausa antes do cancelamento. Em troca, vale ter um
-  caminho claro de contato para esse pedido não ficar sem resposta.
+## Pausar e cancelar sozinho
+
+Você decide se o assinante pausa e cancela por conta própria, em
+**Configurações da Empresa**, no bloco **Autoatendimento do Assinante**. São dois
+interruptores independentes, **Permitir que assinantes pausem a assinatura** e
+**Permitir que assinantes cancelem a assinatura**, e os dois começam desligados.
+Veja [Configurações da empresa](/docs/primeiros-passos/configuracoes-da-empresa).
+
+Com a pausa liberada, o assinante escolhe a data de volta na ficha da assinatura,
+dentro do limite de 90 dias, lê a frase "Você não será cobrado entre hoje e a
+data escolhida" antes de confirmar, e pode retomar antes do prazo. Com o
+cancelamento liberado, ele cancela na hora, sem passar pelo seu atendimento, e a
+tela avisa que a ação não pode ser desfeita. As duas ações têm o mesmo efeito das
+executadas no painel, descrito em [Assinaturas](/docs/cobrancas/assinaturas).
+
+<Callout type="info" title="O que está desligado aparece desabilitado">
+  O botão da ação que você não liberou continua visível, desabilitado, com a
+  orientação de procurar o suporte. É proposital: um assinante que não encontra
+  o botão conclui que ele não existe e abre um chamado do mesmo jeito, enquanto
+  o botão desabilitado já diz o que fazer.
+</Callout>
+
+<Callout
+  type="tip"
+  title="Liberar a pausa costuma segurar mais que travar o cancelamento"
+>
+  Quem pensa em sair por um motivo passageiro aceita bem uma pausa, e a pausa
+  mantém a assinatura de pé. Uma combinação comum é liberar a pausa e manter o
+  cancelamento pelo atendimento, que dá à sua equipe a chance de conversar antes
+  de encerrar. O custo dessa escolha é ter um caminho de contato claro, para o
+  pedido não ficar sem resposta.
 </Callout>
 
 ## Como o assinante entra

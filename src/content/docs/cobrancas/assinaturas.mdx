@@ -2,7 +2,7 @@
 title: Assinaturas
 description: "O ciclo de vida de uma assinatura: pausar, retomar, cancelar, reativar e trocar endereços."
 order: 10
-updatedDate: 2026-09-04
+updatedDate: 2026-09-16
 navTitle: Assinaturas
 keywords:
   - assinatura
@@ -44,10 +44,12 @@ de amanhã em diante e no máximo 90 dias à frente; a tela sugere um mês. O
 assinante recebe na hora o email de assinatura pausada, com a data em que ela
 volta.
 
-<Callout type="info" title="Pausar é do painel, não do assinante">
-  A área do assinante mostra a assinatura como **Pausada**, mas não tem botão
-  para pausar, estender nem retomar. Esse pedido chega pelo seu atendimento e é
-  executado no painel, como o cancelamento.
+<Callout type="info" title="O assinante pausa sozinho quando você libera">
+  Se **Permitir que assinantes pausem a assinatura** estiver marcado em
+  Configurações da Empresa, o assinante escolhe a data de volta na área dele e
+  pausa na hora, sem passar pelo seu atendimento. Ele também pode retomar antes
+  do prazo, mas **estender** a pausa continua sendo ação só do painel. Veja
+  [Área do assinante](/docs/recursos/area-do-assinante).
 </Callout>
 
 ### O que acontece durante a pausa
@@ -124,9 +126,11 @@ pago. Ao cancelar, a plataforma encerra o pagamento recorrente no provedor,
 registra o evento e envia o email de cancelamento ao cliente.
 
 Cancelamentos aparecem de duas formas na plataforma: os feitos por escolha (pela
-sua equipe ou a pedido do cliente) e os automáticos por falha de pagamento
+sua equipe ou pelo próprio assinante) e os automáticos por falha de pagamento
 repetida, que são registrados como churn involuntário. Veja
-[Pagamentos e retentativas](/docs/cobrancas/pagamentos-e-retentativas).
+[Pagamentos e retentativas](/docs/cobrancas/pagamentos-e-retentativas). No
+evento de cobrança de cada pausa e de cada cancelamento fica registrado se a ação
+saiu do painel ou da área do assinante.
 
 ## Reativar
 
@@ -151,10 +155,12 @@ clube, e ainda precisa existir um plano à venda para aquele clube. Outras assin
 do mesmo clube não atrapalham, então quem já foi e voltou uma vez continua tendo
 caminho de retorno.
 
-<Callout type="info" title="Cancelar é do painel, não do assinante">
-  O assinante resolve muita coisa sozinho na área dele (endereço, cartão,
-  retentativa de cobrança), mas **cancelar não está lá**. Esse pedido chega pelo
-  seu atendimento e é executado no painel.
+<Callout type="info" title="O cancelamento pelo assinante é uma escolha sua">
+  **Permitir que assinantes cancelem a assinatura**, em Configurações da
+  Empresa, decide se ele encerra sozinho na área dele ou se o pedido chega ao
+  seu atendimento. Com o interruptor desligado, o botão aparece desabilitado
+  para o assinante, com a orientação de procurar o suporte. Veja [Área do
+  assinante](/docs/recursos/area-do-assinante).
 </Callout>
 
 ## Uma assinatura ativa por clube

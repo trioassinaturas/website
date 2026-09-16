@@ -2,7 +2,7 @@
 title: Equipe e acessos
 description: Como convidar pessoas para o painel, o que cada função permite, como trocar a função de alguém e como revogar um acesso.
 order: 40
-updatedDate: 2026-09-04
+updatedDate: 2026-09-16
 navTitle: Equipe e acessos
 keywords:
   - usuários
@@ -42,26 +42,36 @@ Cada pessoa do painel tem uma função, e é ela que define o que aparece no men
 | **Administrador** | quem também mexe nas configurações e nos acessos |
 | **Proprietário**  | quem responde pela conta                         |
 
-A diferença entre Membro e as outras duas é o que está atrás de
-**Configurações**:
+O Membro toca no dia a dia da operação. O que muda o catálogo, o dinheiro ou a
+configuração do clube é de Administrador e Proprietário:
 
-| Área                                                                             | Membro | Administrador e Proprietário |
-| -------------------------------------------------------------------------------- | ------ | ---------------------------- |
-| Dashboard, pedidos, assinaturas, cobranças, clientes, leads, cupons, formulários | sim    | sim                          |
-| Produtos, kits, planos, arquivos estáticos, eventos de cobrança e de webhook     | sim    | sim                          |
-| Configurações da Empresa                                                         | não    | sim                          |
-| Domínio de Email                                                                 | não    | sim                          |
-| Tema do Website                                                                  | não    | sim                          |
-| Tabelas de Frete                                                                 | não    | sim                          |
-| Programa de Indicação                                                            | não    | sim                          |
-| Gerenciamento DNS e integrações                                                  | não    | sim                          |
-| Usuários                                                                         | não    | sim                          |
+| Tela ou ação                                                                                                         | Membro | Administrador e Proprietário |
+| -------------------------------------------------------------------------------------------------------------------- | ------ | ---------------------------- |
+| Abrir dashboard, pedidos, assinaturas, cobranças, clientes, leads, cupons, formulários, produtos, kits e planos      | sim    | sim                          |
+| Enviar e entregar pedidos, inclusive em lote, e editar o código de rastreio                                          | sim    | sim                          |
+| Cancelar pedidos                                                                                                     | não    | sim                          |
+| Criar e editar produtos, kits, planos, cupons, estratégias de cobrança e arquivos estáticos                          | não    | sim                          |
+| Pausar, estender, retomar, cancelar, reativar e editar assinaturas                                                   | não    | sim                          |
+| Reembolsar uma cobrança                                                                                              | não    | sim                          |
+| Reenviar um evento de webhook                                                                                        | não    | sim                          |
+| Configurações da Empresa, Domínio de Email, Tema do Website, Tabelas de Frete, Programa de Indicação, DNS e Usuários | não    | sim                          |
 
-<Callout type="info" title="O Membro não vê o que não pode abrir">
+<Callout type="info" title="O Membro não vê as telas de configuração">
   Os itens restritos não aparecem no menu de quem é Membro. Se alguém chegar
   numa dessas telas por um link antigo ou por um endereço salvo, vê uma página
   de **Acesso não autorizado**, que orienta a pedir a mudança de função a um
   administrador ou ao proprietário.
+</Callout>
+
+<Callout
+  type="warning"
+  title="Nas telas da operação, o botão restrito continua à vista"
+>
+  Cancelar um pedido ou pausar uma assinatura são telas que o Membro abre, então
+  o botão está lá. Ao usá-lo, ele recebe a mesma página de **Acesso não
+  autorizado**. Vale combinar isso com o time para a pessoa não achar que a
+  plataforma travou: o caminho é pedir a ação a quem é Administrador. A única
+  exceção é o botão de reembolso, que não aparece para quem é Membro.
 </Callout>
 
 ## Não existe excluir usuário

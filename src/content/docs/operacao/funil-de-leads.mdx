@@ -1,0 +1,155 @@
+---
+title: O funil de leads
+description: As etapas que um lead percorre no checkout, o que cada status de abandono quer dizer, inclusive os marcados como legado, e o que fazer com cada parada.
+order: 40
+updatedDate: 2026-09-16
+navTitle: Funil de leads
+keywords:
+  - funil
+  - abandono
+  - etapa
+  - conversão
+  - checkout
+  - lead
+---
+
+Cada lead carrega a etapa mais distante que ele alcançou no checkout, e o
+**status de abandono** traduz essa etapa em uma frase: "Parou no endereço",
+"Concluiu checkout (pendente)", "Convertido em cliente". É esse status que diz
+onde o seu checkout perde gente, e é o relatório mais acionável do painel.
+
+## Quando uma pessoa vira lead
+
+O lead nasce no momento em que a plataforma conhece o email da pessoa. Isso
+acontece de três formas:
+
+- **No checkout**, quando ela digita o email na etapa **Suas informações**.
+- **Por um link de checkout que já traz o email**, como os convites de
+  reativação e as campanhas com link preenchido.
+- **Por um quiz respondido fora da plataforma**, que envia a resposta junto com
+  o email. Veja [Formulários e
+  emails](/docs/recursos/formularios-e-emails).
+
+Quem sai da página antes disso não vira lead: até o email aparecer, a visita é
+só um número no funil do [Analytics](/docs/recursos/dashboard-e-analytics).
+
+<Callout type="info" title="Um lead por email, em cada clube">
+  O email é a identidade do lead. A mesma pessoa voltando com outro email vira
+  um segundo lead, com funil próprio, do mesmo jeito que viraria um segundo
+  cliente. Veja [Clientes e leads](/docs/operacao/clientes-e-leads).
+</Callout>
+
+## As quatro etapas do checkout
+
+O checkout é uma página com quatro etapas em acordeão, e a plataforma guarda a
+mais distante que a pessoa alcançou:
+
+<Steps>
+
+1. **Plano**, onde ela escolhe o clube e a duração.
+
+2. **Dados pessoais**, com nome, email, telefone e CPF.
+
+3. **Endereço**, onde o CEP calcula o frete.
+
+4. **Pagamento**, com cartão ou PIX.
+
+</Steps>
+
+O que fica gravado é a etapa mais distante, não a última visitada: quem volta
+para trocar o plano depois de preencher o endereço continua marcado no endereço.
+Veja [Checkout](/docs/vendas/checkout).
+
+## Os status de abandono
+
+O status combina a etapa alcançada com o desfecho da compra:
+
+| Status                           | O que aconteceu                                                        |
+| -------------------------------- | ---------------------------------------------------------------------- |
+| **Sem engajamento**              | o email chegou à plataforma e nenhuma etapa do checkout foi registrada |
+| **Parou na escolha do plano**    | abriu o checkout com o email já conhecido e saiu antes de seguir       |
+| **Parou nos dados pessoais**     | digitou o email e não concluiu nome, telefone e CPF                    |
+| **Parou no endereço**            | passou dos dados pessoais e não fechou o endereço de entrega           |
+| **Parou no pagamento**           | chegou à etapa de pagamento e nenhum pagamento foi confirmado          |
+| **Concluiu checkout (pendente)** | o pagamento foi confirmado e a conversão em cliente não terminou       |
+| **Convertido em cliente**        | virou cliente, com assinatura criada                                   |
+
+**Parou na escolha do plano** é o mais raro dos cinco de parada, porque depende
+de o email já ser conhecido antes da primeira etapa: é o caso de quem chega por
+um link preenchido ou de quem já tinha respondido um quiz.
+
+<Callout type="warning" title="Concluiu checkout (pendente) pede atendimento">
+  Esse status quer dizer que o dinheiro entrou e a pessoa não apareceu na lista
+  de Clientes. Procure o pagamento em [Pagamentos de
+  checkout](/docs/cobrancas/pagamentos-de-checkout): ele estará como
+  **Sucesso**, provavelmente com **Nenhuma assinatura criada**. Para quem pagou,
+  a compra simplesmente não terminou, então vale avisar a pessoa enquanto o caso
+  é resolvido.
+</Callout>
+
+## Os dois status marcados como legado
+
+Dois status vêm de leads que nunca passaram pelas etapas do checkout atual, e
+por isso não têm etapa para mostrar:
+
+- **Abandonou no Stripe (legado)**: o lead tem cadastro no provedor de pagamento
+  e nenhuma etapa registrada. É como aparece quem passou pelo checkout antigo,
+  que levava o comprador para uma página hospedada pelo provedor. Aquele
+  caminho não informava por onde a pessoa passou, então não há como saber até
+  onde ela foi.
+- **Abandonou no checkout (legado)**: o lead respondeu um formulário e nenhuma
+  etapa do checkout foi registrada para ele. Além dos leads antigos, é assim que
+  aparece quem responde um quiz hoje e nunca abre o checkout.
+
+<Callout type="tip" title="Leads legados são lista de contato, não funil">
+  Não dá para descobrir onde essas pessoas pararam, e insistir nisso não leva a
+  lugar nenhum. O que elas têm de bom é o email, e muitas vezes o nome e o
+  telefone: trate como base para uma campanha de reativação, e acompanhe o funil
+  de verdade pelos leads das etapas.
+</Callout>
+
+## Onde o status aparece
+
+Na lista de **Leads**, a coluna **Status de abandono** mostra o status de cada
+pessoa, e a lista se atualiza sozinha conforme o checkout acontece. A ficha do
+lead repete o status, junto com a **última etapa do checkout** e a data em que
+ela foi alcançada.
+
+A exportação em **CSV** e **XLSX** leva a mesma informação, na coluna **Status
+de abandono**, entre **Convertido** e **Criado em**.
+
+<Callout
+  type="info"
+  title="O filtro é por conversão, o corte fino é na planilha"
+>
+  A tela filtra por convertidos e não convertidos, por período e por texto, mas
+  não por status de abandono. Para contar quantos pararam em cada etapa, exporte
+  os não convertidos e agrupe pela coluna de status.
+</Callout>
+
+## O que fazer com cada parada
+
+Cada etapa costuma apontar para um problema diferente, e é isso que torna a lista
+acionável:
+
+| Onde param         | O que investigar primeiro                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------- |
+| **Dados pessoais** | campo obrigatório demais para o momento, ou CPF recusado por digitação errada               |
+| **Endereço**       | frete alto ou CEP sem cobertura na [tabela do clube](/docs/operacao/tabelas-de-frete)       |
+| **Pagamento**      | cartão recusado ou dúvida sobre a recorrência, com o motivo exato em Pagamentos de checkout |
+| **Plano**          | o link levou a pessoa a um plano que não era o que ela esperava                             |
+
+Para quem parou no pagamento, [Pagamentos de
+checkout](/docs/cobrancas/pagamentos-de-checkout) mostra o motivo que o provedor
+devolveu, o que separa "cartão sem limite" de "dado digitado errado".
+
+## Quando o lead vira cliente
+
+Assim que o pagamento é confirmado, a plataforma promove o lead a cliente, cria a
+assinatura e leva junto as respostas de formulário que ele tenha dado. O status
+passa a **Convertido em cliente**, e a ficha do lead ganha um link para a ficha
+do cliente.
+
+O lead continua existindo depois disso, com a data em que entrou e o caminho que
+percorreu. É o que permite olhar para trás e ver quanto tempo passou entre o quiz
+respondido e a assinatura fechada.

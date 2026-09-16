@@ -2,7 +2,7 @@
 title: Pagamentos de checkout
 description: A tela que mostra todo pagamento iniciado no checkout, inclusive os que falharam antes de virar assinatura, e como ler um pagamento que não provisionou.
 order: 40
-updatedDate: 2026-09-04
+updatedDate: 2026-09-16
 navTitle: Pagamentos de checkout
 keywords:
   - pagamento
@@ -36,7 +36,9 @@ Por isso a ordem é: **cobra primeiro, cria a assinatura depois**.
 2. A plataforma registra o **pagamento de checkout** e tenta cobrar.
 
 3. Se o pagamento **falha**, nada mais acontece. Não existe cliente, assinatura,
-   cobrança nem pedido: só o registro da tentativa, nesta tela.
+   cobrança nem pedido: só o registro da tentativa, nesta tela. O comprador pode
+   tentar de novo na mesma tela, e a nova tentativa reaproveita o mesmo
+   pagamento, então enviar duas vezes não gera duas cobranças.
 
 4. Se o pagamento **dá certo**, a plataforma: promove o lead a
    cliente, cria a assinatura, registra este pagamento como a primeira cobrança
