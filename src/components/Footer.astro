@@ -82,7 +82,10 @@ const year = new Date().getFullYear()
       <p>
         © {year} Trio Assinaturas. Feito com carinho em Porto Alegre, Brasil.
       </p>
-      <a href="/privacidade">Política de privacidade</a>
+      <nav class="footer-legal" aria-label="Documentos legais">
+        <a href="/termos">Termos de uso</a>
+        <a href="/privacidade">Política de privacidade</a>
+      </nav>
     </div>
   </div>
 </footer>
@@ -156,6 +159,12 @@ const year = new Date().getFullYear()
   .footer-bottom a:hover,
   .footer-bottom a:focus-visible {
     color: #fff;
+  }
+
+  .footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
   }
 
   @media (max-width: 44rem) {

@@ -1,0 +1,196 @@
+---
+import Layout from "../layouts/Layout.astro"
+import { breadcrumbs, webPage } from "../lib/schema"
+import { COMPANY, CONTACT } from "../config"
+
+const updatedDate = new Date("2026-10-10")
+const updatedDisplay = new Intl.DateTimeFormat("pt-BR", {
+  dateStyle: "long",
+  timeZone: "UTC",
+}).format(updatedDate)
+
+const description =
+  "Termos de uso do site e da plataforma Trio Assinaturas para clubes de assinatura."
+
+const site = Astro.site!
+const schema = [
+  webPage({
+    site,
+    path: "/termos",
+    name: "Termos de uso",
+    description,
+    dateModified: updatedDate,
+  }),
+  breadcrumbs(site, [{ name: "Início", path: "/" }, { name: "Termos de uso" }]),
+]
+---
+
+<Layout
+  schema={schema}
+  title="Termos de uso | Trio Assinaturas"
+  description={description}
+>
+  <section class="section">
+    <div class="container terms">
+      <p class="section-eyebrow">Termos</p>
+      <h1>Termos de uso</h1>
+      <p class="terms-updated">Última atualização: {updatedDisplay}</p>
+
+      <p class="section-lead">
+        Estes termos regem o uso deste site e da plataforma Trio Assinaturas. Ao
+        criar uma conta ou continuar usando o serviço, o clube concorda com
+        eles. O tratamento de dados pessoais está na{" "}
+        <a href="/privacidade">política de privacidade</a>.
+      </p>
+
+      <h2>Quem oferece o serviço</h2>
+      <p>
+        A Trio Assinaturas é operada por {COMPANY.legalName}, CNPJ
+        {COMPANY.cnpj}, com sede em {COMPANY.city}, {COMPANY.state}, Brasil.
+        Dúvidas sobre estes termos podem ser enviadas para{" "}
+        <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> ou pela página de
+        <a href="/contato">contato</a>.
+      </p>
+
+      <h2>O que a plataforma faz</h2>
+      <p>
+        A plataforma permite que um clube de assinatura gerencie planos,
+        assinantes, cobranças, pedidos e a página do clube. A Trio fornece o
+        software. O clube define os planos, os preços, o conteúdo de cada kit e
+        a relação com os próprios assinantes.
+      </p>
+
+      <h2>Conta e acesso</h2>
+      <p>
+        O clube é responsável pelas pessoas que convida para o painel e pelo que
+        elas fazem com esse acesso. As credenciais são individuais e não devem
+        ser compartilhadas. A Trio pode suspender um acesso que comprometa a
+        segurança da plataforma ou de outros clubes.
+      </p>
+
+      <h2>Assinantes do clube</h2>
+      <p>
+        Os dados dos assinantes de um clube, como nome, contato, endereço e
+        histórico de assinatura, são tratados pela Trio em nome desse clube. O
+        clube é quem decide as finalidades e atende os pedidos dos próprios
+        assinantes. A Trio não passa a ser a fornecedora do produto ou do kit
+        que o clube envia.
+      </p>
+
+      <h2>Pagamentos</h2>
+      <p>
+        Cobranças dos assinantes são processadas pelo provedor de pagamento
+        conectado à conta do clube. A Trio não guarda o número completo do
+        cartão. Condições comerciais entre a Trio e o clube, quando houver, são
+        as combinadas na contratação e não estão nestes termos.
+      </p>
+
+      <h2>Uso aceitável</h2>
+      <p>O clube não pode usar a plataforma para:</p>
+      <ul>
+        <li>violar a lei ou direito de terceiros;</li>
+        <li>enviar cobrança ou comunicação sem base para contatar a pessoa;</li>
+        <li>
+          tentar acessar dados de outro clube, contornar autenticação ou
+          sobrecarregar o serviço;
+        </li>
+        <li>
+          revender o acesso à plataforma como se fosse um produto próprio.
+        </li>
+      </ul>
+
+      <h2>Propriedade intelectual</h2>
+      <p>
+        O software, a marca e o conteúdo deste site pertencem à Trio ou a
+        licenciantes. O clube mantém a titularidade do próprio nome, das
+        imagens, dos textos e dos produtos que cadastra. Ele autoriza a Trio a
+        hospedar e exibir esse material apenas para operar o serviço.
+      </p>
+
+      <h2>Disponibilidade</h2>
+      <p>
+        A plataforma é oferecida de forma contínua, com interrupções possíveis
+        para manutenção, falha de fornecedor ou evento fora do controle da Trio.
+        Funcionalidades podem mudar. Uma mudança que retire uma função essencial
+        do serviço contratado será comunicada pelos canais de atendimento.
+      </p>
+
+      <h2>Responsabilidade</h2>
+      <p>
+        Cada parte responde pelos danos que causar por descumprimento destes
+        termos, na extensão prevista na lei brasileira. Nada aqui afasta direito
+        do consumidor que não possa ser afastado, nem responsabilidade por dolo
+        ou culpa grave.
+      </p>
+
+      <h2>Encerramento</h2>
+      <p>
+        O clube pode encerrar a conta a qualquer momento, pelos canais de
+        atendimento. A Trio pode encerrar ou suspender uma conta que viole estes
+        termos ou deixe de pagar uma condição comercial vencida, com aviso
+        quando o motivo permitir. Dados do clube seguem os prazos descritos na
+        política de privacidade.
+      </p>
+
+      <h2>Mudanças nestes termos</h2>
+      <p>
+        Estes termos podem ser atualizados. A data no topo indica a versão
+        vigente. Mudanças relevantes são comunicadas aos clubes pelos canais de
+        atendimento. O uso contínuo depois da vigência da nova versão vale como
+        aceite, quando a lei permitir essa forma.
+      </p>
+
+      <h2>Lei e foro</h2>
+      <p>
+        Estes termos são regidos pela lei brasileira. Fica eleito o foro da
+        comarca de {COMPANY.city}, {COMPANY.state}, salvo foro obrigatório
+        previsto em lei.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .terms {
+    max-width: 46rem;
+  }
+
+  .terms h1 {
+    font-size: var(--text-hero);
+    color: var(--blue-deep);
+    margin-top: 0.75rem;
+  }
+
+  .terms-updated {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  .terms .section-lead {
+    margin-top: 1.5rem;
+  }
+
+  .terms h2 {
+    margin-top: 2.5rem;
+    font-size: var(--text-xl);
+    color: var(--blue-deep);
+  }
+
+  .terms p {
+    margin-top: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .terms ul {
+    margin: 0.85rem 0 0;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.6rem;
+    color: var(--ink-soft);
+  }
+
+  .terms a {
+    color: var(--blue);
+  }
+</style>
