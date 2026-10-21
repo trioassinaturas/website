@@ -23,12 +23,12 @@ const uiHost = import.meta.env.PUBLIC_POSTHOG_UI_HOST
     // rageclick defaults. Bump the date to adopt future changes deliberately.
     defaults: "2026-05-30",
 
-    // --- Identity: fully anonymous ---
-    // No cookies, no localStorage, no sessionStorage. Identity is a rotating
-    // privacy-preserving hash computed server-side by PostHog.
-    // NOTE: cookieless must also be enabled in project settings, or these
-    // events are dropped on ingestion.
-    cookieless_mode: "always",
+    // --- Identity: anonymous, scoped to the tab ---
+    // No cookies, no localStorage. A random anonymous ID lives in
+    // sessionStorage and is gone when the tab closes, so a new tab is a new
+    // visitor. We can't use cookieless_mode: "always" because session replay
+    // needs a persisted session ID and posthog-js refuses to record without one.
+    persistence: "sessionStorage",
     // Never do person processing, so no person profiles are created at all.
     person_profiles: "never",
 
@@ -47,7 +47,11 @@ const uiHost = import.meta.env.PUBLIC_POSTHOG_UI_HOST
     rageclick: true,
 
     // --- Session replay ---
+    // Also needs "Record user sessions" on in the project's replay settings.
+    // Hide any other element from recordings with class="ph-no-capture".
     disable_session_recording: false,
+    // Pinned here so a project settings change can't unmask form fields.
+    session_recording: { maskAllInputs: true },
 
     // --- Error tracking ---
     capture_exceptions: {
