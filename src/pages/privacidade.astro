@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro"
 import { breadcrumbs, webPage } from "../lib/schema"
 import { COMPANY, CONTACT } from "../config"
 
-const updatedDate = new Date("2026-08-31")
+const updatedDate = new Date("2026-10-21")
 const updatedDisplay = new Intl.DateTimeFormat("pt-BR", {
   dateStyle: "long",
   timeZone: "UTC",
@@ -99,10 +99,12 @@ const schema = [
       <h2>Análise de uso e cookies</h2>
       <p>
         Este site usa o PostHog para análise de uso, servido por um endereço
-        próprio do nosso domínio. Esses dados de uso podem ser armazenados em
-        servidores nos Estados Unidos, uma transferência internacional realizada
-        com as salvaguardas previstas na LGPD. O site não usa cookies de
-        publicidade.
+        próprio do nosso domínio. Também registramos de forma anônima como as
+        páginas são usadas (cliques, rolagem e navegação), com o conteúdo de
+        campos de formulário ocultado. Esses dados de uso podem ser armazenados
+        em servidores nos Estados Unidos, uma transferência internacional
+        realizada com as salvaguardas previstas na LGPD. O site não usa cookies
+        de publicidade.
       </p>
 
       <h2>Com quem compartilhamos</h2>
