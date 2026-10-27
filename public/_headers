@@ -1,0 +1,7 @@
+/.well-known/posthog-client.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=300
+
+/.well-known/posthog-jwks.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=300

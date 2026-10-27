@@ -1,0 +1,136 @@
+---
+title: Integrações
+description: Como conectar o PostHog para ver o tráfego do clube e como ligar o Meta Pixel, o Google Tag Manager, o Google Ads e o TikTok Pixel nas suas páginas.
+order: 40
+updatedDate: 2026-10-27
+navTitle: Integrações
+keywords:
+  - integrações
+  - PostHog
+  - Meta Pixel
+  - Facebook Pixel
+  - Google Tag Manager
+  - GTM
+  - Google Ads
+  - TikTok Pixel
+  - códigos de rastreamento
+  - conversão
+  - anúncios
+---
+
+A tela de **Integrações** conecta o seu clube a outras ferramentas: o PostHog,
+para medir o tráfego, e os pixels de anúncio, para que o Meta, o Google e o
+TikTok saibam quem visitou e quem assinou. Ela fica em **Configurações →
+Integrações**, no painel.
+
+## As categorias da tela
+
+A tela de Integrações agrupa as ferramentas por assunto. Estas são as categorias
+e o que cada uma tem hoje:
+
+| Categoria                   | Integrações                                              |
+| --------------------------- | -------------------------------------------------------- |
+| **Análise**                 | PostHog                                                  |
+| **Anúncios e rastreamento** | Meta Pixel, Google Tag Manager, Google Ads, TikTok Pixel |
+| **Mensagens**               | WhatsApp (em breve)                                      |
+| **Logística**               | Melhor Envio (em breve)                                  |
+| **Assistentes de IA**       | Claude, ChatGPT e outros assistentes, pelo servidor MCP  |
+
+As integrações marcadas como “em breve” aparecem na tela, mas ainda não podem
+ser conectadas. Para os assistentes de IA, veja [Assistentes de IA no seu
+clube](/docs/assistentes-de-ia/visao-geral).
+
+## PostHog: o tráfego do seu clube
+
+O PostHog é a ferramenta que mede as visitas do clube e alimenta a tela de
+**Analytics** do painel. Ao conectar, a Trio cria um projeto no PostHog só para
+a sua loja e passa a registrar nele as visitas à loja, ao checkout e à área do
+assinante.
+
+A conexão usa o plano gratuito do PostHog, e você não precisa cadastrar cartão
+para conectar.
+
+### Como conectar o PostHog
+
+A conexão é feita em poucos cliques, a partir do painel:
+
+<Steps>
+1. Abra **Configurações → Integrações** e, em **Análise**, clique em
+   **Conectar PostHog**.
+
+2. Escolha a região onde os dados vão ficar guardados: **Estados Unidos** ou
+   **União Europeia**.
+
+3. Você vai para o PostHog. Se o seu email de acesso ao painel ainda não tem
+   conta no PostHog, a conta é criada com esse email. Se já tem, o PostHog pede
+   que você aprove a conexão com a Trio.
+
+4. A Trio cria um projeto novo no PostHog com o nome da sua loja e traz você de
+   volta ao painel, com o PostHog conectado.
+
+</Steps>
+
+<Callout type="info" title="A conta do PostHog é sua">
+  A conta e o projeto ficam no seu nome, com o email de quem conectou. Você pode
+  entrar no PostHog quando quiser e usar as outras ferramentas dele.
+</Callout>
+
+### O que você ganha com o PostHog conectado
+
+Com o PostHog conectado, três coisas passam a funcionar:
+
+- O PostHog fica ativo na loja, no checkout e na área do assinante, sem que
+  você cole nenhum código.
+- A tela de **Analytics** do painel mostra os gráficos do seu projeto: visitas,
+  origens do tráfego, páginas mais vistas e o funil de checkout. Veja
+  [Dashboard e analytics](/docs/recursos/dashboard-e-analytics).
+- O botão **Abrir no PostHog** leva você direto ao projeto, já com a sessão
+  iniciada, para quando quiser ir além dos gráficos do painel.
+
+### Desconectar o PostHog
+
+Desconectar o PostHog faz a Trio parar de enviar dados para o projeto. A sua
+conta e o projeto continuam no PostHog, com tudo o que já foi registrado, e a
+tela de Analytics deixa de mostrar os gráficos até você conectar de novo.
+
+## Pixels de anúncio
+
+Os pixels de anúncio avisam as plataformas de anúncio sobre o que acontece nas
+suas páginas, para que elas meçam o resultado das campanhas e encontrem pessoas
+parecidas com quem assina. Cada pixel é configurado com o identificador que a
+plataforma de anúncios fornece:
+
+| Integração             | O que você informa                                                     | Evento de compra                                 |
+| ---------------------- | ---------------------------------------------------------------------- | ------------------------------------------------ |
+| **Meta Pixel**         | o ID do pixel, só com números                                          | `Purchase`, além do `PageView`                   |
+| **Google Tag Manager** | o ID do contêiner, no formato `GTM-XXXXXXX`                            | nenhum: as tags de compra ficam no seu contêiner |
+| **Google Ads**         | o ID de conversão (`AW-XXXXXXXXX`) e, se quiser, o rótulo da conversão | conversão de compra, com o rótulo                |
+| **TikTok Pixel**       | o ID do pixel                                                          | `CompletePayment`                                |
+
+O evento de compra do Meta Pixel, do Google Ads e do TikTok Pixel é disparado
+na página de sucesso do checkout, que é a página que a pessoa vê quando a
+assinatura é paga. É ele que diz à plataforma de anúncios que a campanha gerou
+uma venda. No Google Ads, a conversão de compra só é enviada quando o rótulo da
+conversão está preenchido.
+
+### Ligar, desligar e escolher a posição
+
+Cada pixel tem um interruptor próprio, então você pode tirar um do ar sem perder
+o identificador. Também dá para escolher se o código entra no **início** ou no
+**final** do cabeçalho da página. O final é a opção recomendada e serve para a
+maioria dos casos.
+
+### Onde os pixels aparecem
+
+Os pixels ligados entram na loja, no checkout e nas páginas que você sobe como
+tema HTML personalizado ou como arquivo estático. Você não precisa colar o
+código de nenhum deles no seu HTML.
+
+<Callout type="info" title="Se o seu HTML já tem o pixel, a Trio não repete">
+  Quando um HTML que você subiu já traz o código de um desses pixels, a Trio não
+  adiciona aquele pixel de novo na página. Assim cada visita é contada uma vez
+  só, e não em dobro.
+</Callout>
+
+A área do assinante não recebe pixels de anúncio. Ela é usada por quem já
+assina, e lá só o PostHog fica ativo, quando conectado.
