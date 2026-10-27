@@ -1,0 +1,14 @@
+{
+  "client_id": "https://trioassinaturas.com.br/.well-known/posthog-client.json",
+  "client_name": "Trio Assinaturas",
+  "logo_uri": "https://trioassinaturas.com.br/images/icone-192.png",
+  "redirect_uris": [
+    "https://i.trioassinaturas.com.br/oauth/posthog",
+    "https://r.trioassinaturas.com.br/oauth/posthog"
+  ],
+  "token_endpoint_auth_method": "private_key_jwt",
+  "jwks_uri": "https://trioassinaturas.com.br/.well-known/posthog-jwks.json",
+  "grant_types": ["authorization_code"],
+  "response_types": ["code"],
+  "com.posthog": { "provisioning": true }
+}

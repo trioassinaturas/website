@@ -1,8 +1,8 @@
 ---
 title: Dashboard e analytics
-description: Os números que a plataforma calcula para você, o funil de checkout e as rotinas que rodam sozinhas.
+description: Os números que a plataforma calcula para você, o tráfego e o funil de checkout vindos do seu PostHog e as rotinas que rodam sozinhas.
 order: 30
-updatedDate: 2026-09-16
+updatedDate: 2026-10-27
 navTitle: Dashboard e analytics
 keywords:
   - dashboard
@@ -11,11 +11,13 @@ keywords:
   - receita
   - indicadores
   - relatórios
+  - PostHog
 ---
 
-A plataforma calcula os números do seu clube sozinha e mostra em duas telas:
-**Dashboard**, com a saúde da operação, e **Analytics**, com o tráfego que vira
-assinatura. Nenhuma das duas precisa de configuração para começar a funcionar.
+A plataforma mostra os números do seu clube em duas telas: **Dashboard**, com a
+saúde da operação, e **Analytics**, com o tráfego que vira assinatura. O
+Dashboard funciona desde o primeiro dia; o Analytics mostra os dados do seu
+projeto no PostHog, que você conecta em poucos cliques.
 
 ## Dashboard
 
@@ -35,7 +37,13 @@ tendência de verdade.
 
 ## Analytics
 
-A tela de **Analytics** trata do tráfego, com janelas de 7, 30 e 90 dias:
+A tela de **Analytics** mostra o tráfego do clube, com os gráficos do seu
+projeto no PostHog. Enquanto o PostHog não está conectado, a tela convida você
+a conectá-lo; o passo a passo está em
+[Integrações](/docs/recursos/integracoes#como-conectar-o-posthog).
+
+Com o PostHog conectado, a tela traz estes gráficos, com janelas de 7, 30 e 90
+dias:
 
 - visitas por dia
 - origens do tráfego e campanhas (UTM)
@@ -53,7 +61,9 @@ A tela de **Analytics** trata do tráfego, com janelas de 7, 30 e 90 dias:
 
 Os números do Analytics são recalculados a cada 15 minutos, das 8h às 18h
 (horário de Brasília), então podem levar alguns minutos para refletir algo que
-acabou de acontecer.
+acabou de acontecer. Para ver os dados mais recentes ou montar análises
+próprias, o botão **Abrir no PostHog** leva você direto ao projeto, já com a
+sessão iniciada.
 
 ## O que roda sozinho
 
