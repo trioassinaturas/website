@@ -1,7 +1,7 @@
-/.well-known/posthog-client.json
+/.well-known/client.json
   Content-Type: application/json
   Cache-Control: public, max-age=300
 
-/.well-known/posthog-jwks.json
+/.well-known/jwks.json
   Content-Type: application/json
   Cache-Control: public, max-age=300
