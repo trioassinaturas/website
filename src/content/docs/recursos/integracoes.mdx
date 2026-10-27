@@ -1,6 +1,6 @@
 ---
 title: Integrações
-description: Como conectar o PostHog para ver o tráfego do clube e como ligar o Meta Pixel, o Google Tag Manager, o Google Ads e o TikTok Pixel nas suas páginas.
+description: Como conectar a PostHog para ver o tráfego do clube e como ligar o Meta Pixel, o Google Tag Manager, o Google Ads e o TikTok Pixel nas suas páginas.
 order: 40
 updatedDate: 2026-10-27
 navTitle: Integrações
@@ -18,10 +18,10 @@ keywords:
   - anúncios
 ---
 
-A tela de **Integrações** conecta o seu clube a outras ferramentas: o PostHog,
+A tela de **Integrações** conecta o seu clube a outras ferramentas: a PostHog,
 para medir o tráfego, e os pixels de anúncio, para que o Meta, o Google e o
 TikTok saibam quem visitou e quem assinou. Ela fica em **Configurações →
-Integrações**, no painel.
+Integrações**, no painel, e só administradores e o dono da loja têm acesso.
 
 ## As categorias da tela
 
@@ -42,15 +42,15 @@ clube](/docs/assistentes-de-ia/visao-geral).
 
 ## PostHog: o tráfego do seu clube
 
-O PostHog é a ferramenta que mede as visitas do clube e alimenta a tela de
-**Analytics** do painel. Ao conectar, a Trio cria um projeto no PostHog só para
+A PostHog é a ferramenta que mede as visitas do clube e alimenta a tela de
+**Analytics** do painel. Ao conectar, a Trio cria um projeto na PostHog só para
 a sua loja e passa a registrar nele as visitas à loja, ao checkout e à área do
 assinante.
 
-A conexão usa o plano gratuito do PostHog, e você não precisa cadastrar cartão
-para conectar.
+A conexão usa o plano gratuito da PostHog, e você não precisa cadastrar cartão
+para conectar. Cada loja conecta uma única conta da PostHog por vez.
 
-### Como conectar o PostHog
+### Como conectar a PostHog
 
 A conexão é feita em poucos cliques, a partir do painel:
 
@@ -59,38 +59,42 @@ A conexão é feita em poucos cliques, a partir do painel:
    **Conectar PostHog**.
 
 2. Escolha a região onde os dados vão ficar guardados: **Estados Unidos** ou
-   **União Europeia**.
+   **União Europeia**. A região não pode ser trocada depois.
 
-3. Você vai para o PostHog. Se o seu email de acesso ao painel ainda não tem
-   conta no PostHog, a conta é criada com esse email. Se já tem, o PostHog pede
-   que você aprove a conexão com a Trio.
+3. Clique em **Conectar PostHog**. A conta da PostHog usa o email com que você
+   entra no painel:
+   - se esse email ainda não tem conta na PostHog, a conta é criada na hora e
+     você continua no painel. A PostHog manda um email para você criar a senha;
+   - se esse email já tem conta, você vai para a PostHog, entra na sua conta e
+     aprova a conexão com a Trio. Depois volta para o painel.
 
-4. A Trio cria um projeto novo no PostHog com o nome da sua loja e traz você de
-   volta ao painel, com o PostHog conectado.
+4. A Trio cria um projeto novo na PostHog com o nome da sua loja, e a tela da
+   integração mostra a PostHog conectada, com a conta e a região escolhidas.
 
 </Steps>
 
-<Callout type="info" title="A conta do PostHog é sua">
+<Callout type="info" title="A conta da PostHog é sua">
   A conta e o projeto ficam no seu nome, com o email de quem conectou. Você pode
-  entrar no PostHog quando quiser e usar as outras ferramentas dele.
+  entrar na PostHog quando quiser e usar as outras ferramentas dela.
 </Callout>
 
-### O que você ganha com o PostHog conectado
+### O que você ganha com a PostHog conectada
 
-Com o PostHog conectado, três coisas passam a funcionar:
+Com a PostHog conectada, três coisas passam a funcionar:
 
-- O PostHog fica ativo na loja, no checkout e na área do assinante, sem que
+- A PostHog fica ativa na loja, no checkout e na área do assinante, sem que
   você cole nenhum código.
 - A tela de **Analytics** do painel mostra os gráficos do seu projeto: visitas,
   origens do tráfego, páginas mais vistas e o funil de checkout. Veja
   [Dashboard e analytics](/docs/recursos/dashboard-e-analytics).
-- O botão **Abrir no PostHog** leva você direto ao projeto, já com a sessão
-  iniciada, para quando quiser ir além dos gráficos do painel.
+- O botão **Abrir na PostHog**, na tela da integração e na tela de Analytics,
+  leva você direto ao projeto, já com a sessão iniciada, para quando quiser ir
+  além dos gráficos do painel.
 
-### Desconectar o PostHog
+### Desconectar a PostHog
 
-Desconectar o PostHog faz a Trio parar de enviar dados para o projeto. A sua
-conta e o projeto continuam no PostHog, com tudo o que já foi registrado, e a
+Desconectar a PostHog faz a Trio parar de enviar dados para o projeto. A sua
+conta e o projeto continuam na PostHog, com tudo o que já foi registrado, e a
 tela de Analytics deixa de mostrar os gráficos até você conectar de novo.
 
 ## Pixels de anúncio
@@ -133,4 +137,12 @@ código de nenhum deles no seu HTML.
 </Callout>
 
 A área do assinante não recebe pixels de anúncio. Ela é usada por quem já
-assina, e lá só o PostHog fica ativo, quando conectado.
+assina, e lá só a PostHog fica ativa, quando conectada.
+
+## Integrações pelos assistentes de IA
+
+Um assistente de IA conectado ao clube com a permissão **Integrações** consulta
+quais integrações estão ligadas. Com permissão de escrita, ele também liga e
+desliga os pixels de anúncio, troca os identificadores e muda a posição do
+código. Conectar ou desconectar uma integração, como a PostHog, continua
+exclusivo do painel. Veja [Permissões e segurança](/docs/assistentes-de-ia/permissoes-e-seguranca).
