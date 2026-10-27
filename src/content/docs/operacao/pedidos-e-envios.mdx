@@ -2,7 +2,7 @@
 title: Pedidos e envios
 description: Como os pedidos nascem, os estados por que passam, as ações em lote e o código de rastreio.
 order: 10
-updatedDate: 2026-09-16
+updatedDate: 2026-10-27
 navTitle: Pedidos e envios
 keywords:
   - pedido
@@ -68,6 +68,18 @@ nos Correios.
   código.
 </Callout>
 
+## Os valores do pedido
+
+A ficha do pedido mostra, no bloco **Valores**, quanto aquele pedido rendeu:
+**Valor da assinatura**, **Frete**, **Desconto** e **Valor pago**. A lista de
+pedidos traz o **Valor pago** de cada um numa coluna própria.
+
+Quando uma cobrança paga várias entregas de uma vez, como num plano anual pago
+de uma só vez, cada pedido mostra a sua parte do valor, e o bloco indica qual
+entrega ele é, por exemplo “Entrega 3 de 12 da cobrança”. As partes dos pedidos
+somam exatamente o que foi cobrado. Pedidos de cobranças mais antigas, feitas
+antes de a plataforma guardar essa divisão, mostram os valores em branco.
+
 ## Filtros e exportação
 
 Como as outras listas do painel, os pedidos têm busca, filtros de estado e de
@@ -82,6 +94,10 @@ Duas colunas da exportação valem destaque para quem monta etiquetas:
 - O endereço vem **quebrado em partes** (CEP, rua, número, complemento, cidade,
   estado, país), em vez de uma linha só, o que é o formato que os sistemas de
   etiqueta e das transportadoras esperam.
+
+A exportação também traz **Valor da Assinatura**, **Valor do Frete** e **Valor do
+Desconto** de cada pedido, com a mesma divisão da ficha, o que permite fechar o
+faturamento por pedido numa planilha.
 
 O frete de cada pedido vem da
 [tabela de frete](/docs/operacao/tabelas-de-frete) do clube, e é cobrado em cada

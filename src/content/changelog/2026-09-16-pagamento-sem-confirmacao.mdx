@@ -1,0 +1,19 @@
+---
+title: Pagamento sem resposta do provedor não vira falha
+date: 2026-09-16
+docs:
+  - label: Pagamentos e retentativas
+    href: /docs/cobrancas/pagamentos-e-retentativas
+  - label: Pagamentos de checkout
+    href: /docs/cobrancas/pagamentos-de-checkout
+---
+
+Quando o provedor de pagamento não responde se o dinheiro entrou, a tentativa
+aparece como **Sem confirmação do provedor**, e não como falha. O assinante não
+recebe aviso de cobrança falha, a assinatura não avança para o cancelamento e a
+plataforma não cobra de novo enquanto não souber o resultado, o que evita cobrar
+a mesma pessoa duas vezes.
+
+A plataforma reconsulta o provedor a cada 10 minutos e segue o caminho normal
+assim que a resposta chega. No checkout, quem está comprando é avisado de que o
+pagamento está sendo confirmado e de que não precisa pagar de novo.

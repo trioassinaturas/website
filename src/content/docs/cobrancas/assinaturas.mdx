@@ -2,7 +2,7 @@
 title: Assinaturas
 description: "O ciclo de vida de uma assinatura: pausar, retomar, cancelar, reativar e trocar endereços."
 order: 10
-updatedDate: 2026-09-16
+updatedDate: 2026-10-27
 navTitle: Assinaturas
 keywords:
   - assinatura
@@ -14,7 +14,7 @@ keywords:
 ---
 
 A assinatura é a relação entre uma pessoa e um plano. A tela fica em
-**Assinaturas**, com filtros por situação, clube, kit atual e faixas de data,
+**Assinaturas**, com filtros por situação, kit atual e faixas de data,
 além de exportação em CSV e XLSX.
 
 ## Os três estados
@@ -66,8 +66,8 @@ volta.
   normalmente.
 - **O contador de ciclos falhos não avança.** Uma assinatura pausada não é
   cancelada por falha de pagamento.
-- **A pessoa continua assinante daquele clube.** Ela não consegue assinar o
-  mesmo clube de novo enquanto a assinatura pausada existir.
+- **A pessoa continua assinante.** Ela não consegue assinar o clube de novo
+  enquanto a assinatura pausada existir.
 - **Cancelar Assinatura** continua disponível, para o caso de a pausa virar
   despedida.
 
@@ -140,7 +140,7 @@ Para trazer alguém de volta existe a ação **Reativar Assinatura**:
   de reativação. Ele não reativa nada sozinho, o cliente precisa clicar no link em seu
   email e concluir o checkout.
 - **Na área do assinante**, o botão leva a pessoa a um checkout já preenchido com
-  o clube, o plano, o email e o CEP dela.
+  o plano, o email e o CEP dela.
 
 <Callout type="info" title="Reativar cria uma assinatura nova">
   Em nenhum dos dois caminhos a assinatura antiga volta à vida. A pessoa passa
@@ -150,9 +150,9 @@ Para trazer alguém de volta existe a ação **Reativar Assinatura**:
 </Callout>
 
 A ação só aparece quando a reativação é possível: a assinatura precisa estar
-cancelada, a pessoa não pode ter uma assinatura **ativa ou pausada** do mesmo
-clube, e ainda precisa existir um plano à venda para aquele clube. Outras assinaturas canceladas
-do mesmo clube não atrapalham, então quem já foi e voltou uma vez continua tendo
+cancelada, a pessoa não pode ter outra assinatura **ativa ou pausada**, e ainda
+precisa existir um plano à venda. Outras assinaturas canceladas dela não
+atrapalham, então quem já foi e voltou uma vez continua tendo
 caminho de retorno.
 
 <Callout type="info" title="O cancelamento pelo assinante é uma escolha sua">
@@ -163,12 +163,11 @@ caminho de retorno.
   assinante](/docs/recursos/area-do-assinante).
 </Callout>
 
-## Uma assinatura ativa por clube
+## Uma assinatura ativa por pessoa
 
-A mesma pessoa não pode ter duas assinaturas ativas do mesmo clube. Se tentar, o
+A mesma pessoa não pode ter duas assinaturas ativas do clube. Se tentar, o
 checkout avisa: “Você já possui uma assinatura ativa deste plano.” Uma
-assinatura pausada conta como ativa para essa regra. Ter assinaturas de clubes
-diferentes é permitido.
+assinatura pausada conta como ativa para essa regra.
 
 ## Trocando endereços
 
