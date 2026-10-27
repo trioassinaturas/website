@@ -2,7 +2,7 @@
 title: Pagamentos de checkout
 description: A tela que mostra todo pagamento iniciado no checkout, inclusive os que falharam antes de virar assinatura, e como ler um pagamento que não provisionou.
 order: 40
-updatedDate: 2026-09-16
+updatedDate: 2026-10-27
 navTitle: Pagamentos de checkout
 keywords:
   - pagamento
@@ -64,6 +64,12 @@ Todo pagamento tentado no checkout está em uma destas quatro situações:
 | **Aguardando pagamento** | é um PIX, e o QR code ainda não foi pago               |
 | **Sucesso**              | o dinheiro entrou                                      |
 | **Falha**                | recusado, expirado ou reembolsado antes de provisionar |
+
+Um pagamento também fica **Pendente** quando o provedor não confirmou se o
+dinheiro entrou. Nesse caso o checkout avisa quem está comprando que o pagamento
+está sendo confirmado, que não é preciso pagar de novo e que um email chega
+quando ele for concluído. Depois de 15 minutos, a plataforma reconsulta o provedor a
+cada 10 minutos, e se em 7 dias não houver resposta o pagamento passa a **Falha**.
 
 ## A tela
 

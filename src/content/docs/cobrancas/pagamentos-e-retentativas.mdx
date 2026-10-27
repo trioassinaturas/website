@@ -2,7 +2,7 @@
 title: Pagamentos e retentativas
 description: Os métodos de pagamento aceitos, o que acontece quando o cartão recusa, quantas tentativas a plataforma faz e quando uma assinatura é cancelada por falha de pagamento.
 order: 30
-updatedDate: 2026-09-04
+updatedDate: 2026-10-27
 navTitle: Pagamentos e retentativas
 keywords:
   - cobrança
@@ -42,6 +42,10 @@ A tela de **Cobranças** mostra valor, situação, provedor, método, o período
 cobrado e as tentativas com seus erros. A lista se atualiza sozinha conforme as
 cobranças são processadas.
 
+A exportação em **CSV** e **XLSX** separa o valor de cada cobrança em **Valor da
+Assinatura**, **Valor do Frete** e **Valor do Desconto**, ao lado do valor total
+cobrado e do clube.
+
 ### As situações de uma cobrança
 
 Uma cobrança está sempre em uma destas quatro situações:
@@ -62,7 +66,7 @@ Uma cobrança está sempre em uma destas quatro situações:
 
 ## O calendário automático
 
-Cinco rotinas cuidam das cobranças sem ninguém apertar nada:
+Seis rotinas cuidam das cobranças sem ninguém apertar nada:
 
 | Rotina                               | Quando roda            |
 | ------------------------------------ | ---------------------- |
@@ -70,6 +74,7 @@ Cinco rotinas cuidam das cobranças sem ninguém apertar nada:
 | Processar as cobranças do dia        | uma vez por dia, às 3h |
 | Retentar as tentativas que falharam  | a cada 6 horas         |
 | Conferir os PIX aguardando pagamento | a cada hora            |
+| Reconsultar tentativas sem resposta  | a cada 10 minutos      |
 | Criar pedidos que ficaram pendentes  | a cada 15 minutos      |
 
 O horário é o de Brasília.
@@ -99,6 +104,27 @@ outro: o de tentativas esgotadas.
   o lugar de olhar. Vale estar na rotina de alguém do time.
 </Callout>
 
+## Quando o provedor não confirma o pagamento
+
+Uma tentativa fica como **Sem confirmação do provedor** quando o provedor de
+pagamento não respondeu se o dinheiro entrou, por exemplo durante uma
+instabilidade dele. Isso não é uma recusa: o pagamento pode ter sido aprovado.
+Por isso a plataforma não conta essa tentativa como falha, não manda ao
+assinante o aviso de cobrança falha e não faz uma nova cobrança enquanto não
+souber o resultado, o que evita cobrar a mesma pessoa duas vezes.
+
+Depois de 15 minutos, a plataforma volta a consultar o provedor a cada 10
+minutos. Quando a resposta chega, a cobrança segue o caminho normal: vira **Sucesso** se o pagamento entrou,
+ou entra nas retentativas se o cartão foi recusado. Se em 7 dias o provedor não
+confirmar nada, a tentativa passa a **Falha** e as retentativas seguem a partir
+dali.
+
+<Callout type="tip" title="Sem confirmação não pede ação sua">
+  Uma tentativa nessa situação se resolve sozinha. Se o assinante procurar o seu
+  atendimento, a orientação é esperar e não pagar de novo: a retentativa manual
+  fica indisponível até a resposta do provedor chegar.
+</Callout>
+
 ## Retentativa manual pelo assinante
 
 Além das tentativas automáticas, o assinante pode forçar uma nova tentativa de
@@ -111,7 +137,9 @@ A retentativa manual funciona inclusive com a cobrança ainda em andamento, sem
 precisar esperar as automáticas acabarem. Duas situações em que o botão não
 aparece:
 
-- **Já existe uma tentativa em curso.** Esperar alguns segundos resolve.
+- **Já existe uma tentativa em curso.** Esperar alguns segundos resolve. Se a
+  tentativa estiver **Sem confirmação do provedor**, o botão volta quando o
+  provedor responder.
 - **É uma cobrança em PIX com QR code ainda válido.** Uma nova tentativa criaria
   um segundo código cobrável, e o risco de a pessoa pagar duas vezes é real. O
   caminho ali é pagar o código que já existe, ou esperar ele expirar e gerar
