@@ -1,1 +1,22 @@
-{ "keys": [] }
+{
+  "keys": [
+    {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "Qwc5T_VVxW0fF0K_dukhY_5-_rkqtshZ7Vhbf2GKPk4",
+      "y": "F-tMDvnpJL29zPWDo3w53njrepvAc5gP9sbV6GHuX44",
+      "kid": "trio-development-20261027",
+      "alg": "ES256",
+      "use": "sig"
+    },
+    {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "1Yu3ErybX1jXfFUwJH4ZQVDkyKg8CHmHg8yzkE0AmRw",
+      "y": "reU3p5yko1cNqaEitBqrVvhv9DJmDeCpfJlszLAILXE",
+      "kid": "trio-production-20261027",
+      "alg": "ES256",
+      "use": "sig"
+    }
+  ]
+}
