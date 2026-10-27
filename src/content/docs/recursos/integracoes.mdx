@@ -80,7 +80,7 @@ A conexão é feita em poucos cliques, a partir do painel:
 
 ### O que você ganha com a PostHog conectada
 
-Com a PostHog conectada, três coisas passam a funcionar:
+Com a PostHog conectada, estas coisas passam a funcionar:
 
 - A PostHog fica ativa na loja, no checkout e na área do assinante, sem que
   você cole nenhum código.
@@ -90,6 +90,31 @@ Com a PostHog conectada, três coisas passam a funcionar:
 - O botão **Abrir na PostHog**, na tela da integração e na tela de Analytics,
   leva você direto ao projeto, já com a sessão iniciada, para quando quiser ir
   além dos gráficos do painel.
+- O seu projeto recebe os eventos do clube, da primeira visita ao pedido
+  entregue. Veja a lista abaixo.
+
+### Os eventos que chegam ao seu projeto
+
+Além das visitas e dos cliques, a Trio registra no seu projeto da PostHog o que
+acontece no clube, com o nome do evento que você vê na PostHog. Cada pessoa
+aparece como uma só, do primeiro acesso ao checkout até a área do assinante,
+identificada pelo email.
+
+| Assunto       | Eventos                                                                                                                                                                                                                                         |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Checkout      | `checkout_viewed`, `checkout_plan_selected`, `checkout_coupon_applied`, `checkout_shipping_calculated`, `checkout_payment_started`, `checkout_submit_succeeded`, `checkout_success`, `checkout_abandoned`, `checkout_cancelled` e outros passos |
+| Pessoas       | `lead_created`, `customer_created`, `subscriber_logged_in`                                                                                                                                                                                      |
+| Assinaturas   | `subscription_created`, `subscription_paused`, `subscription_resumed`, `subscription_canceled`, `subscription_reactivated`, `subscription_plan_changed`, `subscription_payment_method_changed`, `subscription_address_changed`                  |
+| Cobranças     | `charge_succeeded` e `charge_failed`, com o valor em reais, `refund_succeeded`, `refund_failed`                                                                                                                                                 |
+| Pedidos       | `order_created`, `order_shipped`, `order_delivered`, `order_canceled`                                                                                                                                                                           |
+| Cupons e mais | `coupon_redeemed`, `referral_created`, `referral_applied`, `form_submitted`                                                                                                                                                                     |
+
+Cada evento traz a origem da ação na propriedade `source`: `checkout`,
+`subscriber` (o próprio assinante), `dashboard` (alguém da sua equipe no
+painel), `mcp` (um assistente de IA), `webhook` (o provedor de pagamento) ou
+`system` (as rotinas automáticas da plataforma). Com esses eventos, você monta na
+PostHog funis, retenção e painéis próprios, como a taxa de pausa por plano ou o
+tempo entre o checkout e o primeiro pedido enviado.
 
 ### Desconectar a PostHog
 
