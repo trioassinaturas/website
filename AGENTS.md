@@ -57,6 +57,26 @@ The featured card puts the cover in a panel next to the text instead of
 stretching it, so the whole artwork stays visible however long the title is.
 Cover art can therefore use the full frame, edge to edge, with no safe margin.
 
+Covers are generated, not drawn by hand. `pnpm cover <slug>` renders
+`scripts/covers/specs/<slug>.mjs` to `src/assets/blog/<slug>-capa.png`
+(`pnpm cover` alone renders all of them); the PNG is committed and the post's
+`cover:` points at it. Every cover shares one frame, defined in
+`scripts/covers/template.mjs`: lined notebook paper, a mono kicker
+(`["Tema", "Clubes de assinatura"]`), two hero lines on either side of a rule,
+title and subtitle, a dashed stamp top right. A spec fills in those fields and
+draws the per-post illustration in a 420x340 slot with the primitives in
+`scripts/covers/kit.mjs` (`block`, `frame`, `dot`, `label`, `text`, `line`,
+`arrow`, and `svg` for diagonals and curves, never for text). Stick to the
+palette in `C` (green, red, ink on paper) and the existing specs' vocabulary:
+flat blocks, 3px outlines, mono labels, a small mono caption above the
+drawing. The illustration states the post's idea, not invented numbers: only
+use a figure the post itself gives. Long hero words take a smaller `size` so
+the line stays under ~340px. Always open the rendered PNG and look at it
+before committing; check that nothing collides with the stamp.
+
+The copy on a cover is in Portuguese like every other user-facing string; the
+spec code around it is in English.
+
 ## The `/docs` section
 
 **The reader is the merchant, not the subscriber.** `/docs` is written for the
