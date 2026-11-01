@@ -77,6 +77,124 @@ before committing; check that nothing collides with the stamp.
 The copy on a cover is in Portuguese like every other user-facing string; the
 spec code around it is in English.
 
+## Screenshots
+
+Most `/docs` pages show the screen they describe, usually more than once.
+Docs screenshots are taken, not pasted: `pnpm screenshot` drives a locally
+running trio app with Playwright and writes PNGs that are committed. The
+changelog works differently (see the last part of this section).
+
+### The data behind the images
+
+The images show the development store of the trio app (the `trio` repo, next
+to this one): "Café Aura", a specialty-coffee club, built by trio's
+`db/seeds.rb`. Every person, CPF, email and address in it is fake, so the
+images are safe to publish. The seeds are written in Brazilian Portuguese and
+sized like a store in operation (about fifteen customers and subscriptions,
+thirty-odd orders in every status, mostly paid charges, leads at every abandon
+stage), because whatever they contain ends up on the public site. Product
+photos are the illustrations in trio's `db/seeds/products/`.
+
+If a screenshot shows something that looks wrong (English text, an empty list,
+a blank amount, a placeholder instead of a photo), fix the seeds in trio, not
+the image, and ask the user to reseed. trio's own rules forbid an agent from
+running Rails commands there, so the user runs:
+
+```
+bin/rails db:seed:replant   # in the trio repo; plain db:seed fails on existing data
+bin/dev                     # port 5000
+```
+
+Only screens inside trio are scripted. Screenshots of other products (the
+PostHog project, Claude, ChatGPT) are supplied by the user and committed by
+hand.
+
+### Taking them
+
+- trio must be running on port 5000 with the seeds loaded. The runner signs in
+  as the store owner (`owner@cafeaura.com.br` / `password123`) and, for
+  subscriber-area shots, as a seeded subscriber with the same password.
+  `TRIO_PORT`, `TRIO_SUBDOMAIN`, `TRIO_EMAIL`, `TRIO_PASSWORD` and
+  `TRIO_SUBSCRIBER_EMAIL` override the defaults. Run the command from WSL;
+  Playwright's Chromium is already installed there.
+- One spec per docs page, at the same path as its content:
+  `scripts/screenshots/docs/vendas/cupons.mjs` holds the images of
+  `src/content/docs/vendas/cupons.mdx`. A spec exports a list of shots, and
+  each shot writes `src/assets/docs/<section>/<page>/<shot name>.png`.
+- `pnpm screenshot` takes every shot, `pnpm screenshot vendas/cupons` (or
+  just `cupons` when the name is unique) one page, and
+  `pnpm screenshot cupons formulario-brinde` one shot.
+- A shot opens a `path` on a `host` (`dashboard` by default, `checkout`,
+  `assinantes` or `loja` for the store itself), optionally runs `prepare` to
+  click and type, and either captures the window or crops to a `target`. The
+  header of `scripts/screenshots/render.mjs` documents every field (`auth`,
+  `viewport`, `grow`, `mask`). `scripts/screenshots/helpers.mjs` has the
+  locators specs share: `card` (the bordered block that holds a heading),
+  `section` (a heading's parent block), `formWith` (the form that owns a
+  field), `table`, and `openRow` (open the record in the first table row,
+  optionally the first row with some text).
+- Write specs against the structure and the Portuguese labels of the screen,
+  never against seeded names or ids, so they survive a reseed.
+- The runner makes every shot look the same: a 1440x900 window at 2x, light
+  theme, pt-BR locale with dates as `dd/mm/aaaa`, São Paulo time, animations
+  and the caret off. Before each shot it replaces the local addresses the app
+  prints (`mcp.localhost:5000`, `aura.localhost:5000`) with the production
+  ones, so no image shows `localhost`. A cropped shot first grows the window
+  until nothing scrolls, because the dashboard scrolls in an inner container;
+  set `grow: false` when that would stretch the crop, as with the sidebar.
+- Some screens can't be shown honestly from a local server, and get no shot:
+  the DNS page of the custom domain (local DNS verification always fails) and
+  pages that are empty in the seeds.
+
+### Choosing and checking
+
+- A docs page shows the screens a merchant needs to recognize: the list, the
+  record, the setting being explained. A plain form that only repeats the text
+  around it (the new user form, the new billing strategy form) is not worth an
+  image, and neither is anything only an admin of the platform sees.
+- Open every PNG and look at it before committing. A crop that caught the
+  wrong element (a selector like `form` also matches the logout button), a
+  half-loaded search, a column cut off at the window's edge, or a page that
+  rendered an error are all easy to miss. To review many at once, combine them
+  into contact sheets with `sharp`, in the scratchpad.
+- Rerun the affected specs whenever the trio UI changes, so the docs keep
+  describing the platform as it is today.
+
+### Embedding
+
+- Use a plain markdown image whose Portuguese `alt` text says what the screen
+  shows:
+  `![Formulário de novo cupom com o tipo Brinde marcado](../../../assets/docs/vendas/cupons/formulario-brinde.png)`.
+- Place it after the paragraph it illustrates. Never put it directly under a
+  heading, inside a component, or between a sentence that ends in a colon and
+  the list, table or steps that sentence introduces; in that case it goes after
+  the whole block.
+- To compare two screens, such as the checkout on a computer and on a phone,
+  put them in a markdown table with a header row naming each one
+  (`| Computador | Celular |`). `src/styles/prose.css` sizes a table that holds
+  images to the column, with the first screen taking most of the width.
+- In the page Astro resolves the relative path and serves an optimized WebP.
+  The raw MDX body also goes out in the `.md` twins and the changelog RSS feed,
+  so those rewrite relative image paths to the built image's absolute URL
+  (`src/lib/images.ts`). A path that points at no file fails the build.
+- Adding or removing images does not move `updatedDate`; changing what the
+  text says does.
+
+### Changelog images are frozen
+
+A changelog entry records a launch, so its image shows the screen as it was
+that day and is never retaken: when the UI changes, the docs images move on
+and the changelog images stay. No changelog spec is kept for that reason. Give
+an entry an image only when seeing the screen says more than the paragraph,
+not every time.
+
+To give a new entry an image, write a temporary spec at
+`scripts/screenshots/changelog/<entry file name>.mjs` (it writes to
+`src/assets/changelog/<entry>/`), run `pnpm screenshot <entry file name>` once,
+look at the PNG, append it to the end of the entry as a markdown image
+(`../../assets/changelog/<entry>/<name>.png`), commit the PNG and delete the
+spec. Never overwrite an existing changelog image.
+
 ## The `/docs` section
 
 **The reader is the merchant, not the subscriber.** `/docs` is written for the
@@ -182,7 +300,8 @@ repo), not the day the entry was written. The slug is the anchor on the page
 one or two short paragraphs in Portuguese, written as what the merchant can do
 now, under the same rules as `/docs`: the reader is not technical, no em dashes.
 Internal work (performance, dependencies, refactors, security probes) gets no
-entry.
+entry. An entry may end with one screenshot of the launch, which is frozen and
+never retaken (see "Changelog images are frozen" under Screenshots).
 
 The page also ships as `/novidades.md` (`src/pages/novidades.md.ts`) and as an
 RSS feed at `/novidades/rss.xml`, is listed under "Site" in `llms.txt`, and is

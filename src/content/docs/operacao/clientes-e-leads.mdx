@@ -1,8 +1,8 @@
 ---
 title: Clientes e leads
-description: A ficha do cliente, a lista de quem começou o checkout e não terminou, e o acesso à área do assinante como se fosse ele.
+description: A ficha do cliente, a lista de quem começou o checkout e não terminou, as boas-vindas e a exportação.
 order: 30
-updatedDate: 2026-09-16
+updatedDate: 2026-11-01
 navTitle: Clientes e leads
 keywords:
   - cliente
@@ -10,7 +10,6 @@ keywords:
   - CRM
   - CPF
   - funil
-  - impersonação
 ---
 
 Duas telas, dois momentos da mesma pessoa: **Leads** são quem começou a assinar,
@@ -23,11 +22,12 @@ nascimento, endereços, assinaturas, pedidos, cobranças, respostas de formulár
 e indicações. A lista pode ser filtrada pela situação da assinatura (ativa,
 cancelada, ou sem assinatura) e exportada em CSV e XLSX.
 
-Duas ações úteis na ficha:
+![Lista de clientes com nome, email, assinaturas e data de cadastro](../../../assets/docs/operacao/clientes-e-leads/clientes.png)
 
-- **Enviar redefinição de senha**, para quando a pessoa não consegue entrar na
-  área do assinante.
-- **Acessar como assinante**, explicado mais abaixo.
+Na ficha, **Enviar redefinição de senha** manda um novo link de senha para
+quando a pessoa não consegue entrar na área do assinante.
+
+![Detalhes de um cliente com CPF, código de indicação, o botão de redefinir a senha e as assinaturas](../../../assets/docs/operacao/clientes-e-leads/cliente.png)
 
 <Callout type="info" title="O documento é o CPF do assinante">
   O campo valida formato e dígitos verificadores de CPF, e pode ficar vazio.
@@ -62,6 +62,8 @@ Todo mundo que começa o checkout entra aqui, com a **etapa mais distante** que
 alcançou e o **status de abandono** correspondente. A lista se atualiza em tempo
 real, e pode ser filtrada por convertidos e não convertidos.
 
+![Lista de leads com email, telefone, se converteu e o status de abandono](../../../assets/docs/operacao/clientes-e-leads/leads.png)
+
 O lead guarda email, nome, telefone e **CPF**, conforme a pessoa vai preenchendo
 o checkout, além das respostas de formulário que ela tenha dado. Quando ela
 completa a assinatura, o lead é promovido a cliente automaticamente, levando
@@ -75,22 +77,6 @@ antigos está em [O funil de leads](/docs/operacao/funil-de-leads).
   parando em **endereço** costuma significar frete alto ou CEP sem cobertura.
   Muita gente parando em **pagamento** aponta para cartão recusado ou dúvida
   sobre a recorrência. É informação que se transforma em ajuste concreto.
-</Callout>
-
-## Acessar como assinante
-
-Você pode gerar um link temporário que abre a área do assinante como aquela
-pessoa. É o jeito mais rápido de entender um problema que o cliente relata mas
-não consegue descrever ("não acho onde troca o endereço").
-
-O acesso é limitado no tempo: o link vale poucos minutos e a sessão tem duração
-curta. Também é possível gerar um QR code, útil no atendimento por telefone. Toda
-sessão desse tipo fica marcada como tal.
-
-<Callout type="warning" title="É o acesso a uma conta real, com dados reais">
-  Enquanto estiver nesse modo você está dentro da conta da pessoa, e o que fizer
-  lá conta como ação dela. Use para diagnosticar, evite usar para alterar coisas
-  sem que ela tenha pedido, e saia ao terminar.
 </Callout>
 
 ## Boas-vindas

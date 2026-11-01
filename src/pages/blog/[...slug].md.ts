@@ -1,6 +1,7 @@
 import type { APIRoute, GetStaticPaths } from "astro"
 import { getAuthorMap, getPosts, postUrl } from "../../lib/blog"
 import { formatDate } from "../../lib/dates"
+import { absoluteImages } from "../../lib/images"
 
 /**
  * Every post is also published as plain markdown at `<url>.md`, for AI
@@ -28,7 +29,7 @@ export const GET: APIRoute = async ({ props, site }) => {
     "",
     `_Por ${author.data.name} · ${formatDate(post.data.pubDate)} · Página: ${base}${postUrl(post)}_`,
     "",
-    post.body ?? "",
+    absoluteImages(post.body ?? "", post.filePath, base),
   ]
 
   return new Response(body.join("\n"), {

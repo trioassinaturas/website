@@ -2,6 +2,7 @@ import rss from "@astrojs/rss"
 import type { APIRoute } from "astro"
 import { CHANGELOG_PATH, entryAnchor, getEntries } from "../../lib/changelog"
 import { FEEDS, feedUrl, markdownToHtml } from "../../lib/feeds"
+import { absoluteImages } from "../../lib/images"
 
 /**
  * One item per launch, newest first, carrying the whole entry: they are short,
@@ -14,7 +15,9 @@ export const GET: APIRoute = async ({ site }) => {
   const items = await Promise.all(
     entries.map(async (entry) => {
       const { title, date, docs } = entry.data
-      const body = await markdownToHtml(entry.body ?? "")
+      const body = await markdownToHtml(
+        absoluteImages(entry.body ?? "", entry.filePath, site!.href),
+      )
       const links = docs
         .map((doc) => {
           const href = doc.href.startsWith("/")

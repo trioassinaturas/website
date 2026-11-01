@@ -15,7 +15,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "cover": "node scripts/covers/render.mjs",
-    "prepare": "git config core.hooksPath .githooks"
+    "prepare": "git config core.hooksPath .githooks",
+    "screenshot": "node scripts/screenshots/render.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.1",
@@ -40,6 +41,7 @@
     "eslint": "^10.8.0",
     "eslint-plugin-astro": "^3.0.1",
     "globals": "^17.7.0",
+    "playwright": "^1.64.1",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "satori": "^0.63.2",

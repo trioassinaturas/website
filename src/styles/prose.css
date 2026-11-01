@@ -251,6 +251,22 @@
   font-size: 0.95rem;
 }
 
+/* A table of screenshots, like the checkout on a computer next to the same
+ * screen on a phone: it fits the column instead of growing to the images'
+ * native width, and the first (wide) screen gets most of the room. */
+.prose table:has(img) {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.prose table:has(img) :is(th, td):first-child {
+  width: 72%;
+}
+
+.prose table:has(img) td {
+  vertical-align: top;
+}
+
 .prose :is(th, td) {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--border);

@@ -1,6 +1,7 @@
 import type { APIRoute, GetStaticPaths } from "astro"
 import { getDocs, docUrl, docSection, sectionLabel } from "../../lib/docs"
 import { formatDate } from "../../lib/dates"
+import { absoluteImages } from "../../lib/images"
 
 /**
  * Every docs page is also published as plain markdown at `<url>.md`, for AI
@@ -23,7 +24,7 @@ export const GET: APIRoute = async ({ props, site }) => {
     "",
     `_Seção: ${sectionLabel(docSection(doc))} · Atualizada em ${formatDate(doc.data.updatedDate)} · Página: ${base}${docUrl(doc)}_`,
     "",
-    doc.body ?? "",
+    absoluteImages(doc.body ?? "", doc.filePath, base),
   ]
 
   return new Response(body.join("\n"), {

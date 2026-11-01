@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro"
 import { CHANGELOG_PATH, getEntries, groupByMonth } from "../lib/changelog"
 import { formatDate } from "../lib/dates"
+import { absoluteImages } from "../lib/images"
 
 /**
  * The changelog is also published as plain markdown at `/novidades.md`, for AI
@@ -24,7 +25,7 @@ export const GET: APIRoute = async ({ site }) => {
         "",
         `_${formatDate(entry.data.date)}_`,
         "",
-        entry.body?.trim() ?? "",
+        absoluteImages(entry.body?.trim() ?? "", entry.filePath, base),
         ...(links ? ["", `Saiba mais: ${links}`] : []),
       ].join("\n")
     })
