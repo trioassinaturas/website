@@ -2,7 +2,7 @@
 title: Integrações
 description: Como conectar a PostHog para ver o tráfego do clube e como ligar o Meta Pixel, o Google Tag Manager, o Google Ads e o TikTok Pixel nas suas páginas.
 order: 40
-updatedDate: 2026-10-27
+updatedDate: 2026-11-01
 navTitle: Integrações
 keywords:
   - integrações
@@ -16,6 +16,8 @@ keywords:
   - códigos de rastreamento
   - conversão
   - anúncios
+  - gravações de sessão
+  - painéis
 ---
 
 A tela de **Integrações** conecta o seu clube a outras ferramentas: a PostHog,
@@ -68,8 +70,10 @@ A conexão é feita em poucos cliques, a partir do painel:
    - se esse email já tem conta, você vai para a PostHog, entra na sua conta e
      aprova a conexão com a Trio. Depois volta para o painel.
 
-4. A Trio cria um projeto novo na PostHog com o nome da sua loja, e a tela da
-   integração mostra a PostHog conectada, com a conta e a região escolhidas.
+4. A Trio cria um projeto novo na PostHog com o endereço da sua loja como nome
+   e valores em reais, e a tela da integração mostra a PostHog conectada, com a
+   conta e a região escolhidas. Os painéis prontos aparecem no projeto em
+   alguns minutos.
 
 </Steps>
 
@@ -92,6 +96,45 @@ Com a PostHog conectada, estas coisas passam a funcionar:
   além dos gráficos do painel.
 - O seu projeto recebe os eventos do clube, da primeira visita ao pedido
   entregue. Veja a lista abaixo.
+- O projeto já vem com quatro painéis prontos, montados com esses eventos.
+- A PostHog grava as sessões dos visitantes na loja, no checkout e na área do
+  assinante, para você assistir como cada pessoa navegou.
+
+### Os painéis prontos
+
+Os painéis prontos ficam fixados no seu projeto da PostHog, com nomes que começam
+por “Trio:”. O painel **Trio: visão geral da loja** é o que abre primeiro no
+projeto, a menos que você já tenha escolhido outro como inicial.
+
+| Painel                        | O que mostra                                                                                                            |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Trio: visão geral da loja** | receita por semana e por forma de pagamento, taxa de sucesso das cobranças, reembolsos, assinaturas, clientes e pedidos |
+| **Trio: checkout**            | o funil do checkout, onde os compradores desistem, falhas de pagamento, cupons e tempo até a compra                     |
+| **Trio: área do assinante**   | acessos, o que os assinantes mudam sozinhos, cancelamentos por origem e indicações                                      |
+| **Trio: site**                | visitantes, origens e campanhas (UTM), páginas mais vistas, dispositivos, estados e quantos chegam à compra             |
+
+Os painéis são seus: você pode editar, duplicar ou apagar qualquer gráfico na
+PostHog. Os painéis de checkout, área do assinante e site também mostram os
+cliques de frustração, que são cliques repetidos no mesmo lugar e costumam
+apontar um botão ou campo que não responde.
+
+### As gravações de sessão
+
+A gravação de sessão mostra, como um vídeo, o que um visitante fez na página:
+onde clicou, até onde rolou e em que ponto desistiu. As gravações ficam no seu
+projeto da PostHog, em **Session replay**.
+
+Tudo o que a pessoa digita nos campos aparece mascarado na gravação, então nomes,
+emails, endereços e dados de cartão não ficam visíveis.
+
+### Atualizar as permissões da PostHog
+
+Quando a conexão com a PostHog foi aprovada antes de a Trio criar painéis e
+gravar sessões, a tela da integração mostra o aviso **Atualize as permissões da
+PostHog**. Clique em **Atualizar permissões** e aprove o pedido na PostHog: o
+projeto e os dados continuam os mesmos, e os painéis prontos e as gravações
+começam a aparecer em alguns minutos. Faça isso com a mesma conta da PostHog que
+tem acesso ao projeto da loja.
 
 ### Os eventos que chegam ao seu projeto
 

@@ -2,7 +2,7 @@
 title: Domínio próprio e DNS
 description: Como apontar o seu domínio para a Trio, quais registros criar e como acompanhar a verificação.
 order: 30
-updatedDate: 2026-10-27
+updatedDate: 2026-11-01
 navTitle: Domínio próprio
 keywords:
   - DNS
@@ -77,6 +77,10 @@ que a tela mostra preenchido.
 A tela mostra um **Status Geral** e o estado de cada registro:
 
 - **Correto**: o registro existe e aponta para o lugar certo.
+- **Verificado**: o registro não aparece como um CNAME comum, mas a plataforma
+  confirmou que o endereço chega até ela. É o que acontece com o proxy do
+  Cloudflare (a nuvem laranja), o CNAME flattening e os registros ALIAS, e
+  funciona tão bem quanto **Correto**.
 - **Alvo Incorreto**: o registro existe, mas aponta para outro lugar. Quase
   sempre é um valor colado pela metade ou um domínio antigo.
 - **Não Encontrado**: o registro ainda não existe, ou o DNS ainda não propagou.
@@ -109,4 +113,5 @@ Alguns provedores não deixam criar um CNAME no domínio raiz (`@`), por uma
 limitação do padrão de DNS. A própria tela tem uma seção sobre isso.
 Provedores modernos resolvem com um recurso chamado ALIAS, ANAME ou "CNAME
 flattening". Se o seu não tiver nenhum dos três, o caminho é transferir o DNS
-para um que tenha.
+para um que tenha, como o Cloudflare, que é gratuito. Registros com o proxy do
+Cloudflare ligado também funcionam, e aparecem na tela como **Verificado**.

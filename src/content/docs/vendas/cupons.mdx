@@ -1,8 +1,8 @@
 ---
 title: Cupons de desconto
-description: Como criar cupons, o que cada campo controla e como ler o status de um cupom.
+description: Como criar cupons de desconto e de brinde, o que cada campo controla e como ler o status de um cupom.
 order: 20
-updatedDate: 2026-09-16
+updatedDate: 2026-11-01
 navTitle: Cupons
 keywords:
   - cupom
@@ -10,10 +10,13 @@ keywords:
   - promoção
   - campanha
   - resgate
+  - brinde
+  - presente
 ---
 
 Cupons ficam em **Cupons**, no painel, com criação, edição e exclusão. Cada cupom
-é um código que o cliente digita no checkout.
+é um código que o cliente digita no checkout, e dá um desconto ou um brinde no
+primeiro envio.
 
 ## Os campos
 
@@ -24,7 +27,7 @@ resultado de uma campanha:
 | --------------------------------------- | ----------------------------------------------------------------------- |
 | **Código**                              | o que o cliente digita. Salvo sempre em maiúsculas e único no seu clube |
 | **Nome**                                | uma etiqueta interna, para você se lembrar da campanha                  |
-| **Tipo de Desconto**                    | Percentual ou Valor Fixo                                                |
+| **Tipo de Cupom**                       | Percentual, Valor Fixo ou Brinde                                        |
 | **Valor do Desconto**                   | o número. Em Percentual vai de 1 a 100                                  |
 | **Base do Desconto**                    | sobre qual valor o cálculo incide (veja abaixo)                         |
 | **Duração**                             | em quantas cobranças o desconto vale (veja abaixo)                      |
@@ -34,6 +37,10 @@ resultado de uma campanha:
 | **Valor Mínimo do Pedido**              | abaixo disso o cupom é recusado                                         |
 | **Válido a partir de** / **Válido até** | a janela de validade. Ambos opcionais                                   |
 | **Ativo**                               | o interruptor geral                                                     |
+
+Num cupom do tipo **Brinde**, os campos de valor, base, duração e **Aplicar em**
+somem do formulário, e no lugar deles aparece a escolha do produto. Veja
+[Cupons de brinde](#cupons-de-brinde).
 
 ## Duração: quantas cobranças o desconto acompanha
 
@@ -79,6 +86,33 @@ Num plano anual de R$ 1.800, com mensalidade equivalente de R$ 150, um cupom de
 
 O padrão é **Uma cobrança do ciclo**, que é o mais conservador. Em plano mensal
 as duas opções dão o mesmo resultado, porque a cobrança já é de um mês só.
+
+## Cupons de brinde
+
+O cupom do tipo **Brinde** dá um produto, em vez de desconto: quem assina usando
+o código recebe esse produto junto com o primeiro kit, sem pagar nada a mais. A
+cobrança sai com o valor cheio do plano e do frete.
+
+Ao escolher **Brinde** no formulário, você escolhe qual produto do catálogo vai
+de presente. Cada cupom de brinde dá um produto só. Os limites de resgate, o
+valor mínimo do pedido, a validade e o interruptor **Ativo** funcionam igual aos
+dos outros cupons.
+
+O brinde aparece para todo mundo que precisa saber dele:
+
+- **No checkout**, o comprador vê o produto com a foto logo abaixo do campo de
+  cupom, com o aviso de que ele vai no primeiro envio, e o resumo do pedido
+  mostra o brinde como item grátis.
+- **No primeiro pedido** da assinatura, a ficha do pedido mostra o brinde e o
+  código do cupom de onde ele veio. Os pedidos seguintes não levam brinde.
+- **Na exportação de pedidos**, as colunas **Brinde (SKU)** e **Brinde (Nome)**
+  dizem a quem separa a caixa qual produto colocar junto.
+- **Na área do assinante**, o pedido mostra o brinde ao assinante.
+
+Um produto que é brinde de um cupom, ou que já foi enviado como brinde, não pode
+ser excluído do catálogo. Os cupons do
+[programa de indicação](/docs/vendas/programa-de-indicacao) dão sempre um
+desconto, nunca um brinde.
 
 ## Como ler o status
 

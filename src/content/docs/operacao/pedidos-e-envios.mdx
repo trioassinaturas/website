@@ -2,7 +2,7 @@
 title: Pedidos e envios
 description: Como os pedidos nascem, os estados por que passam, as ações em lote, o código de rastreio e a importação de rastreios por planilha.
 order: 10
-updatedDate: 2026-10-31
+updatedDate: 2026-11-01
 navTitle: Pedidos e envios
 keywords:
   - pedido
@@ -148,11 +148,14 @@ Como as outras listas do painel, os pedidos têm busca, filtros de estado e de
 data, ordenação por coluna e exportação em **CSV** e **XLSX**. A exportação é o
 caminho natural para passar o lote do dia para quem faz a separação e a postagem.
 
-Duas colunas da exportação valem destaque para quem monta etiquetas:
+Algumas colunas da exportação valem destaque para quem monta etiquetas:
 
 - **Cardinalidade**: qual entrega aquele pedido é dentro da assinatura (1 é a
   primeira). Ajuda a identificar quem está recebendo a primeira caixa e merece um
   mimo de boas-vindas.
+- **Brinde (SKU)** e **Brinde (Nome)**: o produto que vai junto na caixa, quando
+  o assinante usou um [cupom de brinde](/docs/vendas/cupons#cupons-de-brinde).
+  Só o primeiro pedido da assinatura tem brinde.
 - O endereço vem **quebrado em partes** (CEP, rua, número, complemento, cidade,
   estado, país), em vez de uma linha só, o que é o formato que os sistemas de
   etiqueta e das transportadoras esperam.
