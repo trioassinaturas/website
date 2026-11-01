@@ -1,8 +1,8 @@
 ---
 title: Pedidos e envios
-description: Como os pedidos nascem, os estados por que passam, as ações em lote e o código de rastreio.
+description: Como os pedidos nascem, os estados por que passam, as ações em lote, o código de rastreio e a importação de rastreios por planilha.
 order: 10
-updatedDate: 2026-10-27
+updatedDate: 2026-10-31
 navTitle: Pedidos e envios
 keywords:
   - pedido
@@ -11,6 +11,9 @@ keywords:
   - Correios
   - lote
   - entrega
+  - importar
+  - planilha
+  - CSV
 ---
 
 O **pedido** é a caixa a caminho. Ele nasce de uma cobrança paga e caminha até a
@@ -62,10 +65,69 @@ Na área do assinante, o pedido com rastreio ganha um link direto para consultar
 nos Correios.
 
 <Callout type="tip" title="A ordem que gera menos email">
-  Enviando um pedido de cada vez, informe o código de rastreio já no momento do
-  envio: sai um email só. Enviar primeiro e preencher o rastreio depois manda
-  dois emails, e é o que acontece por definição no envio em lote, que não aceita
-  código.
+  Informe o código de rastreio já no momento do envio: sai um email só. Enviar
+  primeiro e preencher o rastreio depois manda dois emails, e é o que acontece
+  no botão de envio em lote, que não aceita código. Para enviar vários pedidos
+  já com o código, use a [importação por
+  planilha](#importar-rastreios-por-planilha).
+</Callout>
+
+## Importar rastreios por planilha
+
+A importação de rastreios envia vários pedidos de uma vez, cada um com o seu
+código, a partir de um arquivo CSV. É o caminho para quem recebe os códigos da
+transportadora ou do sistema de etiquetas numa planilha. Fica em **Pedidos**, no
+botão **Importar rastreios**, e qualquer pessoa da equipe pode usar.
+
+### O formato do CSV
+
+O arquivo de rastreios tem uma linha por pedido e duas colunas obrigatórias, com
+estes nomes no cabeçalho:
+
+| Coluna             | Nomes aceitos no cabeçalho              |
+| ------------------ | --------------------------------------- |
+| ID do pedido       | `order_id` ou `ID`                      |
+| Código de rastreio | `tracking_code` ou `Código de rastreio` |
+
+Outras colunas são ignoradas. Vírgula e ponto e vírgula funcionam como
+separador, então uma planilha salva como CSV no Excel entra sem ajuste. A tela
+oferece um arquivo de exemplo para baixar, e cada arquivo aceita até 5.000
+linhas.
+
+<Callout type="tip" title="Exporte, preencha e importe de volta">
+  O jeito mais rápido de montar o arquivo é exportar os pedidos em CSV,
+  preencher a coluna **Código de rastreio** dos pedidos que vão sair e enviar o
+  mesmo arquivo de volta. Linhas sem código são ignoradas, e pedidos que já têm
+  aquele código continuam como estão.
+</Callout>
+
+### O que acontece com cada pedido
+
+O efeito de cada linha depende do estado do pedido no momento da importação:
+
+| Estado do pedido              | O que a importação faz                                                                                   |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Pendente de envio**         | marca como enviado, com o código, e o cliente recebe o email de pedido enviado                           |
+| **Enviado**                   | troca o código, e o cliente recebe o email avisando do novo rastreio. Se o código for o mesmo, nada muda |
+| **Entregue** ou **Cancelado** | não altera o pedido. A linha aparece como erro, a não ser que o pedido já tenha exatamente aquele código |
+
+### O resultado da importação
+
+A importação aplica o arquivo linha por linha: as linhas certas entram mesmo que
+outras tenham problema. Ao terminar, a tela mostra quantos pedidos foram marcados
+como enviados, quantos rastreios foram atualizados, quantos ficaram sem
+alteração, quantas linhas vieram sem código e quantas tiveram erro.
+
+As linhas com erro aparecem numa lista com o número da linha no arquivo e o
+motivo: pedido não encontrado, ID em branco, pedido repetido no arquivo (vale a
+primeira linha) ou estado que não aceita rastreio. Quando o pedido existe, o ID
+na lista abre a ficha dele, para você conferir o caso antes de corrigir a
+planilha.
+
+<Callout type="info" title="Enviar o mesmo arquivo de novo é seguro">
+  Depois de corrigir as linhas com erro, você pode importar o arquivo inteiro
+  outra vez. Os pedidos que já foram enviados com aquele código ficam como
+  estão, e nenhum cliente recebe email repetido.
 </Callout>
 
 ## Os valores do pedido
