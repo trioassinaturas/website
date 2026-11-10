@@ -6,7 +6,7 @@
  */
 export function card(page, heading) {
   return page
-    .locator("div.border")
+    .locator(".card, div.border")
     .filter({ has: page.getByRole("heading", { name: heading, exact: true }) })
     .last()
 }
@@ -25,25 +25,29 @@ export function table(page) {
 }
 
 /**
- * Opens the record in the first table row (the eye link at the end of the
- * row), optionally the first row with this text. Goes to the link instead of
- * clicking it, so a Turbo visit can't leave the old page on screen.
+ * Opens the record in the first table row (the row's own link, or the last
+ * link in it), optionally the first row with this text. Goes to the link
+ * instead of clicking it, so a Turbo visit can't leave the old page on screen.
  */
 export async function openRow(page, text) {
   let rows = page.locator("table tbody tr")
   if (text) rows = rows.filter({ hasText: text })
-  const href = await rows.first().locator("a[href]").last().getAttribute("href")
+  const row = rows.first()
+  const href =
+    (await row.getAttribute("data-row-link-url-value")) ??
+    (await row.locator("a[href]").last().getAttribute("href"))
   if (!href) throw new Error(`No row link${text ? ` for "${text}"` : ""}`)
   await page.goto(new URL(href, page.url()).href, { waitUntil: "networkidle" })
 }
 
 /**
- * The block a heading opens when it is not drawn as a card of its own: the
- * heading's parent element, as on the company settings form.
+ * A section of a settings form: the row that holds the heading and its
+ * description on the left and the card with the fields on the right, as on
+ * the company settings form.
  */
 export function section(page, heading) {
   return page
     .getByRole("heading", { name: heading, exact: true })
     .first()
-    .locator("xpath=..")
+    .locator("xpath=../..")
 }

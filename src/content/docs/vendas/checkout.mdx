@@ -2,7 +2,7 @@
 title: Checkout
 description: As etapas do checkout, o cálculo de frete por CEP, cupons e o que acontece quando um cliente antigo volta.
 order: 10
-updatedDate: 2026-10-27
+updatedDate: 2026-11-07
 navTitle: Checkout
 keywords:
   - checkout
@@ -14,8 +14,9 @@ keywords:
 ---
 
 O checkout vive em `checkout.seudominio.com.br` e é uma página única com quatro
-etapas em acordeão. Cada etapa fecha ao ser concluída e pode ser reaberta para
-edição, com o resumo do pedido sempre visível ao lado.
+etapas numeradas. Cada etapa fecha ao ser concluída, ganha um sinal de concluída
+no lugar do número e pode ser reaberta para edição, com o resumo do pedido
+sempre visível ao lado.
 
 ## As quatro etapas
 
@@ -24,9 +25,9 @@ pagamento:
 
 <Steps>
 
-1. **Escolha seu plano.** Os cartões mostram a duração (Plano Mensal, Semestral
-   ou Anual), a frequência de cobrança, o selo "Recomendado" quando houver, e se
-   é Compra Única ou renovação automática.
+1. **Escolha seu plano.** Cada plano é um cartão que o comprador marca, com a
+   duração (Plano Mensal, Semestral ou Anual), a frequência de cobrança, o selo
+   "Recomendado" quando houver, e se é Compra Única ou renovação automática.
 
 2. **Suas informações.** Nome, email, telefone e CPF.
 
@@ -42,7 +43,8 @@ pagamento:
 
 O checkout se ajusta à tela de quem compra. No computador, o resumo do pedido
 fica ao lado das etapas. No celular, os planos ficam um embaixo do outro e o
-resumo vai para o rodapé.
+resumo vira uma barra fixa no rodapé com o total, que abre o resumo completo ao
+toque.
 
 | Computador                                                                                                                             | Celular                                                                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -52,8 +54,9 @@ Quando o clube aceita os dois métodos, aparecem as opções **Cartão de crédi
 **PIX**. Com um método só, a escolha nem é mostrada. Veja
 [Pagamentos e retentativas](/docs/cobrancas/pagamentos-e-retentativas).
 
-O **Resumo do pedido** acompanha tudo: plano, subtotal, frete, desconto e total,
-mostrando "Grátis" quando o valor é zero.
+O **Resumo do pedido** acompanha tudo: a foto do kit atual com o nome do clube e
+o plano escolhido, subtotal, frete, desconto e total, mostrando "Grátis" quando
+o valor é zero.
 
 ## CEP e frete
 
