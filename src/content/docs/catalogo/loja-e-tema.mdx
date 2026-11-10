@@ -2,7 +2,7 @@
 title: Loja e tema do site
 description: Como editar a página de vendas do clube com rascunho e publicação, quais temas e seções existem, e quando usar um HTML personalizado.
 order: 30
-updatedDate: 2026-10-27
+updatedDate: 2026-11-07
 navTitle: Loja e tema
 keywords:
   - landing page
@@ -62,22 +62,27 @@ sócio, um cliente ou o designer antes de publicar.
 
 ## Caminho 1: o tema pronto
 
-São seis temas, cada um com tipografia, cores e textos de seção próprios:
-**Café**, **Livros**, **Vinhos**, **Vinil**, **Arte** e **Retrô**. Você não mexe
-em código: escolhe o tema no alto da tela e monta a página ligando e preenchendo
-seções.
+São oito temas, cada um com tipografia, cores, efeitos e textos de seção
+próprios: **Café**, **Livros**, **Vinhos**, **Vinil**, **Arte**, **Retrô**,
+**História** e **Cervejas**. Você não mexe em código: escolhe o tema no alto da
+tela e monta a página ligando e preenchendo seções.
 
-| Seção                    | Para que serve                                                      | Pode repetir |
-| ------------------------ | ------------------------------------------------------------------- | ------------ |
-| **Banner**               | a primeira dobra, com imagem, título, subtítulo e um botão opcional | sim          |
-| **Sobre a empresa**      | blocos curtos com ícone, título e descrição                         | sim          |
-| **Depoimentos**          | foto, nome, informação, texto e uma nota de 0 a 10                  | sim          |
-| **Perguntas Frequentes** | pares de pergunta e resposta                                        | sim          |
-| **Produtos/Checkout**    | a vitrine dos planos                                                | fixa         |
-| **Rodapé**               | o pé da página                                                      | fixa         |
+As seções aparecem na página nesta ordem:
 
-As duas últimas são automáticas: a plataforma as monta a partir dos seus planos e
-dos dados da empresa, e você não edita o conteúdo delas.
+| Seção                    | Para que serve                                                      | Pode repetir    |
+| ------------------------ | ------------------------------------------------------------------- | --------------- |
+| **Banner**               | a primeira dobra, com imagem, título, subtítulo e um botão opcional | sim             |
+| **Contagem regressiva**  | o tempo que falta para o fim do kit atual                           | não, automática |
+| **Sobre a empresa**      | blocos curtos com ícone, título e descrição                         | sim             |
+| **Produtos/Checkout**    | a vitrine dos planos                                                | não, automática |
+| **Destaque do mês**      | o produto em destaque do kit atual, como o livro do mês             | não, automática |
+| **Depoimentos**          | foto, nome, informação, texto e uma nota de 0 a 10                  | sim             |
+| **Perguntas Frequentes** | pares de pergunta e resposta                                        | sim             |
+| **Rodapé**               | o pé da página                                                      | não, automática |
+
+As seções automáticas são montadas pela plataforma a partir dos seus kits, dos
+seus planos e dos dados da empresa. Você só escolhe se elas aparecem; o conteúdo
+delas não é editado nesta tela.
 
 <Callout type="warning" title="Produtos/Checkout desligada esconde os planos">
   Você não edita essa seção, mas **deve mantê-la ligada**. Sem ela a loja fica
@@ -89,6 +94,19 @@ dos dados da empresa, e você não edita o conteúdo delas.
   descartado. Se você quer só tirar do ar temporariamente uma lista de
   depoimentos que deu trabalho, guarde o texto em outro lugar antes.
 </Callout>
+
+### Contagem regressiva e destaque do mês
+
+A **Contagem regressiva** mostra quantos dias, horas, minutos e segundos faltam para o fim
+do kit atual, convidando o visitante a assinar a tempo de receber a edição do
+mês. Ela usa as datas do kit e o fuso horário da empresa, e some da página
+quando não há kit em vigor.
+
+O **Destaque do mês** mostra o produto que você marcou como destaque no kit
+atual, com foto, nome e descrição. O destaque é escolhido na edição do kit,
+em **Produto em destaque** (veja [Kits e
+produtos](/docs/catalogo/kits-e-produtos#o-produto-em-destaque)). Quando o kit
+atual não tem destaque, a seção não aparece.
 
 ### Regras de imagem
 
@@ -110,13 +128,14 @@ Todas aceitam JPEG, PNG ou WebP, até 10 MB. Sempre preencha o texto alternativo
 ### O tema também colore o checkout
 
 Cada tema tem uma paleta, e o [checkout](/docs/vendas/checkout) usa a cor do tema
-que estiver **publicado**: cobre no Café, azul no Livros, bordô no Vinhos,
-laranja no Vinil, índigo no Arte, vermelho no Retrô. Assim a pessoa não sente que
-mudou de site na hora de pagar.
+que estiver **publicado** no botão de pagar e no plano escolhido: terracota no
+Café, bordô no Livros e no Vinhos, laranja no Vinil, azul no Arte, vermelho no
+Retrô, preto no História e âmbar no Cervejas. Assim a pessoa não sente que mudou
+de site na hora de pagar.
 
 Como vale o tema publicado, e não o rascunho, a cor do checkout só muda quando
-você clica em Publicar. Clubes com HTML personalizado ficam com a paleta padrão
-da plataforma.
+você clica em Publicar. Clubes com HTML personalizado, ou sem tema publicado,
+ficam com o coral da Trio.
 
 ## Caminho 2: HTML personalizado
 

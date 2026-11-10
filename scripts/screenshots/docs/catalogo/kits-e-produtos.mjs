@@ -7,7 +7,7 @@ export default [
   { name: "produtos", path: "/products" },
   // The kits list, one per period.
   { name: "kits", path: "/kits" },
-  // Editing a kit: name, photo, dates and products.
+  // Editing a kit: name, dates, products, featured product and photo.
   {
     name: "editar-kit",
     path: "/kits",

@@ -2,7 +2,7 @@
 title: Dashboard e analytics
 description: Os números que a plataforma calcula para você, o tráfego e o funil de checkout vindos do seu projeto na PostHog e as rotinas que rodam sozinhas.
 order: 30
-updatedDate: 2026-11-01
+updatedDate: 2026-11-07
 navTitle: Dashboard e analytics
 keywords:
   - dashboard
@@ -21,21 +21,61 @@ projeto na PostHog, que você conecta em poucos cliques.
 
 ## Dashboard
 
-A tela inicial do painel reúne os números que você olharia todo dia:
+O Dashboard é a tela inicial do painel e responde a duas perguntas: como o clube
+está indo e o que precisa de você hoje. No alto ficam quatro indicadores, cada
+um com um link para a lista que explica o número:
 
-- **Indicadores**: clientes, assinaturas ativas, assinaturas pausadas e
-  cobranças com falha nos últimos 30 dias.
-- **Atividade recente** das últimas 72 horas: assinaturas, cobranças, pedidos e
-  leads.
-- **Gráficos**: novas assinaturas por dia (30 dias), receita por dia (30 dias),
-  receita corrida de 30 dias e a distribuição entre assinaturas ativas,
-  pausadas e canceladas.
+- **Receita recorrente mensal**: quanto as assinaturas ativas geram por mês.
+  Planos anuais e semestrais entram proporcionalmente, então um plano anual
+  conta um doze avos do preço.
+- **Receita (30 dias)**: a soma das cobranças aprovadas nos últimos 30 dias.
+- **Assinaturas ativas**, com quantas estão pausadas no momento.
+- **Novas assinaturas (30 dias)**, com quantos cancelamentos houve no mesmo
+  período.
 
-![Dashboard com clientes, assinaturas ativas e pausadas, cobranças falhadas e os gráficos de receita](../../../assets/docs/recursos/dashboard-e-analytics/dashboard.png)
+A receita e as novas assinaturas vêm comparadas com os 30 dias anteriores, para
+você ver se o mês está melhor ou pior que o passado.
 
-A receita corrida é a mais útil das quatro para um clube de assinatura: ela
-suaviza o efeito de ter muitas cobranças caindo no mesmo dia do mês e mostra a
-tendência de verdade.
+![Dashboard com os quatro indicadores, os gráficos de receita e de novas assinaturas e o bloco Precisa da sua atenção](../../../assets/docs/recursos/dashboard-e-analytics/dashboard.png)
+
+Abaixo dos indicadores ficam dois gráficos dos últimos 30 dias, **Receita por
+dia** e **Novas assinaturas por dia**, e a **Atividade recente**, com o que
+aconteceu nos últimos 7 dias: assinaturas novas, cobranças aprovadas ou com
+falha, pedidos criados e checkouts começados ou concluídos.
+
+### Precisa da sua atenção
+
+O bloco **Precisa da sua atenção** lista o que pede uma ação sua, do mais urgente
+para o menos urgente. Cada item leva à tela onde você resolve:
+
+| Aviso                                       | O que fazer                                                                     |
+| ------------------------------------------- | ------------------------------------------------------------------------------- |
+| **Nenhum kit para** (mês)                   | cadastrar o kit do mês atual ou do próximo, senão os assinantes ficam sem envio |
+| **assinantes podem ser cancelados**         | pedir que atualizem o pagamento: as últimas renovações deles falharam           |
+| **cobranças falharam**                      | ver o motivo e tentar cobrar de novo (conta os últimos 30 dias)                 |
+| **Pix ou boletos sem pagamento**            | lembrar o assinante: foram gerados há mais de 2 dias                            |
+| (kit) **está sem produtos** ou **sem foto** | completar o kit do mês atual ou do próximo                                      |
+| **pedidos aguardando envio**                | enviar e informar o código de rastreio                                          |
+| **checkouts abandonados**                   | olhar quem começou a assinar nos últimos 7 dias e não concluiu                  |
+| **assinaturas voltam da pausa**             | incluir esses assinantes no envio da semana                                     |
+| **planos avulsos terminam em breve**        | oferecer uma nova assinatura: esses planos não renovam sozinhos                 |
+
+Quando não há nada pendente, o bloco mostra **Tudo em dia**.
+
+### Configure sua loja
+
+Enquanto a loja não está completa, administradores e o dono veem o bloco
+**Configure sua loja**, uma lista de passos com o progresso feito: enviar o
+logo, publicar o site, verificar o domínio de email, conectar uma ferramenta de
+análise ou de anúncios, configurar o frete, ativar o programa de indicação,
+preencher o título e a descrição do site e enviar um favicon. O bloco some
+quando todos os passos estão concluídos.
+
+### Próximos envios
+
+O bloco **Próximos envios** mostra os kits que os assinantes ativos vão receber a
+seguir, com o período de cada kit e quantos assinantes o recebem. É o atalho
+para saber quantas caixas montar.
 
 ## Analytics
 
