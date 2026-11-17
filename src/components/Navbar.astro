@@ -231,16 +231,26 @@ const current = (href: string) => {
   onScroll()
   window.addEventListener("scroll", onScroll, { passive: true })
 
-  toggle.addEventListener("click", () => {
-    const open = nav.classList.toggle("is-open")
+  const setOpen = (open: boolean) => {
+    nav.classList.toggle("is-open", open)
     toggle.setAttribute("aria-expanded", String(open))
     toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu")
+  }
+
+  toggle.addEventListener("click", () => {
+    setOpen(!nav.classList.contains("is-open"))
   })
 
   nav.addEventListener("click", (e) => {
-    if ((e.target as HTMLElement).closest("a")) {
-      nav.classList.remove("is-open")
-      toggle.setAttribute("aria-expanded", "false")
-    }
+    if ((e.target as HTMLElement).closest("a")) setOpen(false)
+  })
+
+  // Escape closes the menu from anywhere. Focus inside it goes back to the
+  // toggle, so it isn't left on a link that's no longer shown.
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || !nav.classList.contains("is-open")) return
+    const hadFocus = nav.contains(document.activeElement)
+    setOpen(false)
+    if (hadFocus) toggle.focus()
   })
 </script>
