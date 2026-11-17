@@ -8,6 +8,15 @@ const links = [
   { href: "/docs", label: "Documentação" },
   { href: "/blog", label: "Blog" },
 ]
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/"
+
+/** "page" on the link's own page, "true" anywhere below it (a post, a docs article). */
+const current = (href: string) => {
+  if (href.includes("#")) return undefined
+  if (path === href) return "page"
+  return path.startsWith(`${href}/`) ? "true" : undefined
+}
 ---
 
 <header class="navbar" id="navbar">
@@ -25,7 +34,9 @@ const links = [
         {
           links.map((link) => (
             <li>
-              <a href={link.href}>{link.label}</a>
+              <a href={link.href} aria-current={current(link.href)}>
+                {link.label}
+              </a>
             </li>
           ))
         }
@@ -116,6 +127,14 @@ const links = [
 
   .navbar-nav ul a:hover {
     color: var(--blue);
+  }
+
+  /* Underlined as well as recoloured, so the current page isn't marked by colour alone. */
+  .navbar-nav ul a[aria-current] {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.4em;
   }
 
   .navbar-cta {
