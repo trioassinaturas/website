@@ -72,15 +72,31 @@
   padding: 0.25rem;
   margin: -0.25rem;
   font-size: 0.9rem;
+  /* --ink-faint is 3:1 against the cream page, the minimum for a visible thumb. */
+  --scrollbar-thumb: var(--ink-faint);
+  --scrollbar-track: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
-.docs-rail::-webkit-scrollbar {
-  width: 6px;
-}
+/* Browsers without scrollbar-color (Safari before 26.2) still get the thin thumb. */
+@supports not (scrollbar-color: auto) {
+  .docs-rail {
+    scrollbar-width: auto;
+  }
 
-.docs-rail::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-  background: var(--border);
+  .docs-rail::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .docs-rail::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: var(--scrollbar-thumb);
+  }
+
+  .docs-rail::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
 }
 
 /* ===== Sidebar ===== */
