@@ -85,9 +85,11 @@ const steps = [
             </div>
             <div class="mockup-chart">
               {
-                [42, 55, 48, 63, 71, 66, 82, 78, 90, 86, 95, 100].map((h) => (
-                  <span style={`--h: ${h}%`} />
-                ))
+                [42, 55, 48, 63, 71, 66, 82, 78, 90, 86, 95, 100].map(
+                  (h, i) => (
+                    <span style={`--h: ${h}%; --sibling-index: ${i + 1}`} />
+                  ),
+                )
               }
             </div>
             <div class="mockup-rows">
@@ -306,41 +308,18 @@ const steps = [
     background: linear-gradient(to top, var(--coral), #f47f71);
   }
 
-  .mockup-chart span:nth-child(1) {
-    animation-delay: 0.05s;
+  /* Stagger the bars 0.05s apart. --sibling-index is set in the markup for
+   * browsers without sibling-index(); the @supports gate keeps those browsers
+   * from dropping the fallback as invalid at computed-value time. */
+  .mockup-chart span {
+    --stagger-time: 0.05s;
+    animation-delay: calc(var(--sibling-index) * var(--stagger-time));
   }
-  .mockup-chart span:nth-child(2) {
-    animation-delay: 0.1s;
-  }
-  .mockup-chart span:nth-child(3) {
-    animation-delay: 0.15s;
-  }
-  .mockup-chart span:nth-child(4) {
-    animation-delay: 0.2s;
-  }
-  .mockup-chart span:nth-child(5) {
-    animation-delay: 0.25s;
-  }
-  .mockup-chart span:nth-child(6) {
-    animation-delay: 0.3s;
-  }
-  .mockup-chart span:nth-child(7) {
-    animation-delay: 0.35s;
-  }
-  .mockup-chart span:nth-child(8) {
-    animation-delay: 0.4s;
-  }
-  .mockup-chart span:nth-child(9) {
-    animation-delay: 0.45s;
-  }
-  .mockup-chart span:nth-child(10) {
-    animation-delay: 0.5s;
-  }
-  .mockup-chart span:nth-child(11) {
-    animation-delay: 0.55s;
-  }
-  .mockup-chart span:nth-child(12) {
-    animation-delay: 0.6s;
+
+  @supports (animation-delay: calc(sibling-index() * 0.1s)) {
+    .mockup-chart span {
+      animation-delay: calc(sibling-index() * var(--stagger-time));
+    }
   }
 
   @keyframes bar-grow {
